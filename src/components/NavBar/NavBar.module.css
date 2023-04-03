@@ -1,3 +1,29 @@
 .nav {
-    grid-area: nav;
+    flex: 0 1 20%;
+    margin-right: 20px;
+}
+
+.list{
+    min-height: 400px;
+    background-color: #fff;
+    margin: 0 10px;
+    border-radius: 10px;
+    padding: 40px 25px;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+}
+
+.item{
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    transition: all 0.4s ease;
+}
+
+.item a{
+    color: #054d91;
+}
+
+.item:hover{
+ transform: translateX(20px);
 }

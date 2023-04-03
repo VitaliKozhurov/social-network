@@ -1,10 +1,18 @@
 .App {
-    height: 100vh;
-    background-image: linear-gradient(to right bottom, #051937, #162454, #312d70, #533389, #7a359f);
-    display: grid;
-    grid-template-areas:
-'header header'
-'nav content';
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 2fr 8fr;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #30cfd0, #330867);
+}
+
+.mainContent{
+    flex-grow: 1;
+    display: flex;
+}
+
+.container{
+    width: 1400px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
 }

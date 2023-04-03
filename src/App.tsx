@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import {Header, NavBar, Profile} from './components';
+import {Header, NavBar, Profile, Footer} from './components';
 
 const App = () => {
     return (
         <div className="App">
             <Header />
-            <NavBar />
-            <Profile />
+            <div className='mainContent container'>
+                <NavBar />
+                <Profile /> 
+            </div>
+            <Footer/>
         </div>
     );
 }

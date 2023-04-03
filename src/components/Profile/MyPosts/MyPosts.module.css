@@ -1,0 +1,27 @@
+.myPostBody{
+    background-color: #fff;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #054d91;
+    margin-bottom: 10px;
+}
+
+.postInput{
+    background-color: #f0f2f5;
+    border: solid 1px #bdbec0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    color: #000;
+    width: 90%;
+    margin: 0 auto 20px;
+}

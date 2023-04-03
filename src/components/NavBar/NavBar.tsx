@@ -4,12 +4,12 @@ import s from './NavBar.module.css';
 export const NavBar = () => {
     return (
         <nav className={s.nav}>
-            <ul>
-                <li><a>Profile</a></li>
-                <li><a>Message</a></li>
-                <li><a>News</a></li>
-                <li><a>Music</a></li>
-                <li><a>Settings</a></li>
+            <ul className={s.list}>
+                <li className={s.item}><a href='#'>Profile</a></li>
+                <li className={s.item}><a href='#'>Message</a></li>
+                <li className={s.item}><a href='#'>News</a></li>
+                <li className={s.item}><a href='#'>Music</a></li>
+                <li className={s.item}><a href='#'>Settings</a></li>
             </ul>
         </nav>
     )
