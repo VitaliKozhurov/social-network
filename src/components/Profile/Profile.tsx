@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Profile.module.css';
 import {MyPosts} from './MyPosts/MyPosts';
-import {Post} from './Post/Post';
+import {Post} from './MyPosts/Post/Post';
 import ava from '../../assets/image/ninja.svg';
 
 export const Profile = () => {
@@ -12,12 +12,16 @@ export const Profile = () => {
             </div>
             <div className={s.userInfo}>
                 <div className={s.avaBody}>
-                    <img className={s.avatar} src={ava} alt="User Avatar" />      
+                    <img className={s.avatar} src={ava} alt="User Avatar" />
                 </div>
-                <p className={s.descr}>Samurai is a great Japanese warrior.</p>
+                <div className={s.descr}>
+                    <h2>Kozhurou Vitali (samurai)</h2>
+                    <p>Date of birth: 24.02.1992</p>
+                    <p>City: Minsk</p>
+                    <p>Education: BSUIR</p>
                 </div>
+            </div>
             <MyPosts />
-            <Post />
         </main>
     )
 };

@@ -1,4 +1,4 @@
-.myPostBody{
+.myPostBody {
     background-color: #fff;
     border: solid 2px #054d91;
     box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
@@ -6,6 +6,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .title {
@@ -15,13 +16,48 @@
     margin-bottom: 10px;
 }
 
-.postInput{
+
+.postForm {
+    display: flex;
+    gap: 10px;
+}
+
+.postText {
+    flex: 0 1 70%;
     background-color: #f0f2f5;
     border: solid 1px #bdbec0;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px 15px;
     font-size: 16px;
     color: #000;
-    width: 90%;
-    margin: 0 auto 20px;
+    margin-bottom: 20px;
+    resize: none;
+}
+
+.btn {
+    flex: 0 1 20%;
+    background-color: #07F;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    transition: all .3s ease;
+    margin-left: 20px;
+}
+
+.btn:hover {
+    background-color: rgba(17, 17, 176, 0.87);
+}
+
+.btn:active {
+    scale: 1.1;
+}
+
+.postsBody {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
 }

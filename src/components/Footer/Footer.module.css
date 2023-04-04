@@ -1,7 +1,17 @@
-.footer{
+.footer {
     flex-shrink: 0;
     font-size: 22px;
     font-weight: 700;
-    color: #fff;
     text-align: center;
+    margin-top: 40px;
+    padding: 10px 0;
+}
+
+.footer a {
+    color: #fff;
+    transition: all .5s ease;
+}
+
+.footer a:hover {
+    color: rgba(30, 30, 107, 0.87);
 }
