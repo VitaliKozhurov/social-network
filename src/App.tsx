@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import {Header, NavBar, Profile, Footer} from './components';
+import {Header, NavBar, Profile, Dialogs, Footer} from './components';
+
 
 const App = () => {
     return (
@@ -8,7 +9,10 @@ const App = () => {
             <Header />
             <div className='mainContent container'>
                 <NavBar />
-                <Profile /> 
+                <main className='content'>
+                    {/* <Profile />  */}
+                    <Dialogs/>
+                </main>  
             </div>
             <Footer/>
         </div>
