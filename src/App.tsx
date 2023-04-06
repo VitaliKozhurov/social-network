@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Header, NavBar, Profile, Dialogs, Footer} from './components';
+import { Route, Routes } from 'react-router-dom';
 
 
 const App = () => {
@@ -10,8 +11,11 @@ const App = () => {
             <div className='mainContent container'>
                 <NavBar />
                 <main className='content'>
-                    {/* <Profile />  */}
-                    <Dialogs/>
+                    <Routes>
+                        <Route path='/' element={<Profile/>}/>
+                        <Route path='/message' element={<Dialogs/>}/>
+                    </Routes>
+                    
                 </main>  
             </div>
             <Footer/>
