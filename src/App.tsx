@@ -15,7 +15,6 @@ const App = () => {
                         <Route path='/' element={<Profile/>}/>
                         <Route path='/message' element={<Dialogs/>}/>
                     </Routes>
-                    
                 </main>  
             </div>
             <Footer/>

@@ -20,10 +20,12 @@
     transition: all 0.4s ease;
 }
 
-.item a{
+.link{
     color: #054d91;
+    transition: all ease .1s;
 }
 
-.item:hover{
- transform: translateX(20px);
+.link.active{
+    color:#4169E1;
+    font-size: 22px;
 }

@@ -1,16 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './NavBar.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
+// NavLink отслеживает активное состояниее ссылки, удобно в том случае если необходимо отслеживать 
+// активное состояние ссылки, для этого из объекта, который нам дает NavLink достаем параметр isActive
+// Link просто для изменения адреса URL
+type LinkType = {
+    id:number
+    url:string
+    title:string
+}
+
+const initLinkList =[
+    {id:1, url:'/', title:'Profile'},
+    {id:1, url:'/message', title:'Message'},
+    {id:1, url:'/news', title:'News'},
+    {id:1, url:'/music', title:'Music'},
+    {id:1, url:'/settings', title:'Settings'},
+]
+
 
 export const NavBar = () => {
+    const [linkState, setLinkState] = useState<Array<LinkType>>(initLinkList);
+
     return (
         <nav className={s.nav}>
             <ul className={s.list}>
-                <li className={s.item}><Link to='/'>Profile</Link></li>
-                <li className={s.item}><Link to='/message'>Message</Link></li>
-                <li className={s.item}><Link to='/news'>News</Link></li>
-                <li className={s.item}><Link to='/music'>Music</Link></li>
-                <li className={s.item}><Link to='/settings'>Settings</Link></li>
+                {linkState.map(item=>(
+                    <li key={item.id} className={s.item}>
+                        <NavLink to={item.url} className={({ isActive })=>isActive?s.link+' '+s.active:s.link}>{item.title}</NavLink>
+                    </li>
+                ))}
             </ul>
         </nav>
     )
