@@ -1,0 +1,7 @@
+.postsBody {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+}

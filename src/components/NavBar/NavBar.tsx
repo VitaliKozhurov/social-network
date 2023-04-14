@@ -19,7 +19,7 @@ const initLinkList = [
     { id: 5, url: "/settings", title: "Settings" },
 ];
 
-export const NavBar = () => {
+export const NavBar: React.FC = () => {
     const [linkState, setLinkState] = useState<Array<LinkType>>(initLinkList);
 
     return (

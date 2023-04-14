@@ -16,7 +16,6 @@
     margin-bottom: 10px;
 }
 
-
 .postForm {
     display: flex;
     gap: 10px;
@@ -36,13 +35,13 @@
 
 .btn {
     flex: 0 1 20%;
-    background-color: #07F;
+    background-color: #07f;
     height: 40px;
     border-radius: 10px;
     font-size: 20px;
     font-weight: 700;
     color: #fff;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     margin-left: 20px;
 }
 
@@ -52,12 +51,4 @@
 
 .btn:active {
     scale: 1.1;
-}
-
-.postsBody {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    border: solid 2px #054d91;
-    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
 }

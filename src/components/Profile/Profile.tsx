@@ -1,17 +1,18 @@
-import React from 'react';
-import s from './Profile.module.css';
-import {MyPosts} from './MyPosts/MyPosts';
-import { UserProfile } from './UserProfile/UserProfile';
+import React from "react";
+import s from "./Profile.module.css";
+import { UserProfile } from "./UserProfile/UserProfile";
+import { PostCreator } from "./PostCreator/PostCreator";
+import { Posts } from "./Posts/Posts";
 
-
-export const Profile = () => {
+export const Profile: React.FC = () => {
     return (
         <div>
             <div className={s.bgBody}>
                 <div className={s.bg}></div>
             </div>
-            <UserProfile/>
-            <MyPosts />
+            <UserProfile />
+            <PostCreator />
+            <Posts />
         </div>
-    )
+    );
 };

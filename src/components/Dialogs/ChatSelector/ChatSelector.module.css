@@ -1,0 +1,16 @@
+.user {
+    font-size: 18px;
+    font-weight: 700;
+    color: #054d91;
+    margin-bottom: 10px;
+}
+
+.link {
+    color: #054d91;
+    transition: all 0.1 ease;
+}
+
+.link.active {
+    color: #4169e1;
+    font-size: 22px;
+}
