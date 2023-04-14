@@ -1,3 +1,16 @@
+.users {
+    flex: 0 1 20%;
+    border-right: solid 2px #2386e279;
+    margin-right: 20px;
+}
+
+.users h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #054d91;
+    margin-bottom: 20px;
+}
+
 .user {
     font-size: 18px;
     font-weight: 700;
