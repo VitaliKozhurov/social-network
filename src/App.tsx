@@ -1,9 +1,17 @@
-import React from "react";
-import "./App.css";
-import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
-import { Route, Routes } from "react-router-dom";
+import React from 'react';
+import './App.css';
+import {Header, NavBar, Profile, Dialogs, Footer} from './components';
+import {Route, Routes} from 'react-router-dom';
+import { UserPostType} from './components/Profile/Posts/Posts';
+import {UserChatType} from './components/Dialogs/Dialogs';
 
-const App = () => {
+type AppPropsType = {
+    userPosts:UserPostType
+    dialogsInfo:Array<UserChatType>
+}
+
+
+const App: React.FC<AppPropsType> = ({userPosts,dialogsInfo}) => {
     return (
         <div className="App">
             <Header />
@@ -11,9 +19,9 @@ const App = () => {
                 <NavBar />
                 <main className="content">
                     <Routes>
-                        <Route path="/" element={<Profile />} />
-                        <Route path="/message" element={<Dialogs />} />
-                        <Route path="/message/:id" element={<Dialogs />} />
+                        <Route path="/" element={<Profile userPosts={userPosts} />} />
+                        <Route path="/message" element={<Dialogs usersChats={dialogsInfo} />} />
+                        <Route path="/message/:id" element={<Dialogs usersChats={dialogsInfo} />} />
                     </Routes>
                 </main>
             </div>

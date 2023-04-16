@@ -1,62 +1,66 @@
-.postBody {
-    display: flex;
-    margin-bottom: 20px;
+.postBody{
+    border: solid 2px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    width: 70%;
+    margin: 0 auto;
+    background-color: #f0f0f3;
+    margin-bottom: 25px;
 }
-
-.avaUser {
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.userinfo{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.userinfo h3{
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 700;
+}
+.userinfo p{
+   opacity: .7;
+}
+.avaUser{
     width: 60px;
     height: 60px;
-    background-color: #dbddbbbb;
+    background-color: #07f;
     border-radius: 50%;
-    overflow: hidden;
     border: solid 2px #054d91;
-    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    margin-right: 15px;
 }
-
-.avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.followBtn{
+    background-color: #07f;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 5px;
 }
-
-.name {
-    text-align: center;
-    font-size: 18px;
-    color: #054d91;
-}
-
 .text {
     margin-left: 30px;
+    margin-bottom: 10px;
     padding: 10px 20px;
-    background-color: #0077FF;
-    border-radius: 10px 10px 10px 0;
     font-size: 18px;
-    color: #fff;
-    max-width: 500px;
+    color: #000;
     position: relative;
 }
 
-.text::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 100%;
-    display: block;
-    width: 30px;
-    height: 30px;
-    background: radial-gradient(60px at top left, transparent 54%, #0077FF 46%) no-repeat right bottom;
-}
-
 .like {
-    align-self: end;
-    margin-left: 10px;
-    margin-bottom: 5px;
     padding: 5px;
-    background-color: #f0f0f3;
-    border-radius: 15px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    margin-left: 10px;
 }
 
 .like img {
@@ -68,4 +72,5 @@
 .count {
     margin-left: 4px;
     font-size: 16px;
+    font-weight: 700;
 }

@@ -1,10 +1,12 @@
-import React from "react";
-import s from "./Profile.module.css";
-import { UserProfile } from "./UserProfile/UserProfile";
-import { PostCreator } from "./PostCreator/PostCreator";
-import { Posts } from "./Posts/Posts";
+import React from 'react';
+import s from './Profile.module.css';
+import {UserProfile} from './UserProfile/UserProfile';
+import {PostCreator} from './PostCreator/PostCreator';
+import {Posts, PostsPropsType} from './Posts/Posts';
 
-export const Profile: React.FC = () => {
+type ProfilePropsType = PostsPropsType;
+
+export const Profile: React.FC<ProfilePropsType> = ({userPosts}) => {
     return (
         <div>
             <div className={s.bgBody}>
@@ -12,7 +14,7 @@ export const Profile: React.FC = () => {
             </div>
             <UserProfile />
             <PostCreator />
-            <Posts />
+            <Posts userPosts={userPosts} />
         </div>
     );
 };

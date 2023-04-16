@@ -1,0 +1,77 @@
+.postBody {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.userInfo {
+    align-self: flex-end;
+}
+
+.avaUser {
+    width: 60px;
+    height: 60px;
+    background-color: #dbddbbbb;
+    border-radius: 50%;
+    overflow: hidden;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+    margin-bottom: 5px;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name {
+    text-align: center;
+    font-size: 18px;
+    color: #054d91;
+}
+
+.text {
+    margin-left: 30px;
+    padding: 10px 20px;
+    background-color: #0077FF;
+    border-radius: 10px 10px 10px 0;
+    font-size: 18px;
+    line-height: 1.25;
+    text-align: justify;
+    color: #fff;
+    max-width: 500px;
+    position: relative;
+}
+
+.text::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 100%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(60px at top left, transparent 54%, #0077FF 46%) no-repeat right bottom;
+}
+
+.like {
+    align-self: end;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f0f0f3;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.like img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.count {
+    margin-left: 4px;
+    font-size: 16px;
+}

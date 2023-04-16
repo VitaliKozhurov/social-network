@@ -1,0 +1,18 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.body img {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.text {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    color: #054d91;
+}
