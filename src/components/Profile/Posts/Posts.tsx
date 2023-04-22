@@ -1,28 +1,18 @@
 import React from 'react';
 import {Post} from '../../UI/Post/Post';
 import s from './Posts.module.css';
+import {PostsType} from '../../../App';
 
-export type PostType = {
-    id: number
-    message: string
-    likeCount: number
+type PostsPropsType = {
+    posts: PostsType
 }
 
-export type UserPostType = {
-    name: string,
-    posts: Array<PostType>
-}
+export const Posts: React.FC<PostsPropsType> = ({posts}) => {
 
-export type PostsPropsType = {
-    userPosts: UserPostType
-}
-
-export const Posts: React.FC<PostsPropsType> = ({userPosts}) => {
-
-    const myPosts = userPosts.posts.map(post => (
+    const myPosts = posts.map(post => (
         <Post
             key={post.id}
-            name={userPosts.name}
+            name={'Kozhurou Vitali'}
             message={post.message}
             likeCount={post.likeCount}
         />))

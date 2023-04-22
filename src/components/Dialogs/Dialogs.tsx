@@ -4,31 +4,21 @@ import {useParams} from 'react-router-dom';
 import {ChatSelector} from './ChatSelector/ChatSelector';
 import {Chat} from './Chat/Chat';
 import {EmptyChat} from '../UI/EmptyChat/EmptyChat';
-
-export type UserChatType = {
-    userId: number
-    userName: string
-    userMessages: Array<string>
-};
+import {DialogsPageType} from '../../App';
 
 export type DialogsPropsType = {
-    usersChats: Array<UserChatType>
+    data:DialogsPageType
 }
 
-export const Dialogs: React.FC<DialogsPropsType> = ({usersChats}) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({data}) => {
+    const {dialogs, messages} = data;
     const params = useParams(); // get param from URL (if param change Dialogs rerender)
-    const id = params.id ? Number(params.id) : 0;
-    const usersList = usersChats.map(user => (
-        {
-            userId: user.userId,
-            userName: user.userName
-        }
-    ));
+    const id = params.id;
 
     let resultChat: JSX.Element;
     if (id) {
-        let userMessages = usersChats[id - 1].userMessages;
-        let userName = usersChats[id - 1].userName;
+        let userMessages = messages[id]
+        let userName = dialogs[+id - 1].userName;
         resultChat = <Chat messages={userMessages} name={userName} />
     } else{
         resultChat = <EmptyChat />
@@ -37,7 +27,7 @@ export const Dialogs: React.FC<DialogsPropsType> = ({usersChats}) => {
 
     return (
         <div className={s.body}>
-            <ChatSelector users={usersList} />
+            <ChatSelector users={dialogs} />
             {resultChat}
         </div>
     );

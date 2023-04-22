@@ -38,7 +38,6 @@ export const Post: FC<PostPropsType> = ({message, name, likeCount}) => {
                     <span className={s.count}>Comment</span>
                 </div>
             </div>
-
         </div>
     );
 };

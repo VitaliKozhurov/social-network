@@ -2,11 +2,14 @@ import React from 'react';
 import s from './Profile.module.css';
 import {UserProfile} from './UserProfile/UserProfile';
 import {PostCreator} from './PostCreator/PostCreator';
-import {Posts, PostsPropsType} from './Posts/Posts';
+import {Posts} from './Posts/Posts';
+import {PostsPageType} from '../../App';
 
-type ProfilePropsType = PostsPropsType;
+type ProfilePropsType ={
+    data:PostsPageType
+};
 
-export const Profile: React.FC<ProfilePropsType> = ({userPosts}) => {
+export const Profile: React.FC<ProfilePropsType> = ({data}) => {
     return (
         <div>
             <div className={s.bgBody}>
@@ -14,7 +17,7 @@ export const Profile: React.FC<ProfilePropsType> = ({userPosts}) => {
             </div>
             <UserProfile />
             <PostCreator />
-            <Posts userPosts={userPosts} />
+            <Posts posts={data.posts} />
         </div>
     );
 };
