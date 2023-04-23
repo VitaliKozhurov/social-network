@@ -1,0 +1,18 @@
+.myPostBody {
+    background-color: #fff;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #054d91;
+    margin-bottom: 10px;
+}
+

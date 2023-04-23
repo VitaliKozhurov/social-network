@@ -1,0 +1,19 @@
+.btn {
+    flex: 0 1 20%;
+    background-color: #07f;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+}
+
+.btn:hover {
+    background-color: rgba(17, 17, 176, 0.87);
+}
+
+.btn:active {
+    transform: translateX(3px) translateY(2px);
+}

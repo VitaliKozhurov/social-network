@@ -5,9 +5,10 @@ import {ChatSelector} from './ChatSelector/ChatSelector';
 import {Chat} from './Chat/Chat';
 import {EmptyChat} from '../UI/EmptyChat/EmptyChat';
 import {DialogsPageType} from '../../App';
+import {MessageCreator} from '../UI/MessageCreator/MessageCreator';
 
 export type DialogsPropsType = {
-    data:DialogsPageType
+    data: DialogsPageType
 }
 
 export const Dialogs: React.FC<DialogsPropsType> = ({data}) => {
@@ -20,7 +21,8 @@ export const Dialogs: React.FC<DialogsPropsType> = ({data}) => {
         let userMessages = messages[id]
         let userName = dialogs[+id - 1].userName;
         resultChat = <Chat messages={userMessages} name={userName} />
-    } else{
+
+    } else {
         resultChat = <EmptyChat />
     }
 

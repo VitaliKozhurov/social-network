@@ -1,0 +1,17 @@
+.postForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.postText {
+    flex: 0 1 70%;
+    background-color: #f0f2f5;
+    border: solid 1px #bdbec0;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #000;
+    resize: none;
+}
