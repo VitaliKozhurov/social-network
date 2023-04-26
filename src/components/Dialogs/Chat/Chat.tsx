@@ -1,24 +1,27 @@
-import s from './Chat.module.css';
-import {Message} from '../../UI/Message/Message';
-import {MessageCreator} from '../../UI/MessageCreator/MessageCreator';
-import React from 'react';
+import s from "./Chat.module.css";
+import { Message } from "../../UI/Message/Message";
+import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
+import React from "react";
+import { useParams } from "react-router-dom";
+import { DialogsPageType } from "../../../App";
 
 type ChatPropsType = {
-    messages: Array<string>
-    name: string
+    messages: DialogsPageType;
 };
 
-export const Chat: React.FC<ChatPropsType> = ({messages, name}) => {
+export const Chat: React.FC<ChatPropsType> = ({ messages }) => {
+    const params = useParams(); // get param from URL (if param change Dialogs rerender)
+    const id = params.id ? params.id : "1";
+    const userName = messages.dialogs[+id - 1].userName;
 
-    const userMessages = messages.map((message, ind) => <Message key={ind}  message={message} name={name} />);
+    const userMessages = messages.messages[id].map((message, ind) => (
+        <Message key={ind} message={message} name={userName} />
+    ));
 
     return (
         <div className={s.messagesBody}>
-            <div className={s.messages}>
-                {userMessages}
-            </div>
-            <MessageCreator placeholder={'Enter your message'}/>
+            <div className={s.messages}>{userMessages}</div>
+            <MessageCreator placeholder={"Enter your message"} />
         </div>
-
     );
 };
