@@ -1,12 +1,13 @@
-import React from "react";
-import "./App.css";
-import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
-import { Route, Routes } from "react-router-dom";
-import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
-import { Chat } from "./components/Dialogs/Chat/Chat";
+import React from 'react';
+import './App.css';
+import {Header, NavBar, Profile, Dialogs, Footer} from './components';
+import {Route, Routes} from 'react-router-dom';
+import {EmptyChat} from './components/UI/EmptyChat/EmptyChat';
+import {Chat} from './components/Dialogs/Chat/Chat';
 
 type StatePropsType = {
     state: AppPropsType;
+    addPost: (value: string) => void
 };
 
 type AppPropsType = {
@@ -42,8 +43,8 @@ export type DialogsPageType = {
     messages: MessagesType;
 };
 
-const App: React.FC<StatePropsType> = ({ state }) => {
-    const { postsPage, dialogsPage } = state;
+const App: React.FC<StatePropsType> = ({state, addPost}) => {
+    const {postsPage, dialogsPage} = state;
 
     return (
         <div className="App">
@@ -52,19 +53,10 @@ const App: React.FC<StatePropsType> = ({ state }) => {
                 <NavBar />
                 <main className="content">
                     <Routes>
-                        <Route
-                            path="/"
-                            element={<Profile data={postsPage} />}
-                        />
-                        <Route
-                            path="/message"
-                            element={<Dialogs users={dialogsPage.dialogs} />}
-                        >
+                        <Route path="/" element={<Profile data={postsPage} addPost={addPost} />} />
+                        <Route path="/message" element={<Dialogs users={dialogsPage.dialogs} />}>
                             <Route index element={<EmptyChat />} />
-                            <Route
-                                path={":id"}
-                                element={<Chat messages={dialogsPage} />}
-                            />
+                            <Route path={':id'} element={<Chat messages={dialogsPage} addPost={addPost} />} />
                         </Route>
                     </Routes>
                 </main>

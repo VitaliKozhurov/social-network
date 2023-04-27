@@ -5,18 +5,19 @@ import {AddPostComponent} from './AddPostComponent/AddPostComponent';
 import {Posts} from './Posts/Posts';
 import {PostsPageType} from '../../App';
 
-type ProfilePropsType ={
-    data:PostsPageType
+type ProfilePropsType = {
+    data: PostsPageType
+    addPost: (value:string) => void
 };
 
-export const Profile: React.FC<ProfilePropsType> = ({data}) => {
+export const Profile: React.FC<ProfilePropsType> = ({data,addPost}) => {
     return (
         <div>
             <div className={s.bgBody}>
                 <div className={s.bg}></div>
             </div>
             <UserProfile />
-            <AddPostComponent title={'My new Post'} placeholder={'Enter your message post'} />
+            <AddPostComponent title={'My new Post'} placeholder={'Enter your message post'} addPost={addPost} />
             <Posts posts={data.posts} />
         </div>
     );

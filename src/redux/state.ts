@@ -30,3 +30,13 @@ export const state = {
         }
     }
 }
+
+export const addPost = (postMessage: string) => {
+    const newPost = {
+        id: state.postsPage.posts.length + 1,
+        message: postMessage,
+        likeCount: 0
+    }
+
+    state.postsPage.posts.push(newPost);
+}

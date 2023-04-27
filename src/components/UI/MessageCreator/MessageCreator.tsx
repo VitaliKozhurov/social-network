@@ -3,14 +3,17 @@ import s from './MessageCreator.module.css';
 import {SuperButton} from '../SuperButton/SuperButton';
 
 type MessageCreatorPropsType = {
-    placeholder:string
+    placeholder: string
+    addPost: (value: string) => void
 }
 
-export const MessageCreator:FC<MessageCreatorPropsType> = ({placeholder}) => {
+export const MessageCreator: FC<MessageCreatorPropsType> = ({placeholder, addPost}) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);  // Link to textarea element
 
-    const addPostHandler = () =>{
-        console.log(textAreaRef.current?.value)
+    const addPostHandler = () => {
+        if (textAreaRef.current) {
+            addPost(textAreaRef.current?.value)
+        }
     }
 
     return (
