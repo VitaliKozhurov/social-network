@@ -10,7 +10,7 @@ type StatePropsType = {
     addPost: (value: string) => void
 };
 
-type AppPropsType = {
+export type AppPropsType = {
     postsPage: PostsPageType;
     dialogsPage: DialogsPageType;
 };

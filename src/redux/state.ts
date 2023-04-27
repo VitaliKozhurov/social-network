@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from '../render';
+
 export const state = {
     postsPage: {
         posts: [
@@ -39,4 +41,5 @@ export const addPost = (postMessage: string) => {
     }
 
     state.postsPage.posts.push(newPost);
+    rerenderEntireTree(state);
 }

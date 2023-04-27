@@ -12,7 +12,8 @@ export const MessageCreator: FC<MessageCreatorPropsType> = ({placeholder, addPos
 
     const addPostHandler = () => {
         if (textAreaRef.current) {
-            addPost(textAreaRef.current?.value)
+            addPost(textAreaRef.current?.value);
+            textAreaRef.current.value = '';
         }
     }
 
