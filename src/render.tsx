@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom'
 import './index.css';
 import App, {AppPropsType} from './App';
-import {addPost} from './redux/state';
+import {addPost, changeText} from './redux/state';
 
 
 const root = ReactDOM.createRoot(
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 export const rerenderEntireTree = (state:AppPropsType) => {
     root.render(
         <BrowserRouter>
-            <App state={state} addPost={addPost} />
+            <App state={state} addPost={addPost} changeText={changeText} />
     </BrowserRouter>
 )
 }

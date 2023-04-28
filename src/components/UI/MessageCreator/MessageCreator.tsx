@@ -1,20 +1,24 @@
-import React, {FC, useRef} from 'react';
+import React, {ChangeEvent, FC, useRef} from 'react';
 import s from './MessageCreator.module.css';
 import {SuperButton} from '../SuperButton/SuperButton';
+import {changeText} from '../../../redux/state';
 
 type MessageCreatorPropsType = {
     placeholder: string
-    addPost: (value: string) => void
+    value: string
+    addPost: () => void
+    changeText: (value: string) => void
 }
 
-export const MessageCreator: FC<MessageCreatorPropsType> = ({placeholder, addPost}) => {
+export const MessageCreator: FC<MessageCreatorPropsType> = ({placeholder, value, addPost}) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null);  // Link to textarea element
 
     const addPostHandler = () => {
-        if (textAreaRef.current) {
-            addPost(textAreaRef.current?.value);
-            textAreaRef.current.value = '';
-        }
+            addPost();
+    }
+
+    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        changeText(e.currentTarget.value);
     }
 
     return (
@@ -24,6 +28,8 @@ export const MessageCreator: FC<MessageCreatorPropsType> = ({placeholder, addPos
                         ref={textAreaRef}
                         className={s.postText}
                         placeholder={placeholder}
+                        value={value}
+                        onChange={onChangeText}
                     />
                 <SuperButton title={'Add Post'} callback={addPostHandler} />
             </div>

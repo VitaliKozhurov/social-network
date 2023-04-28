@@ -4,10 +4,13 @@ import {Header, NavBar, Profile, Dialogs, Footer} from './components';
 import {Route, Routes} from 'react-router-dom';
 import {EmptyChat} from './components/UI/EmptyChat/EmptyChat';
 import {Chat} from './components/Dialogs/Chat/Chat';
+import {changeText} from './redux/state';
+
 
 type StatePropsType = {
     state: AppPropsType;
-    addPost: (value: string) => void
+    addPost: () => void
+    changeText:(value:string)=>void
 };
 
 export type AppPropsType = {
@@ -25,6 +28,7 @@ export type PostsType = Array<PostType>;
 
 export type PostsPageType = {
     posts: PostsType;
+    newPostText:string
 };
 
 export type DialogType = {
@@ -43,7 +47,7 @@ export type DialogsPageType = {
     messages: MessagesType;
 };
 
-const App: React.FC<StatePropsType> = ({state, addPost}) => {
+const App: React.FC<StatePropsType> = ({state, addPost, changeText}) => {
     const {postsPage, dialogsPage} = state;
 
     return (
@@ -53,10 +57,10 @@ const App: React.FC<StatePropsType> = ({state, addPost}) => {
                 <NavBar />
                 <main className="content">
                     <Routes>
-                        <Route path="/" element={<Profile data={postsPage} addPost={addPost} />} />
+                        <Route path="/" element={<Profile data={postsPage} addPost={addPost} changeText={changeText} />} />
                         <Route path="/message" element={<Dialogs users={dialogsPage.dialogs} />}>
                             <Route index element={<EmptyChat />} />
-                            <Route path={':id'} element={<Chat messages={dialogsPage} addPost={addPost} />} />
+                            <Route path={':id'} element={<Chat messages={dialogsPage} addPost={addPost} changeText={changeText} />} />
                         </Route>
                     </Routes>
                 </main>

@@ -13,7 +13,8 @@ export const state = {
                 message: 'Hi I\'m study in It-incubator. It\'s the best community in the world)',
                 likeCount: 12
             }
-        ]
+        ],
+        newPostText:'Hello it-incubator'
     },
     dialogsPage: {
         dialogs: [
@@ -33,13 +34,19 @@ export const state = {
     }
 }
 
-export const addPost = (postMessage: string) => {
+export const addPost = () => {
     const newPost = {
         id: state.postsPage.posts.length + 1,
-        message: postMessage,
+        message: state.postsPage.newPostText,
         likeCount: 0
     }
 
     state.postsPage.posts.push(newPost);
+    state.postsPage.newPostText='';
+    rerenderEntireTree(state);
+}
+
+export const changeText = (value:string)=>{
+    state.postsPage.newPostText=value;
     rerenderEntireTree(state);
 }

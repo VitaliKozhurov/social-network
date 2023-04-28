@@ -8,10 +8,11 @@ import {addPost} from '../../../redux/state';
 
 type ChatPropsType = {
     messages: DialogsPageType
-    addPost: (value: string) => void
+    addPost: () => void
+    changeText: (value: string) => void
 };
 
-export const Chat: React.FC<ChatPropsType> = ({messages,addPost}) => {
+export const Chat: React.FC<ChatPropsType> = ({messages, addPost,changeText}) => {
     const params = useParams(); // get param from URL (if param change Dialogs rerender)
     const id = params.id ? params.id : '1';
     const userName = messages.dialogs[+id - 1].userName;
@@ -23,7 +24,7 @@ export const Chat: React.FC<ChatPropsType> = ({messages,addPost}) => {
     return (
         <div className={s.messagesBody}>
             <div className={s.messages}>{userMessages}</div>
-            <MessageCreator placeholder={'Enter your message'} addPost={addPost} />
+            <MessageCreator placeholder={'Enter your message'} addPost={addPost} changeText={changeText} value={'qwr'} />
         </div>
     );
 };
