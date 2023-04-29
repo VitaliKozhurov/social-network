@@ -1,52 +1,62 @@
-import {rerenderEntireTree} from '../render';
+let rerenderEntireTree = () => {
+    console.log("State is change");
+};
 
 export const state = {
     postsPage: {
         posts: [
             {
                 id: 1,
-                message: 'Hello my friend! How are you?',
+                message: "Hello my friend! How are you?",
                 likeCount: 5,
             },
             {
                 id: 2,
-                message: 'Hi I\'m study in It-incubator. It\'s the best community in the world)',
-                likeCount: 12
-            }
+                message:
+                    "Hi I'm study in It-incubator. It's the best community in the world)",
+                likeCount: 12,
+            },
         ],
-        newPostText:'Hello it-incubator'
+        newPostText: "Hello it-incubator",
     },
     dialogsPage: {
         dialogs: [
             {
                 userId: 1,
-                userName: 'Dimych'
+                userName: "Dimych",
             },
             {
                 userId: 2,
-                userName: 'Viktor'
+                userName: "Viktor",
             },
         ],
         messages: {
-            '1': ['Hello Im Dimych. I love React', 'I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript'],
-            '2': ['Hello Im Viktor. I love native JS']
-        }
-    }
-}
+            "1": [
+                "Hello Im Dimych. I love React",
+                "I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript",
+            ],
+            "2": ["Hello Im Viktor. I love native JS"],
+        },
+    },
+};
 
 export const addPost = () => {
     const newPost = {
         id: state.postsPage.posts.length + 1,
         message: state.postsPage.newPostText,
-        likeCount: 0
-    }
+        likeCount: 0,
+    };
 
     state.postsPage.posts.push(newPost);
-    state.postsPage.newPostText='';
-    rerenderEntireTree(state);
-}
+    state.postsPage.newPostText = "";
+    rerenderEntireTree();
+};
 
-export const changeText = (value:string)=>{
-    state.postsPage.newPostText=value;
-    rerenderEntireTree(state);
-}
+export const changeText = (value: string) => {
+    state.postsPage.newPostText = value;
+    rerenderEntireTree();
+};
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer;
+};
