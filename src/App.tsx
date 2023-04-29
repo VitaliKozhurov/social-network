@@ -4,7 +4,6 @@ import {Header, NavBar, Profile, Dialogs, Footer} from './components';
 import {Route, Routes} from 'react-router-dom';
 import {EmptyChat} from './components/UI/EmptyChat/EmptyChat';
 import {Chat} from './components/Dialogs/Chat/Chat';
-import {changeText} from './redux/state';
 
 
 type StatePropsType = {
