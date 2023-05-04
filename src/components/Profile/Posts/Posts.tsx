@@ -1,21 +1,21 @@
-import React from 'react';
-import {Post} from '../../UI/Post/Post';
-import s from './Posts.module.css';
-import {PostsType} from '../../../App';
+import React from "react";
+import { Post } from "../../UI/Post/Post";
+import s from "./Posts.module.css";
+import { PostsType } from "../../../redux/state";
 
 type PostsPropsType = {
-    posts: PostsType
-}
+    posts: PostsType;
+};
 
-export const Posts: React.FC<PostsPropsType> = ({posts}) => {
-
-    const myPosts = posts.map(post => (
+export const Posts: React.FC<PostsPropsType> = ({ posts }) => {
+    const myPosts = posts.map((post) => (
         <Post
             key={post.id}
-            name={'Kozhurou Vitali'}
+            name={"Kozhurou Vitali"}
             message={post.message}
             likeCount={post.likeCount}
-        />))
+        />
+    ));
 
     return (
         <div className={s.postsBody}>

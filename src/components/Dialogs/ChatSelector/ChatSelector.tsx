@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import s from "./ChatSelector.module.css";
-import { DialogType } from "../../../App";
+import { DialogType } from "../../../redux/state";
 
 export type ChatSelectorPropsType = {
     users: Array<DialogType>;
