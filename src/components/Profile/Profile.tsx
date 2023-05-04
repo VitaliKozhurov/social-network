@@ -3,19 +3,16 @@ import s from "./Profile.module.css";
 import { UserProfile } from "./UserProfile/UserProfile";
 import { AddPostComponent } from "./AddPostComponent/AddPostComponent";
 import { Posts } from "./Posts/Posts";
-import { PostsPageType } from "../../redux/state";
+import { ActionType, PostsPageType } from "../../redux/state";
 
 type ProfilePropsType = {
     data: PostsPageType;
-    addPost: () => void;
-    changeText: (value: string) => void;
+    dispatch: (action: ActionType) => void;
+    /* addPost: () => void;
+    changeText: (value: string) => void; */
 };
 
-export const Profile: React.FC<ProfilePropsType> = ({
-    data,
-    addPost,
-    changeText,
-}) => {
+export const Profile: React.FC<ProfilePropsType> = ({ data, dispatch }) => {
     return (
         <div>
             <div className={s.bgBody}>
@@ -26,8 +23,7 @@ export const Profile: React.FC<ProfilePropsType> = ({
                 title={"My new Post"}
                 value={data.newPostText}
                 placeholder={"Enter your message post"}
-                addPost={addPost}
-                changeText={changeText}
+                dispatch={dispatch}
             />
             <Posts posts={data.posts} />
         </div>

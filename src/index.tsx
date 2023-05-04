@@ -12,7 +12,10 @@ const root = ReactDOM.createRoot(
 const rerenderEntireTree = () => {
     root.render(
         <BrowserRouter>
-            <App store={store} />
+            <App
+                state={store.getState()}
+                dispatch={store.dispatch.bind(store)}
+            />
         </BrowserRouter>
     );
 };

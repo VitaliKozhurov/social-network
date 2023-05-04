@@ -3,19 +3,14 @@ import { Message } from "../../UI/Message/Message";
 import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { DialogsPageType } from "../../../redux/state";
+import { ActionType, DialogsPageType } from "../../../redux/state";
 
 type ChatPropsType = {
     messages: DialogsPageType;
-    addPost: () => void;
-    changeText: (value: string) => void;
+    dispatch: (action: ActionType) => void;
 };
 
-export const Chat: React.FC<ChatPropsType> = ({
-    messages,
-    addPost,
-    changeText,
-}) => {
+export const Chat: React.FC<ChatPropsType> = ({ messages, dispatch }) => {
     const params = useParams(); // get param from URL (if param change Dialogs rerender)
     const id = params.id ? params.id : "1";
     const userName = messages.dialogs[+id - 1].userName;
@@ -29,8 +24,7 @@ export const Chat: React.FC<ChatPropsType> = ({
             <div className={s.messages}>{userMessages}</div>
             <MessageCreator
                 placeholder={"Enter your message"}
-                addPost={addPost}
-                changeText={changeText}
+                dispatch={dispatch}
                 value={"qwr"}
             />
         </div>

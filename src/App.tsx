@@ -4,14 +4,15 @@ import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
 import { Chat } from "./components/Dialogs/Chat/Chat";
-import { StoreType } from "./redux/state";
+import { ActionType, RootStateType } from "./redux/state";
 
 type StorePropsType = {
-    store: StoreType;
+    state: RootStateType;
+    dispatch: (action: ActionType) => void;
 };
 
-const App: React.FC<StorePropsType> = ({ store }) => {
-    const { postsPage, dialogsPage } = store._state;
+const App: React.FC<StorePropsType> = ({ state, dispatch }) => {
+    const { postsPage, dialogsPage } = state;
     return (
         <div className="App">
             <Header />
@@ -22,11 +23,7 @@ const App: React.FC<StorePropsType> = ({ store }) => {
                         <Route
                             path="/"
                             element={
-                                <Profile
-                                    data={postsPage}
-                                    addPost={store.addPost.bind(store)}
-                                    changeText={store.changeText.bind(store)}
-                                />
+                                <Profile data={postsPage} dispatch={dispatch} />
                             }
                         />
                         <Route
@@ -39,10 +36,7 @@ const App: React.FC<StorePropsType> = ({ store }) => {
                                 element={
                                     <Chat
                                         messages={dialogsPage}
-                                        addPost={store.addPost.bind(store)}
-                                        changeText={store.changeText.bind(
-                                            store
-                                        )}
+                                        dispatch={dispatch}
                                     />
                                 }
                             />

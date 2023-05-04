@@ -1,28 +1,30 @@
 import React, { ChangeEvent, FC, useRef } from "react";
 import s from "./MessageCreator.module.css";
 import { SuperButton } from "../SuperButton/SuperButton";
+import { ActionType } from "../../../redux/state";
 
 type MessageCreatorPropsType = {
     placeholder: string;
     value: string;
-    addPost: () => void;
-    changeText: (value: string) => void;
+    dispatch: (action: ActionType) => void;
 };
 
 export const MessageCreator: FC<MessageCreatorPropsType> = ({
     placeholder,
     value,
-    addPost,
-    changeText,
+    dispatch,
 }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null); // Link to textarea element
 
     const addPostHandler = () => {
-        addPost();
+        dispatch({ type: "ADD-POST" });
     };
 
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changeText(e.currentTarget.value);
+        dispatch({
+            type: "UPDATE-POST-MESSAGE",
+            payload: e.currentTarget.value,
+        });
     };
 
     return (

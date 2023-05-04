@@ -5,6 +5,7 @@ export type StoreType = {
     addPost: () => void;
     changeText: (value: string) => void;
     subscribe: (callback: () => void) => void;
+    dispatch: (action: ActionType) => void;
 };
 
 export type RootStateType = {
@@ -32,6 +33,11 @@ export type MessagesType = {
 export type DialogsPageType = {
     dialogs: DialogsType;
     messages: MessagesType;
+};
+
+export type ActionType = {
+    type: "ADD-POST" | "UPDATE-POST-MESSAGE";
+    payload?: string;
 };
 
 export const store: StoreType = {
@@ -94,5 +100,23 @@ export const store: StoreType = {
     },
     subscribe(observer: () => void) {
         this._onChangeState = observer;
+    },
+    dispatch(action: ActionType) {
+        if (action.type === "ADD-POST") {
+            const newPost = {
+                id: this._state.postsPage.posts.length + 1,
+                message: this._state.postsPage.newPostText,
+                likeCount: 0,
+            };
+            this._state.postsPage.posts.push(newPost);
+            this._state.postsPage.newPostText = "";
+            this._onChangeState();
+        }
+        if (action.type === "UPDATE-POST-MESSAGE") {
+            if (action.payload) {
+                this._state.postsPage.newPostText = action.payload;
+                this._onChangeState();
+            }
+        }
     },
 };

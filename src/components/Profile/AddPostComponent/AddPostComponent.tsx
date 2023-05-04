@@ -1,20 +1,19 @@
 import React, { FC } from "react";
 import s from "./PostCreator.module.css";
 import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
+import { ActionType } from "../../../redux/state";
 
 type AddPostPropsType = {
     title: string;
     value: string;
     placeholder: string;
-    addPost: () => void;
-    changeText: (value: string) => void;
+    dispatch: (action: ActionType) => void;
 };
 
 export const AddPostComponent: FC<AddPostPropsType> = ({
     title,
     placeholder,
-    addPost,
-    changeText,
+    dispatch,
     value,
 }) => {
     return (
@@ -24,8 +23,7 @@ export const AddPostComponent: FC<AddPostPropsType> = ({
                 <MessageCreator
                     placeholder={placeholder}
                     value={value}
-                    addPost={addPost}
-                    changeText={changeText}
+                    dispatch={dispatch}
                 />
             </div>
         </>
