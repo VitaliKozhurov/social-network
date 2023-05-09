@@ -1,18 +1,18 @@
-import React from "react";
-import "./App.css";
-import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
-import { Route, Routes } from "react-router-dom";
-import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
-import { Chat } from "./components/Dialogs/Chat/Chat";
-import { ActionType, RootStateType } from "./redux/state";
+import React from 'react';
+import './App.css';
+import {Header, NavBar, Profile, Dialogs, Footer} from './components';
+import {Route, Routes} from 'react-router-dom';
+import {EmptyChat} from './components/UI/EmptyChat/EmptyChat';
+import {Chat} from './components/Dialogs/Chat/Chat';
+import {ActionType, RootStateType} from './redux/state';
 
 type StorePropsType = {
     state: RootStateType;
     dispatch: (action: ActionType) => void;
 };
 
-const App: React.FC<StorePropsType> = ({ state, dispatch }) => {
-    const { postsPage, dialogsPage } = state;
+const App: React.FC<StorePropsType> = ({state, dispatch}) => {
+    const {postsPage, dialogsPage} = state;
     return (
         <div className="App">
             <Header />
@@ -32,7 +32,7 @@ const App: React.FC<StorePropsType> = ({ state, dispatch }) => {
                         >
                             <Route index element={<EmptyChat />} />
                             <Route
-                                path={":id"}
+                                path={':id'}
                                 element={
                                     <Chat
                                         messages={dialogsPage}

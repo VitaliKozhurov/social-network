@@ -2,7 +2,7 @@ export type StoreType = {
     _state: RootStateType;
     getState: () => RootStateType;
     _onChangeState: () => void;
-    addPost: () => void;
+    addPost: (postText: string) => void;
     changeText: (value: string) => void;
     subscribe: (callback: () => void) => void;
     dispatch: (action: ActionType) => void;
@@ -35,10 +35,26 @@ export type DialogsPageType = {
     messages: MessagesType;
 };
 
-export type ActionType = {
-    type: "ADD-POST" | "UPDATE-POST-MESSAGE";
-    payload?: string;
-};
+
+/*export type ActionType = AddPostActionType|UpdatePostActionType;
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdatePostActionType = ReturnType<typeof updatePostAC>*/
+export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
+
+
+export const addPostAC = (value: string) => {
+    return {
+        type: 'ADD-POST',
+        payload: value
+    } as const
+}
+
+export const updatePostAC = (value: string) => {
+    return {
+        type: 'UPDATE-POST-MESSAGE',
+        payload: value
+    } as const
+}
 
 export const store: StoreType = {
     _state: {
@@ -46,52 +62,52 @@ export const store: StoreType = {
             posts: [
                 {
                     id: 1,
-                    message: "Hello my friend! How are you?",
+                    message: 'Hello my friend! How are you?',
                     likeCount: 5,
                 },
                 {
                     id: 2,
                     message:
-                        "Hi I'm study in It-incubator. It's the best community in the world)",
+                        'Hi I\'m study in It-incubator. It\'s the best community in the world)',
                     likeCount: 12,
                 },
             ],
-            newPostText: "Hello it-incubator",
+            newPostText: 'Hello it-incubator',
         },
         dialogsPage: {
             dialogs: [
                 {
                     userId: 1,
-                    userName: "Dimych",
+                    userName: 'Dimych',
                 },
                 {
                     userId: 2,
-                    userName: "Viktor",
+                    userName: 'Viktor',
                 },
             ],
             messages: {
-                "1": [
-                    "Hello Im Dimych. I love React",
-                    "I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript",
+                '1': [
+                    'Hello Im Dimych. I love React',
+                    'I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript',
                 ],
-                "2": ["Hello Im Viktor. I love native JS"],
+                '2': ['Hello Im Viktor. I love native JS'],
             },
         },
     },
     _onChangeState() {
-        console.log("State is change");
+        console.log('State changed');
     },
     getState() {
         return this._state;
     },
-    addPost() {
+    addPost(postText: string) {
         const newPost = {
             id: this._state.postsPage.posts.length + 1,
-            message: this._state.postsPage.newPostText,
+            message: postText,
             likeCount: 0,
         };
         this._state.postsPage.posts.push(newPost);
-        this._state.postsPage.newPostText = "";
+        /*this._state.postsPage.newPostText = "";*/
         this._onChangeState();
     },
     changeText(value: string) {
@@ -101,18 +117,18 @@ export const store: StoreType = {
     subscribe(observer: () => void) {
         this._onChangeState = observer;
     },
-    dispatch(action: ActionType) {
-        if (action.type === "ADD-POST") {
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
             const newPost = {
                 id: this._state.postsPage.posts.length + 1,
-                message: this._state.postsPage.newPostText,
+                message: action.payload,
                 likeCount: 0,
             };
             this._state.postsPage.posts.push(newPost);
-            this._state.postsPage.newPostText = "";
+            this._state.postsPage.newPostText = '';
             this._onChangeState();
         }
-        if (action.type === "UPDATE-POST-MESSAGE") {
+        if (action.type === 'UPDATE-POST-MESSAGE') {
             if (action.payload) {
                 this._state.postsPage.newPostText = action.payload;
                 this._onChangeState();
