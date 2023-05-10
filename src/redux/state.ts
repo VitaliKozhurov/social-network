@@ -7,7 +7,6 @@ export type StoreType = {
     subscribe: (callback: () => void) => void;
     dispatch: (action: ActionType) => void;
 };
-
 export type RootStateType = {
     postsPage: PostsPageType;
     dialogsPage: DialogsPageType;
@@ -22,39 +21,66 @@ export type PostsPageType = {
     posts: PostsType;
     newPostText: string;
 };
-export type DialogType = {
+/* export type DialogType = {
     userId: number;
     userName: string;
-};
-export type DialogsType = Array<DialogType>;
+}; */
+
+/* export type DialogsType = {
+    [key: string]: {
+        userName: string;
+        messages: Array<MessagesType>;
+    };
+}; */
 export type MessagesType = {
-    [key: string]: Array<string>;
+    owner: string;
+    message: string;
+};
+export type UserType = {
+    userId: string;
+    userName: string;
 };
 export type DialogsPageType = {
-    dialogs: DialogsType;
-    messages: MessagesType;
+    users: Array<UserType>;
+    messages: {
+        [key: string]: Array<MessagesType>;
+    };
+    newMessageBody: string;
 };
-
 
 /*export type ActionType = AddPostActionType|UpdatePostActionType;
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type UpdatePostActionType = ReturnType<typeof updatePostAC>*/
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
-
+export type ActionType =
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof updatePostAC>
+    | ReturnType<typeof addMessageAC>
+    | ReturnType<typeof updateMessageAC>;
 
 export const addPostAC = (value: string) => {
     return {
-        type: 'ADD-POST',
-        payload: value
-    } as const
-}
-
+        type: "ADD-POST",
+        payload: value,
+    } as const;
+};
 export const updatePostAC = (value: string) => {
     return {
-        type: 'UPDATE-POST-MESSAGE',
-        payload: value
-    } as const
-}
+        type: "UPDATE-POST-MESSAGE",
+        payload: value,
+    } as const;
+};
+export const addMessageAC = (value: string, id: string) => {
+    return {
+        type: "ADD-MESSAGE",
+        payload: { value: value, id: id },
+    } as const;
+};
+export const updateMessageAC = (value: string) => {
+    return {
+        type: "UPDATE-MESSAGE",
+        payload: value,
+    } as const;
+};
 
 export const store: StoreType = {
     _state: {
@@ -62,40 +88,47 @@ export const store: StoreType = {
             posts: [
                 {
                     id: 1,
-                    message: 'Hello my friend! How are you?',
+                    message: "Hello my friend! How are you?",
                     likeCount: 5,
                 },
                 {
                     id: 2,
                     message:
-                        'Hi I\'m study in It-incubator. It\'s the best community in the world)',
+                        "Hi I'm study in It-incubator. It's the best community in the world)",
                     likeCount: 12,
                 },
             ],
-            newPostText: 'Hello it-incubator',
+            newPostText: "Hello it-incubator",
         },
         dialogsPage: {
-            dialogs: [
-                {
-                    userId: 1,
-                    userName: 'Dimych',
-                },
-                {
-                    userId: 2,
-                    userName: 'Viktor',
-                },
+            users: [
+                { userId: "1", userName: "Dimych" },
+                { userId: "2", userName: "Viktor" },
             ],
             messages: {
-                '1': [
-                    'Hello Im Dimych. I love React',
-                    'I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript',
+                "1": [
+                    {
+                        owner: "Dimych",
+                        message: "Hello Im Dimych. I love React",
+                    },
+                    {
+                        owner: "Dimych",
+                        message:
+                            "I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript I want to teach you React and JavaScript",
+                    },
                 ],
-                '2': ['Hello Im Viktor. I love native JS'],
+                "2": [
+                    {
+                        owner: "Viktor",
+                        message: "Hello Im Viktor. I love native JS",
+                    },
+                ],
             },
+            newMessageBody: "",
         },
     },
     _onChangeState() {
-        console.log('State changed');
+        console.log("State changed");
     },
     getState() {
         return this._state;
@@ -118,21 +151,42 @@ export const store: StoreType = {
         this._onChangeState = observer;
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {
-                id: this._state.postsPage.posts.length + 1,
-                message: action.payload,
-                likeCount: 0,
-            };
-            this._state.postsPage.posts.push(newPost);
-            this._state.postsPage.newPostText = '';
-            this._onChangeState();
-        }
-        if (action.type === 'UPDATE-POST-MESSAGE') {
-            if (action.payload) {
+        switch (action.type) {
+            case "ADD-POST":
+                const newPost = {
+                    id: this._state.postsPage.posts.length + 1,
+                    message: action.payload,
+                    likeCount: 0,
+                };
+                this._state.postsPage.posts.push(newPost);
+                this._state.postsPage.newPostText = "";
+                this._onChangeState();
+                break;
+
+            case "UPDATE-POST-MESSAGE":
                 this._state.postsPage.newPostText = action.payload;
                 this._onChangeState();
-            }
+                break;
+
+            case "ADD-MESSAGE":
+                const newMessage = {
+                    owner: "VK",
+                    message: action.payload.value,
+                };
+                this._state.dialogsPage.messages[action.payload.id].push(
+                    newMessage
+                );
+                this._state.dialogsPage.newMessageBody = "";
+                this._onChangeState();
+                break;
+
+            case "UPDATE-MESSAGE":
+                this._state.dialogsPage.newMessageBody = action.payload;
+                this._onChangeState();
+                break;
+
+            default:
+                break;
         }
     },
 };

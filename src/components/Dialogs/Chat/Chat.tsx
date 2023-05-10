@@ -3,29 +3,49 @@ import { Message } from "../../UI/Message/Message";
 import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { ActionType, DialogsPageType } from "../../../redux/state";
+import {
+    ActionType,
+    DialogsPageType,
+    addMessageAC,
+    updateMessageAC,
+} from "../../../redux/state";
 
 type ChatPropsType = {
-    messages: DialogsPageType;
+    dialogs: DialogsPageType;
     dispatch: (action: ActionType) => void;
 };
 
-export const Chat: React.FC<ChatPropsType> = ({ messages, dispatch }) => {
+export const Chat: React.FC<ChatPropsType> = ({ dialogs, dispatch }) => {
     const params = useParams(); // get param from URL (if param change Dialogs rerender)
     const id = params.id ? params.id : "1";
-    const userName = messages.dialogs[+id - 1].userName;
+    const userName: string = dialogs.users.filter(
+        (user) => user.userId === id
+    )[0].userName;
 
-    const userMessages = messages.messages[id].map((message, ind) => (
-        <Message key={ind} message={message} name={userName} />
+    const userMessages = dialogs.messages[id].map((message, ind) => (
+        <Message
+            key={ind}
+            message={message.message}
+            name={userName}
+            owner={message.owner}
+        />
     ));
+
+    const addMessage = (value: string) => {
+        dispatch(addMessageAC(value, id));
+    };
+    const updateMessage = (value: string) => {
+        dispatch(updateMessageAC(value));
+    };
 
     return (
         <div className={s.messagesBody}>
             <div className={s.messages}>{userMessages}</div>
             <MessageCreator
                 placeholder={"Enter your message"}
-                dispatch={dispatch}
-                value={"qwr"}
+                addText={addMessage}
+                updateText={updateMessage}
+                value={dialogs.newMessageBody}
             />
         </div>
     );

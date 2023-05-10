@@ -2,10 +2,10 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import { Outlet } from "react-router-dom";
 import { ChatSelector } from "./ChatSelector/ChatSelector";
-import { DialogType } from "../../redux/state";
+import { UserType } from "../../redux/state";
 
 export type DialogsPropsType = {
-    users: Array<DialogType>;
+    users: Array<UserType>;
 };
 
 export const Dialogs: React.FC<DialogsPropsType> = ({ users }) => {

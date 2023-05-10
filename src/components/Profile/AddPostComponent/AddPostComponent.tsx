@@ -7,13 +7,15 @@ type AddPostPropsType = {
     title: string;
     value: string;
     placeholder: string;
-    dispatch: (action: ActionType) => void;
+    addPost: (value: string) => void;
+    updatePost: (value: string) => void;
 };
 
 export const AddPostComponent: FC<AddPostPropsType> = ({
     title,
     placeholder,
-    dispatch,
+    addPost,
+    updatePost,
     value,
 }) => {
     return (
@@ -23,7 +25,8 @@ export const AddPostComponent: FC<AddPostPropsType> = ({
                 <MessageCreator
                     placeholder={placeholder}
                     value={value}
-                    dispatch={dispatch}
+                    addText={addPost}
+                    updateText={updatePost}
                 />
             </div>
         </>
