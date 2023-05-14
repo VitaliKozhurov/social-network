@@ -6,9 +6,8 @@ import { Posts } from "./Posts/Posts";
 import {
     ActionType,
     PostsPageType,
-    addPostAC,
-    updatePostAC,
-} from "../../redux/state";
+} from "../../redux/store";
+import {addPostAC, updatePostAC} from '../../redux/profileReducer';
 
 type ProfilePropsType = {
     data: PostsPageType;

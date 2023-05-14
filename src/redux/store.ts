@@ -1,6 +1,7 @@
-import {profileReducer} from './profileReducer';
-import {dialogReducer} from './dialogsReducer';
+import {profileReducer, ProfileReducerActionType} from './profileReducer';
+import {dialogReducer, DialogsReducerActionType} from './dialogsReducer';
 
+export type ActionType = ProfileReducerActionType | DialogsReducerActionType;
 export type StoreType = {
     _state: RootStateType;
     getState: () => RootStateType;
@@ -36,37 +37,6 @@ export type DialogsPageType = {
         [key: string]: Array<MessagesType>;
     };
     newMessageBody: string;
-};
-
-export type ActionType =
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof updatePostAC>
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof updateMessageAC>;
-
-export const addPostAC = (value: string) => {
-    return {
-        type: 'ADD-POST',
-        payload: value,
-    } as const;
-};
-export const updatePostAC = (value: string) => {
-    return {
-        type: 'UPDATE-POST-MESSAGE',
-        payload: value,
-    } as const;
-};
-export const addMessageAC = (value: string, id: string) => {
-    return {
-        type: 'ADD-MESSAGE',
-        payload: {value: value, id: id},
-    } as const;
-};
-export const updateMessageAC = (value: string) => {
-    return {
-        type: 'UPDATE-MESSAGE',
-        payload: value,
-    } as const;
 };
 
 export const store: StoreType = {

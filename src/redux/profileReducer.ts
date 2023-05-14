@@ -1,23 +1,43 @@
-import {ActionType, PostsPageType} from './state';
+import {ActionType, PostsPageType} from './store';
 
-/*export const addPostAC = (value: string) => {
+const ADD_POST = 'ADD-POST';
+const UPDATE_POST_MESSAGE = 'UPDATE-POST-MESSAGE';
+
+export const addPostAC = (value: string) => {
     return {
-        type: 'ADD-POST',
+        type: ADD_POST,
         payload: value,
     } as const;
 };
 export const updatePostAC = (value: string) => {
     return {
-        type: 'UPDATE-POST-MESSAGE',
+        type: UPDATE_POST_MESSAGE,
         payload: value,
     } as const;
 };
 
-export type ProfileReducerActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>*/
+export type ProfileReducerActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
 
-export const profileReducer = (state: PostsPageType, action: ActionType) => {
+const initialState = {
+    posts: [
+        {
+            id: 1,
+            message: 'Hello my friend! How are you?',
+            likeCount: 5,
+        },
+        {
+            id: 2,
+            message:
+                'Hi I\'m study in It-incubator. It\'s the best community in the world)',
+            likeCount: 12,
+        },
+    ],
+    newPostText: 'Hello it-incubator',
+}
+
+export const profileReducer = (state: PostsPageType = initialState, action: ActionType): PostsPageType => {
     switch (action.type) {
-        case 'ADD-POST':
+        case ADD_POST:
             const newPost = {
                 id: state.posts.length + 1,
                 message: action.payload,
@@ -27,7 +47,7 @@ export const profileReducer = (state: PostsPageType, action: ActionType) => {
             state.newPostText = '';
             return state;
 
-        case 'UPDATE-POST-MESSAGE':
+        case UPDATE_POST_MESSAGE:
             state.newPostText = action.payload;
             return state;
 

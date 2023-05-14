@@ -4,7 +4,7 @@ import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
 import { Chat } from "./components/Dialogs/Chat/Chat";
-import { ActionType, RootStateType } from "./redux/state";
+import {ActionType, RootStateType} from './redux/store';
 
 type StorePropsType = {
     state: RootStateType;

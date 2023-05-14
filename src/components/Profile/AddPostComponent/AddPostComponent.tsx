@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from "./PostCreator.module.css";
 import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
-import { ActionType } from "../../../redux/state";
+import { ActionType } from "../../../redux/store";
 
 type AddPostPropsType = {
     title: string;

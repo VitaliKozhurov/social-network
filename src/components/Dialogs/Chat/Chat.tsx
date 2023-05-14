@@ -6,9 +6,8 @@ import { useParams } from "react-router-dom";
 import {
     ActionType,
     DialogsPageType,
-    addMessageAC,
-    updateMessageAC,
-} from "../../../redux/state";
+} from "../../../redux/store";
+import {addMessageAC, updateMessageAC} from '../../../redux/dialogsReducer';
 
 type ChatPropsType = {
     dialogs: DialogsPageType;
