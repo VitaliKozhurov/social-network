@@ -1,17 +1,17 @@
-import React from "react";
-import s from "./Dialogs.module.css";
-import { Outlet } from "react-router-dom";
-import { ChatSelector } from "./ChatSelector/ChatSelector";
-import {UserType} from '../../appTypes/types';
+import React from 'react';
+import s from './Dialogs.module.css';
+import {Outlet} from 'react-router-dom';
+import {ChatSelector} from './ChatSelector/ChatSelector';
+import {StoreContext} from '../../StoreContext';
 
-export type DialogsPropsType = {
-    users: Array<UserType>;
-};
-
-export const Dialogs: React.FC<DialogsPropsType> = ({ users }) => {
+export const Dialogs = () => {
     return (
         <div className={s.body}>
-            <ChatSelector users={users} />
+            <StoreContext.Consumer>
+                {
+                    (store) => <ChatSelector users={store.getState().dialogsPage.users} />
+                }
+            </StoreContext.Consumer>
             <Outlet />
         </div>
     );

@@ -4,35 +4,40 @@ import {UserProfile} from './UserProfile/UserProfile';
 import {AddPostComponent} from './AddPostComponent/AddPostComponent';
 import {Posts} from './Posts/Posts';
 import {addPostAC, updatePostAC} from '../../redux/profileReducer';
-import {ActionsType, PostsPageType} from '../../appTypes/types';
+import {StoreContext} from '../../StoreContext';
 
-type ProfilePropsType = {
-    profileState: PostsPageType
-    dispatch:(action:ActionsType)=>void
-};
-
-export const Profile: React.FC<ProfilePropsType> = ({profileState, dispatch}) => {
-
-    const addPost = (value: string) => {
-        dispatch(addPostAC(value));
-    };
-    const updatePost = (value: string) => {
-        dispatch(updatePostAC(value));
-    };
+export const Profile = () => {
     return (
         <div>
             <div className={s.bgBody}>
                 <div className={s.bg}></div>
             </div>
             <UserProfile />
-            <AddPostComponent
-                title={'My new Post'}
-                value={profileState.newPostText}
-                placeholder={'Enter your message post'}
-                addPost={addPost}
-                updatePost={updatePost}
-            />
-            <Posts posts={profileState.posts} />
+            <StoreContext.Consumer>
+                {
+                    (store)=>{
+                        const addPost = (value: string) => {
+                            store.dispatch(addPostAC(value));
+                        };
+                        const updatePost = (value: string) => {
+                            store.dispatch(updatePostAC(value));
+                        };
+
+                        return (
+                            <>
+                                <AddPostComponent
+                                    title={'My new Post'}
+                                    value={store.getState().postsPage.newPostText}
+                                    placeholder={'Enter your message post'}
+                                    addPost={addPost}
+                                    updatePost={updatePost}
+                                />
+                                <Posts posts={store.getState().postsPage.posts} />
+                            </>
+                        )
+                    }
+                }
+            </StoreContext.Consumer>
         </div>
     );
 };
