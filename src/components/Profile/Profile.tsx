@@ -1,20 +1,18 @@
-import React from "react";
-import s from "./Profile.module.css";
-import { UserProfile } from "./UserProfile/UserProfile";
-import { AddPostComponent } from "./AddPostComponent/AddPostComponent";
-import { Posts } from "./Posts/Posts";
-import {
-    ActionType,
-    PostsPageType,
-} from "../../redux/store";
+import React from 'react';
+import s from './Profile.module.css';
+import {UserProfile} from './UserProfile/UserProfile';
+import {AddPostComponent} from './AddPostComponent/AddPostComponent';
+import {Posts} from './Posts/Posts';
 import {addPostAC, updatePostAC} from '../../redux/profileReducer';
+import {ActionsType, PostsPageType} from '../../appTypes/types';
 
 type ProfilePropsType = {
-    data: PostsPageType;
-    dispatch: (action: ActionType) => void;
+    profileState: PostsPageType
+    dispatch:(action:ActionsType)=>void
 };
 
-export const Profile: React.FC<ProfilePropsType> = ({ data, dispatch }) => {
+export const Profile: React.FC<ProfilePropsType> = ({profileState, dispatch}) => {
+
     const addPost = (value: string) => {
         dispatch(addPostAC(value));
     };
@@ -28,13 +26,13 @@ export const Profile: React.FC<ProfilePropsType> = ({ data, dispatch }) => {
             </div>
             <UserProfile />
             <AddPostComponent
-                title={"My new Post"}
-                value={data.newPostText}
-                placeholder={"Enter your message post"}
+                title={'My new Post'}
+                value={profileState.newPostText}
+                placeholder={'Enter your message post'}
                 addPost={addPost}
                 updatePost={updatePost}
             />
-            <Posts posts={data.posts} />
+            <Posts posts={profileState.posts} />
         </div>
     );
 };

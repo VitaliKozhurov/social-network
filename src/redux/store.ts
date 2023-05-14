@@ -1,44 +1,17 @@
 import {profileReducer, ProfileReducerActionType} from './profileReducer';
 import {dialogReducer, DialogsReducerActionType} from './dialogsReducer';
+import {RootStateType} from '../appTypes/types';
 
 export type ActionType = ProfileReducerActionType | DialogsReducerActionType;
+
+
 export type StoreType = {
     _state: RootStateType;
     getState: () => RootStateType;
     _onChangeState: () => void;
     subscribe: (callback: () => void) => void;
-    dispatch: (action: ActionType) => void;
+/*    dispatch: (action: ActionType) => void;*/
 };
-export type RootStateType = {
-    postsPage: PostsPageType;
-    dialogsPage: DialogsPageType;
-};
-export type PostType = {
-    id: number;
-    message: string;
-    likeCount: number;
-};
-export type PostsType = Array<PostType>;
-export type PostsPageType = {
-    posts: PostsType;
-    newPostText: string;
-};
-export type MessagesType = {
-    owner: string;
-    message: string;
-};
-export type UserType = {
-    userId: string;
-    userName: string;
-};
-export type DialogsPageType = {
-    users: Array<UserType>;
-    messages: {
-        [key: string]: Array<MessagesType>;
-    };
-    newMessageBody: string;
-};
-
 export const store: StoreType = {
     _state: {
         postsPage: {
@@ -93,9 +66,9 @@ export const store: StoreType = {
     subscribe(observer: () => void) {
         this._onChangeState = observer;
     },
-    dispatch(action) {
+  /*  dispatch(action) {
         this._state.postsPage = profileReducer(this._state.postsPage, action);
         this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action)
         this._onChangeState();
-    },
+    },*/
 };

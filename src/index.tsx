@@ -3,8 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import store from './redux/redux-store';
-
+import {store} from './redux/redux-store';
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -15,7 +14,7 @@ const rerenderEntireTree = () => {
         <BrowserRouter>
             <App
                 state={store.getState()}
-                dispatch={store.dispatch.bind(store)}
+                dispatch = {store.dispatch.bind(store)}
             />
         </BrowserRouter>
     );

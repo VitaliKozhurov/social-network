@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import { Outlet } from "react-router-dom";
 import { ChatSelector } from "./ChatSelector/ChatSelector";
-import { UserType } from "../../redux/store";
+import {UserType} from '../../appTypes/types';
 
 export type DialogsPropsType = {
     users: Array<UserType>;

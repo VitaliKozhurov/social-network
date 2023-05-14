@@ -3,15 +3,12 @@ import { Message } from "../../UI/Message/Message";
 import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
 import React from "react";
 import { useParams } from "react-router-dom";
-import {
-    ActionType,
-    DialogsPageType,
-} from "../../../redux/store";
 import {addMessageAC, updateMessageAC} from '../../../redux/dialogsReducer';
+import {ActionsType, DialogsPageType} from '../../../appTypes/types';
 
 type ChatPropsType = {
     dialogs: DialogsPageType;
-    dispatch: (action: ActionType) => void;
+    dispatch:(action:ActionsType)=>void
 };
 
 export const Chat: React.FC<ChatPropsType> = ({ dialogs, dispatch }) => {

@@ -1,4 +1,4 @@
-import {ActionType, DialogsPageType} from './store';
+import {DialogsPageType} from '../appTypes/types';
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
@@ -15,7 +15,6 @@ export const updateMessageAC = (value: string) => {
         payload: value,
     } as const;
 };
-
 export type DialogsReducerActionType = ReturnType<typeof addMessageAC> | ReturnType<typeof updateMessageAC>
 
 const initialState = {
@@ -45,7 +44,7 @@ const initialState = {
     newMessageBody: '',
 }
 
-export const dialogReducer = (state: DialogsPageType = initialState, action: ActionType) => {
+export const dialogReducer = (state: DialogsPageType = initialState, action: DialogsReducerActionType) => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage = {

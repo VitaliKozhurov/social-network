@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FC, useRef } from "react";
-import s from "./MessageCreator.module.css";
-import { SuperButton } from "../SuperButton/SuperButton";
+import React, {ChangeEvent, FC, useRef} from 'react';
+import s from './MessageCreator.module.css';
+import {SuperButton} from '../SuperButton/SuperButton';
 
 type MessageCreatorPropsType = {
     placeholder: string;
@@ -10,11 +10,11 @@ type MessageCreatorPropsType = {
 };
 
 export const MessageCreator: FC<MessageCreatorPropsType> = ({
-    placeholder,
-    value,
-    addText,
-    updateText,
-}) => {
+                                                                placeholder,
+                                                                value,
+                                                                addText,
+                                                                updateText,
+                                                            }) => {
     const textAreaRef = useRef<HTMLTextAreaElement>(null); // Link to textarea element
 
     const addPostHandler = () => {
@@ -35,7 +35,7 @@ export const MessageCreator: FC<MessageCreatorPropsType> = ({
                     value={value}
                     onChange={onChangeText}
                 />
-                <SuperButton title={"Add Post"} callback={addPostHandler} />
+                <SuperButton title={'Add Post'} callback={addPostHandler} />
             </div>
         </>
     );

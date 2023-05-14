@@ -1,18 +1,19 @@
-import React from "react";
+import React, {FC} from 'react';
 import "./App.css";
 import { Header, NavBar, Profile, Dialogs, Footer } from "./components";
 import { Route, Routes } from "react-router-dom";
 import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
 import { Chat } from "./components/Dialogs/Chat/Chat";
-import {ActionType, RootStateType} from './redux/store';
+import {AppStateType} from './redux/redux-store';
+import {ActionsType} from './appTypes/types';
 
-type StorePropsType = {
-    state: RootStateType;
-    dispatch: (action: ActionType) => void;
-};
+type StateType = {
+    state:AppStateType
+    dispatch:(action:ActionsType)=>void
+}
 
-const App: React.FC<StorePropsType> = ({ state, dispatch }) => {
-    const { postsPage, dialogsPage } = state;
+
+const App:FC<StateType> = ({state, dispatch})=> {
 
     return (
         <div className="App">
@@ -24,19 +25,19 @@ const App: React.FC<StorePropsType> = ({ state, dispatch }) => {
                         <Route
                             path="/"
                             element={
-                                <Profile data={postsPage} dispatch={dispatch} />
+                                <Profile  profileState={state.postsPage} dispatch={dispatch} />
                             }
                         />
                         <Route
                             path="/message"
-                            element={<Dialogs users={dialogsPage.users} />}
+                            element={<Dialogs users={state.dialogsPage.users} />}
                         >
                             <Route index element={<EmptyChat />} />
                             <Route
                                 path={":id"}
                                 element={
                                     <Chat
-                                        dialogs={dialogsPage}
+                                        dialogs={state.dialogsPage}
                                         dispatch={dispatch}
                                     />
                                 }

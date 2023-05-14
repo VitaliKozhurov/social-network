@@ -1,4 +1,4 @@
-import {ActionType, PostsPageType} from './store';
+import {PostsPageType} from '../appTypes/types';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_MESSAGE = 'UPDATE-POST-MESSAGE';
@@ -15,7 +15,6 @@ export const updatePostAC = (value: string) => {
         payload: value,
     } as const;
 };
-
 export type ProfileReducerActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC>
 
 const initialState = {
@@ -32,10 +31,10 @@ const initialState = {
             likeCount: 12,
         },
     ],
-    newPostText: 'Hello it-incubator',
+    newPostText: '',
 }
 
-export const profileReducer = (state: PostsPageType = initialState, action: ActionType): PostsPageType => {
+export const profileReducer = (state: PostsPageType = initialState, action: ProfileReducerActionType): PostsPageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {
