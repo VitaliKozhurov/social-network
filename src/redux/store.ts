@@ -1,16 +1,19 @@
 import {profileReducer, ProfileReducerActionType} from './profileReducer';
+/*
 import {dialogReducer, DialogsReducerActionType} from './dialogsReducer';
 import {RootStateType} from '../appTypes/types';
 
 export type ActionType = ProfileReducerActionType | DialogsReducerActionType;
+*/
 
 
+/*
 export type StoreType = {
     _state: RootStateType;
     getState: () => RootStateType;
     _onChangeState: () => void;
     subscribe: (callback: () => void) => void;
-/*    dispatch: (action: ActionType) => void;*/
+/!*    dispatch: (action: ActionType) => void;*!/
 };
 export const store: StoreType = {
     _state: {
@@ -66,9 +69,9 @@ export const store: StoreType = {
     subscribe(observer: () => void) {
         this._onChangeState = observer;
     },
-  /*  dispatch(action) {
+  /!*  dispatch(action) {
         this._state.postsPage = profileReducer(this._state.postsPage, action);
         this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action)
         this._onChangeState();
-    },*/
-};
+    },*!/
+};*/

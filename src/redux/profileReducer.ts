@@ -1,4 +1,4 @@
-import {PostsPageType} from '../appTypes/types';
+import { PostType} from '../appTypes/types';
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_POST_MESSAGE = 'UPDATE-POST-MESSAGE';
@@ -30,11 +30,12 @@ const initialState = {
                 'Hi I\'m study in It-incubator. It\'s the best community in the world)',
             likeCount: 12,
         },
-    ],
+    ] as Array<PostType>,
     newPostText: '',
 }
+type ProfileInitialState = typeof initialState;
 
-export const profileReducer = (state: PostsPageType = initialState, action: ProfileReducerActionType): PostsPageType => {
+export const profileReducer = (state: ProfileInitialState = initialState, action: ProfileReducerActionType): ProfileInitialState => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {

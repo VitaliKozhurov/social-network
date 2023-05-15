@@ -1,4 +1,4 @@
-import {DialogsPageType} from '../appTypes/types';
+import { MessagesType, UserType} from '../appTypes/types';
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
@@ -21,7 +21,7 @@ const initialState = {
     users: [
         {userId: '1', userName: 'Dimych'},
         {userId: '2', userName: 'Viktor'},
-    ],
+    ] as Array<UserType>,
     messages: {
         '1': [
             {
@@ -40,11 +40,13 @@ const initialState = {
                 message: 'Hello Im Viktor. I love native JS',
             },
         ],
-    },
+    } as { [key: string]: Array<MessagesType> },
     newMessageBody: '',
 }
 
-export const dialogReducer = (state: DialogsPageType = initialState, action: DialogsReducerActionType) => {
+type DialogsInitialState = typeof initialState;
+
+export const dialogReducer = (state: DialogsInitialState = initialState, action: DialogsReducerActionType): DialogsInitialState => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage = {

@@ -1,12 +1,11 @@
 import React from "react";
 import { Post } from "../../UI/Post/Post";
 import s from "./Posts.module.css";
-import {PostsType} from '../../../appTypes/types';
-
+import {PostType} from '../../../appTypes/types';
 
 type PostsPropsType = {
-    posts: PostsType;
-};
+    posts:Array<PostType>
+}
 
 export const Posts: React.FC<PostsPropsType> = ({ posts }) => {
     const myPosts = posts.map((post) => (

@@ -22,6 +22,7 @@ export const MessageCreator: FC<MessageCreatorPropsType> = ({
     };
 
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        console.log(e.currentTarget.value)
         updateText(e.currentTarget.value);
     };
 

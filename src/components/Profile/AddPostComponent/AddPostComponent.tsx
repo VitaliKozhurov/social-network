@@ -1,23 +1,22 @@
-import React, { FC } from "react";
-import s from "./PostCreator.module.css";
-import { MessageCreator } from "../../UI/MessageCreator/MessageCreator";
-import { ActionType } from "../../../redux/store";
+import React, {FC} from 'react';
+import s from './PostCreator.module.css';
+import {MessageCreator} from '../../UI/MessageCreator/MessageCreator';
 
 type AddPostPropsType = {
     title: string;
-    value: string;
     placeholder: string;
+    value: string;
     addPost: (value: string) => void;
     updatePost: (value: string) => void;
 };
 
 export const AddPostComponent: FC<AddPostPropsType> = ({
-    title,
-    placeholder,
-    addPost,
-    updatePost,
-    value,
-}) => {
+                                                           title,
+                                                           placeholder,
+                                                           addPost,
+                                                           updatePost,
+                                                           value,
+                                                       }) => {
     return (
         <>
             <div className={s.myPostBody}>
