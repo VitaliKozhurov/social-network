@@ -11,9 +11,17 @@
 }
 
 .btn:hover {
-    background-color: rgba(17, 17, 176, 0.87);
+    scale: 1.05;
+    background-color: rgb(0, 85, 255);
 }
 
 .btn:active {
     transform: translateX(3px) translateY(2px);
+}
+
+.btn:disabled {
+    transform: translateX(0px) translateY(0px);
+    opacity: 0.5;
+    scale: 1;
+    background-color: #07f;
 }
