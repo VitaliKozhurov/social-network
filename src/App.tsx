@@ -1,10 +1,7 @@
-import React from "react";
-import "./App.css";
-import { Header, NavBar, Profile, Footer } from "./components";
-import { Route, Routes } from "react-router-dom";
-import { EmptyChat } from "./components/UI/EmptyChat/EmptyChat";
-import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
-import { ChatContainer } from "./components/Dialogs/Chat/ChatContainer";
+import React from 'react';
+import './App.css';
+import {Header, NavBar, Profile, Footer, UsersContainer, EmptyChat, DialogsContainer, ChatContainer} from './components';
+import {Route, Routes} from 'react-router-dom';
 
 const App = () => {
     return (
@@ -17,8 +14,9 @@ const App = () => {
                         <Route path="/" element={<Profile />} />
                         <Route path="/message" element={<DialogsContainer />}>
                             <Route index element={<EmptyChat />} />
-                            <Route path={":id"} element={<ChatContainer />} />
+                            <Route path={':id'} element={<ChatContainer />} />
                         </Route>
+                        <Route path="/users" element={<UsersContainer />} />
                     </Routes>
                 </main>
             </div>

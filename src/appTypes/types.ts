@@ -15,3 +15,16 @@ export type MessagesType = {
     message: string;
 };
 
+// Users Page
+export type UserPageType = {
+    id: number
+    photoUrl:string
+    fullName: string
+    status: string
+    followed:boolean
+    location:{
+        city:string
+        country:string
+    },
+}
+

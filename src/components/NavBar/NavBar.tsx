@@ -14,9 +14,10 @@ type LinkType = {
 const initLinkList = [
     { id: 1, url: "/", title: "Profile" },
     { id: 2, url: "/message", title: "Message" },
-    { id: 3, url: "/news", title: "News" },
-    { id: 4, url: "/music", title: "Music" },
-    { id: 5, url: "/settings", title: "Settings" },
+    { id: 3, url: "/users", title: "Users" },
+    { id: 4, url: "/news", title: "News" },
+    { id: 5, url: "/music", title: "Music" },
+    { id: 6, url: "/settings", title: "Settings" },
 ];
 
 export const NavBar: React.FC = () => {

@@ -3,3 +3,7 @@ export {NavBar} from './NavBar/NavBar';
 export {Profile} from './Profile/Profile';
 export {Footer} from './Footer/Footer';
 export {Dialogs} from './Dialogs/Dialogs';
+export {UsersContainer} from './Users/UsersContainer';
+export {EmptyChat} from './UI/EmptyChat/EmptyChat';
+export {DialogsContainer} from './Dialogs/DialogsContainer';
+export {ChatContainer} from './Dialogs/Chat/ChatContainer';
