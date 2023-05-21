@@ -1,6 +1,8 @@
 import React, {FC} from 'react';
 import {UserPageType} from '../../appTypes/types';
-import s from './Users.module.css'
+import s from './Users.module.css';
+import avatar from '../../assets/image/userWithoutAvatar.webp';
+import axios from 'axios';
 
 type UsersPropsType = {
     users: Array<UserPageType>
@@ -10,7 +12,7 @@ type UsersPropsType = {
 }
 
 export const Users: FC<UsersPropsType> = ({users, followUser, unfollowUser, setUsers}) => {
-    !users.length && setUsers([
+    /*!users.length && setUsers([
         {
             id: 1,
             photoUrl: 'https://img.freepik.com/premium-vector/silhouette-japanese-samurai-warrior-with-sword-standing-sunset-art-print_194708-1868.jpg?w=2000',
@@ -44,7 +46,11 @@ export const Users: FC<UsersPropsType> = ({users, followUser, unfollowUser, setU
                 country: 'Ukraine'
             },
         }
-    ])
+    ])*/
+    if (!users.length) {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => setUsers(response.data.items))
+    }
 
 
     const usersList = users.map(user => {
@@ -55,13 +61,11 @@ export const Users: FC<UsersPropsType> = ({users, followUser, unfollowUser, setU
 
         return (
             <div key={user.id}>
-                <h3>{user.fullName}</h3>
+                <h3>{user.name}</h3>
                 <div className={s.avatar}>
-                    <img src={user.photoUrl} alt="Avatar" />
+                    {user.photos.small? <img src={user.photos.small} alt="Avatar" />:<img src={avatar} alt="Avatar" />}
                 </div>
                 <p>{user.status}</p>
-                <p>Страна: {user.location.country}</p>
-                <p>Город: {user.location.city}</p>
                 <button onClick={onFollowButtonHandler}>{user.followed ? 'Unfollow' : 'Follow'}</button>
             </div>
         )

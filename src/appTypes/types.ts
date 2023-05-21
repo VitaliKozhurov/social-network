@@ -18,13 +18,16 @@ export type MessagesType = {
 // Users Page
 export type UserPageType = {
     id: number
-    photoUrl:string
-    fullName: string
+    name: string
     status: string
-    followed:boolean
-    location:{
-        city:string
-        country:string
+    photos:{
+        small:null | string
+        large:null | string
+    }
+    followed: boolean
+    location: {
+        city: string
+        country: string
     },
 }
 
