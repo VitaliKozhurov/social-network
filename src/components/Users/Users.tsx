@@ -13,13 +13,14 @@ type UsersPropsType = {
 
 export class Users extends React.Component<UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
+    componentDidMount() {
+        console.log('did mount')
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => this.props.setUsers(response.data.items))
     }
 
     render() {
+        console.log('render')
         const {users, followUser, unfollowUser} = this.props;
         const usersList = users.map(user => {
             const onFollowButtonHandler = () => {
