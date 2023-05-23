@@ -3,25 +3,39 @@ import {UserPageType} from '../../appTypes/types';
 import s from './Users.module.css';
 import avatar from '../../assets/image/userWithoutAvatar.webp';
 import axios from 'axios';
+import {setTotalUsersCountAC} from '../../redux/userReducer';
 
 type UsersPropsType = {
     users: Array<UserPageType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     followUser: (userID: number) => void
     unfollowUser: (userID: number) => void
     setUsers: (users: Array<UserPageType>) => void
+    setCurrentPage: (pageID: number) => void
+    setTotalUsersCount: (count: number) => void
 }
 
 export class Users extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        console.log('did mount')
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChange = (pageNum: number) => {
+        this.props.setCurrentPage(pageNum);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`)
             .then(response => this.props.setUsers(response.data.items))
     }
 
     render() {
-        console.log('render')
-        const {users, followUser, unfollowUser} = this.props;
+        const {users, pageSize, totalUsersCount, currentPage, followUser, unfollowUser, setCurrentPage} = this.props;
+        console.log(currentPage)
         const usersList = users.map(user => {
             const onFollowButtonHandler = () => {
                 user.followed && unfollowUser(user.id);
@@ -41,10 +55,23 @@ export class Users extends React.Component<UsersPropsType> {
             )
         })
 
+        let pagesCount = Math.ceil(totalUsersCount / pageSize);
+        let pageArr = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pageArr.push(i)
+        }
         return (
             <>
                 <h2>Users list</h2>
                 {usersList}
+                <div>Pages count: {pagesCount}</div>
+                <div>
+                    {pageArr.map(elem => (
+                        <span key={elem} onClick={() => {
+                            this.onPageChange(elem)
+                        }}>{elem}</span>
+                    ))}
+                </div>
             </>
         )
     }

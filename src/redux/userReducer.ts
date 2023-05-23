@@ -3,6 +3,8 @@ import {UserPageType} from '../appTypes/types';
 const FOLLOW_USER = 'FOLLOW-USER';
 const UNFOLLOW_USER = 'UNFOLLOW-USER';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 
 export const followUserAC = (userID: number) => {
     return {
@@ -24,15 +26,31 @@ export const setUserAC = (newUsers: Array<UserPageType>) => {
         }
     } as const
 }
+export const setCurrentPageAC = (pageID: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload: {pageID}
+    } as const
+}
+export const setTotalUsersCountAC = (count: number) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT,
+        payload: {count}
+    } as const
+}
 
 export type UsersReducerActionType =
     ReturnType<typeof followUserAC>
     | ReturnType<typeof unfollowUserAC>
-    | ReturnType<typeof setUserAC>;
+    | ReturnType<typeof setUserAC>
+    | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalUsersCountAC>
 
 const initialState = {
     users: [] as Array<UserPageType>,
-
+    pageSize: 20,
+    totalUsersCount: 0,
+    currentPage: 1
 };
 
 type UsersInitialState = typeof initialState;
@@ -65,8 +83,15 @@ export const userReducer = (
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.payload.newUsers]
+                users: action.payload.newUsers
             };
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.payload.pageID};
+        case SET_TOTAL_USERS_COUNT:
+            return {
+                ...state,
+                totalUsersCount: action.payload.count
+            }
 
         default:
             return state;
