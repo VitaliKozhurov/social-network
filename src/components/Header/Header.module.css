@@ -1,16 +1,17 @@
 .header {
-    background: #f0f2f5;
+    background: #3644d9;
     margin-bottom: 20px;
+    padding: 10px 0;
 }
 
-.body{
+.body {
     height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
 }
@@ -21,25 +22,25 @@
     margin-right: 10px;
 }
 
-.headerTitle{
+.headerTitle {
     font-size: 22px;
-    color: #054d91;
+    color: #f4f7fc;
     font-weight: 700;
 }
 
-.loginField{
+.loginField {
     display: flex;
     align-items: center;
 }
 
-.loginField img{
+.loginField img {
     width: 50px;
     height: 50px;
     margin-left: 10px;
 }
 
-.loginLink{
+.loginLink {
     font-size: 18px;
-    color: #054d91;
+    color: #f4f7fc;
     font-weight: 700;
 }

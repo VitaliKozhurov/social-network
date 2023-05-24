@@ -1,11 +1,11 @@
 import React from "react";
 import { Post } from "../../UI/Post/Post";
 import s from "./Posts.module.css";
-import {PostType} from '../../../appTypes/types';
+import { PostType } from "../../../appTypes/types";
 
 type PostsPropsType = {
-    posts:Array<PostType>
-}
+    posts: Array<PostType>;
+};
 
 export const Posts: React.FC<PostsPropsType> = ({ posts }) => {
     const myPosts = posts.map((post) => (
@@ -19,7 +19,7 @@ export const Posts: React.FC<PostsPropsType> = ({ posts }) => {
 
     return (
         <div className={s.postsBody}>
-            <h3 className={s.title}>My Posts</h3>
+            <h3 className={s.title}>My stories</h3>
             {myPosts}
         </div>
     );
