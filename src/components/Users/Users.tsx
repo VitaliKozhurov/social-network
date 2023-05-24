@@ -83,7 +83,7 @@ export class Users extends React.Component<UsersPropsType> {
                 <h2>Users list</h2>
                 {usersList}
                 <div>Pages count: {pagesCount}</div>
-                <div>
+                {/*  <div>
                     {pageArr.map((elem) => (
                         <span
                             key={elem}
@@ -94,7 +94,7 @@ export class Users extends React.Component<UsersPropsType> {
                             {elem}
                         </span>
                     ))}
-                </div>
+                </div> */}
                 <Pagination
                     currentPage={currentPage}
                     paginationSize={7}

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import s from "./Pagination.module.css";
 
 type PaginationPropsType = {
     currentPage: number;
@@ -24,18 +25,28 @@ export const Pagination: FC<PaginationPropsType> = ({
     const disablePrev = currentPage === pageArray[0];
     const disableNext = currentPage === pageArray[pageArray.length - 1];
     return (
-        <div>
+        <div className={s.body}>
             <button
                 disabled={disablePrev}
                 onClick={() => onPageChange(currentPage - 1)}
             >
                 {"<"}
             </button>
-            {slicedArr.map((item) => (
-                <span key={item} onClick={() => onPageChange(item)}>
-                    {item}
-                </span>
-            ))}
+            {slicedArr.map((item) => {
+                const spanStyle =
+                    item === currentPage
+                        ? `${s.pageNumber} + ${s.activePage}`
+                        : s.pageNumber;
+                return (
+                    <span
+                        className={spanStyle}
+                        key={item}
+                        onClick={() => onPageChange(item)}
+                    >
+                        {item}
+                    </span>
+                );
+            })}
             <button
                 disabled={disableNext}
                 onClick={() => onPageChange(currentPage + 1)}
