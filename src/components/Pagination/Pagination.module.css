@@ -9,7 +9,7 @@
     justify-content: center;
     width: 50px;
     height: 50px;
-    border: 2px solid #1a2cb5;
+    border: 2px solid #07f;
     border-radius: 15px;
     margin: 0 10px;
     cursor: pointer;
@@ -17,11 +17,23 @@
 }
 
 .pageNumber.activePage {
-    background-color: #1a2cb5;
+    background-color: #07f;
     color: #fff;
 }
 
 .pageNumber:hover {
-    background-color: #1a2cb5;
+    background-color: #07f;
+    color: #fff;
+}
+.arrow{
+    font-size: 18px;
+    font-weight: 700;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #07f;
+    border-radius: 15px;
+}
+.arrow:hover{
+    background-color: #0077ff;
     color: #fff;
 }

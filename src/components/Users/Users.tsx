@@ -1,9 +1,9 @@
-import React from "react";
-import { UserPageType } from "../../appTypes/types";
-import s from "./Users.module.css";
-import avatar from "../../assets/image/samurai-user.png";
-import axios from "axios";
-import { Pagination } from "../Pagination/Pagination";
+import React from 'react';
+import {UserPageType} from '../../appTypes/types';
+import s from './Users.module.css';
+import axios from 'axios';
+import {Pagination} from '../Pagination/Pagination';
+import {UserCard} from './UserCard/UserCard';
 
 type UsersPropsType = {
     users: Array<UserPageType>;
@@ -56,21 +56,8 @@ export class Users extends React.Component<UsersPropsType> {
             };
 
             return (
-                <div key={user.id}>
-                    <h3>{user.name}</h3>
-                    <div className={s.avatar}>
-                        {user.photos.small ? (
-                            <img src={user.photos.small} alt="Avatar" />
-                        ) : (
-                            <img src={avatar} alt="Avatar" />
-                        )}
-                    </div>
-                    <p>{user.status}</p>
-                    <button onClick={onFollowButtonHandler}>
-                        {user.followed ? "Unfollow" : "Follow"}
-                    </button>
-                </div>
-            );
+                <UserCard name={user.name} photo={user.photos.small} status={user.status} followed={user.followed}
+                          onFollowButtonHandler={onFollowButtonHandler} />);
         });
 
         let pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -80,21 +67,7 @@ export class Users extends React.Component<UsersPropsType> {
         }
         return (
             <>
-                <h2>Users list</h2>
-                {usersList}
-                <div>Pages count: {pagesCount}</div>
-                {/*  <div>
-                    {pageArr.map((elem) => (
-                        <span
-                            key={elem}
-                            onClick={() => {
-                                this.onPageChange(elem);
-                            }}
-                        >
-                            {elem}
-                        </span>
-                    ))}
-                </div> */}
+                <div className={s.usersBody}>{usersList}</div>
                 <Pagination
                     currentPage={currentPage}
                     paginationSize={7}

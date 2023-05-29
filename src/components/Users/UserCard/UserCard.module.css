@@ -1,0 +1,73 @@
+.userBody {
+    flex: 0 1 40%;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 8px 10px 0 rgba(183, 192, 206, 0.1);
+    margin-bottom: 25px;
+}
+
+.cardBG {
+    height: 120px;
+    position: relative;
+
+}
+
+.cardBG img {
+    width: 100%;
+    height: inherit;
+    object-fit: cover;
+}
+
+.avatar {
+    position: absolute;
+    left:40px;
+    bottom: 0;
+    transform: translateY(60%);
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    border: solid 2px #054d91;
+    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+    background-color: #dbddbb;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.userName{
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    padding-right: 60px;
+    margin: 30px 0;
+}
+.status{
+    flex: inherit;
+     margin: 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.btnStyle{
+    background-color: #F4F7FC;
+    border: 1px solid #d9dfe6;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #727578;
+    width: 200px;
+    margin: 0 auto 30px;
+}
+.btnStyle:hover{
+    background-color: #F4F7FC;
+}

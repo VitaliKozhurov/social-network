@@ -5,16 +5,20 @@ type SuperButtonPropsType = {
     title: string;
     disabled?: boolean;
     callback: () => void;
+    style?:string
 };
 
 export const SuperButton: FC<SuperButtonPropsType> = ({
     title,
     disabled,
     callback,
+    style,
 }) => {
+    const btnStyle = style?s.btn+' '+style:s.btn
+
     return (
         <>
-            <button className={s.btn} disabled={disabled} onClick={callback}>
+            <button className={btnStyle} disabled={disabled} onClick={callback}>
                 {title}
             </button>
         </>
