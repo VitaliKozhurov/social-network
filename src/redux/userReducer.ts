@@ -1,19 +1,19 @@
 import {UserPageType} from '../appTypes/types';
 
 export const usersActions = {
-    followUserAC: (userID: number) => {
+    followUser: (userID: number) => {
         return {
             type: 'FOLLOW-USER',
             payload: {userID},
         } as const;
     },
-    unfollowUserAC: (userID: number) => {
+    unfollowUser: (userID: number) => {
         return {
             type: 'UNFOLLOW-USER',
             payload: {userID},
         } as const;
     },
-    setUserAC: (newUsers: Array<UserPageType>) => {
+    setUsers: (newUsers: Array<UserPageType>) => {
         return {
             type: 'SET-USERS',
             payload: {
@@ -21,13 +21,13 @@ export const usersActions = {
             },
         } as const;
     },
-    setCurrentPageAC: (pageID: number) => {
+    setCurrentPage: (pageID: number) => {
         return {
             type: 'SET-CURRENT-PAGE',
             payload: {pageID},
         } as const;
     },
-    setTotalUsersCountAC: (count: number) => {
+    setTotalUsersCount: (count: number) => {
         return {
             type: 'SET-TOTAL-USERS-COUNT',
             payload: {count},
