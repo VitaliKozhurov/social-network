@@ -1,39 +1,44 @@
-import { PostType } from "../appTypes/types";
+import {InferActionsType, PostType} from '../appTypes/types';
 
-const ADD_POST = "ADD-POST";
-const UPDATE_POST_MESSAGE = "UPDATE-POST-MESSAGE";
+export const profileActions = {
+    addPost: (value: string) => {
+        return {
+            type: 'ADD-POST',
+            payload: value,
+        } as const;
+    },
+    updatePost: (value: string) => {
+        return {
+            type: 'UPDATE-POST-MESSAGE',
+            payload: value,
+        } as const;
+    },
+    setUserProfile: (profile: any) => {
+        return {
+            type: 'SET-USER-PROFILE',
+            payload: {profile}
+        } as const
+    }
+}
 
-export const addPostAC = (value: string) => {
-    return {
-        type: ADD_POST,
-        payload: value,
-    } as const;
-};
-export const updatePostAC = (value: string) => {
-    return {
-        type: UPDATE_POST_MESSAGE,
-        payload: value,
-    } as const;
-};
-export type ProfileReducerActionType =
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof updatePostAC>;
+export type ProfileReducerActionType = InferActionsType<typeof profileActions>
 
 const initialState = {
+    profile: null,
     posts: [
         {
             id: 1,
-            message: "Hello my friend! How are you?",
+            message: 'Hello my friend! How are you?',
             likeCount: 5,
         },
         {
             id: 2,
             message:
-                "Hi I'm study in It-incubator. It's the best community in the world)",
+                'Hi I\'m study in It-incubator. It\'s the best community in the world)',
             likeCount: 12,
         },
     ] as Array<PostType>,
-    newPostText: "",
+    newPostText: '',
 };
 type ProfileInitialState = typeof initialState;
 
@@ -42,7 +47,7 @@ export const profileReducer = (
     action: ProfileReducerActionType
 ): ProfileInitialState => {
     switch (action.type) {
-        case ADD_POST:
+        case 'ADD-POST':
             const newPost = {
                 id: state.posts.length + 1,
                 message: action.payload,
@@ -51,11 +56,12 @@ export const profileReducer = (
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: "",
+                newPostText: '',
             };
-
-        case UPDATE_POST_MESSAGE:
-            return { ...state, newPostText: action.payload };
+        case 'UPDATE-POST-MESSAGE':
+            return {...state, newPostText: action.payload};
+        case 'SET-USER-PROFILE':
+            return {...state, profile: action.payload.profile}
 
         default:
             return state;

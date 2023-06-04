@@ -2,11 +2,11 @@ import React from 'react';
 import {UserPageType} from '../../appTypes/types';
 import {AppStateType} from '../../redux/redux-store';
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
 import {usersActions} from '../../redux/userReducer';
 import axios from 'axios';
 import {Users} from './Users';
 import {Preloader} from '../UI/Preloader/Preloader';
+
 
 type MapStatePropsType = {
     users: Array<UserPageType>;
@@ -15,9 +15,6 @@ type MapStatePropsType = {
     currentPage: number;
     isFetching: boolean
 };
-
-type UsersPropsType = MapStatePropsType & typeof usersActions;
-
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
@@ -27,6 +24,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         isFetching: state.usersPage.isFetching
     };
 };
+
+type UsersPropsType = MapStatePropsType & typeof usersActions;
 
 class UsersAPI extends React.Component<UsersPropsType> {
     componentDidMount() {
@@ -69,7 +68,4 @@ class UsersAPI extends React.Component<UsersPropsType> {
     }
 }
 
-export const UsersContainer = connect(
-    mapStateToProps,
-    {...usersActions}
-)(UsersAPI);
+export const UsersContainer = connect(mapStateToProps, {...usersActions})(UsersAPI);

@@ -9,7 +9,7 @@ type MapStatePropsType = {
 // Функция, которая возвращает необходимые компоненте данные из стейта
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        posts: state.postsPage.posts
+        posts: state.profilePage.posts
     }
 }
 

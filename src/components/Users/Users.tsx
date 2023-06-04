@@ -38,6 +38,7 @@ export const Users: FC<UsersPropsType> = ({
         return (
             <UserCard
                 key={user.id}
+                userID={user.id}
                 name={user.name}
                 photo={user.photos.small}
                 status={user.status}

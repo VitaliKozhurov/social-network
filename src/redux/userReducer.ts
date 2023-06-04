@@ -1,5 +1,6 @@
-import {UserPageType} from '../appTypes/types';
+import {InferActionsType, UserPageType} from '../appTypes/types';
 
+// Объект action creators
 export const usersActions = {
     followUser: (userID: number) => {
         return {
@@ -40,12 +41,6 @@ export const usersActions = {
         } as const;
     }
 };
-
-type UsersReducerActionType<T> = T extends { [key: string]: infer U }
-    ? U
-    : never;
-
-type InferActionsType<T extends { [key: string]: (...args: Array<any>) => any }> = ReturnType<UsersReducerActionType<T>>;
 
 const initialState = {
     users: [] as Array<UserPageType>,

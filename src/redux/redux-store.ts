@@ -5,9 +5,9 @@ import {userReducer} from './userReducer';
 
 const rootReducer = combineReducers(
     {
-        postsPage:profileReducer,
-        dialogsPage:dialogReducer,
-        usersPage:userReducer
+        profilePage: profileReducer,
+        dialogsPage: dialogReducer,
+        usersPage: userReducer
     }
 )
 // Типизация стейта всего приложения
