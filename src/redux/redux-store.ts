@@ -11,7 +11,7 @@ const rootReducer = combineReducers(
     }
 )
 // Типизация стейта всего приложения
-export type AppStateType = ReturnType<typeof rootReducer>
+export type AppStateType = ReturnType<typeof rootReducer>;
 // Стор приложения
 export const store = createStore(rootReducer);
 // Типизация Стора приложения
