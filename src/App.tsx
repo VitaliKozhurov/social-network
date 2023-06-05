@@ -21,7 +21,7 @@ const App = () => {
                 <main className="content">
                     <Routes>
                         <Route
-                            path="/profile/*"
+                            path="/profile/:id?"
                             element={<ProfileContainer />}
                         />
 
