@@ -1,20 +1,24 @@
-import React from 'react';
-import {Profile} from './Profile';
-import axios from 'axios';
-import {connect} from 'react-redux';
-import {profileActions} from '../../redux/profileReducer';
-import {AppStateType} from '../../redux/redux-store';
+import React from "react";
+import { Profile } from "./Profile";
+import axios from "axios";
+import { connect } from "react-redux";
+import { profileActions } from "../../redux/profileReducer";
+import { AppStateType } from "../../redux/redux-store";
+import { UserProfileType } from "../../appTypes/types";
 
-type ProfileContainerType = MapStateToPropsType & typeof profileActions;
+type ProfileContainerType = MapStateToPropsType & typeof profileContainerAction;
+
+const profileContainerAction = {
+    setUserProfile: profileActions.setUserProfile,
+};
 
 class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
         axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/2`
-            )
+            .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then((response) => {
-                this.props.setUserProfile(response.data)
+                console.log(response);
+                this.props.setUserProfile(response.data);
             });
     }
 
@@ -23,23 +27,21 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
             <>
                 <Profile profile={this.props.profile} />
             </>
-        )
+        );
     }
 }
 
-type MapStateToPropsType = any
+type MapStateToPropsType = {
+    profile: UserProfileType;
+};
 
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    profile: state.profilePage.profile,
+});
 
-const mapStateToProps = (state: AppStateType) => (
-    {
-        profile: state.profilePage.profile
-    }
-)
-
-export default connect(mapStateToProps, {...profileActions})(ProfileContainer)
-
-
-
-
-
-
+export default connect<
+    MapStateToPropsType,
+    typeof profileContainerAction,
+    {},
+    AppStateType
+>(mapStateToProps, { ...profileContainerAction })(ProfileContainer);

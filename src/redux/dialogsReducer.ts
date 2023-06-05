@@ -1,23 +1,19 @@
-import { MessagesType, UserType } from "../appTypes/types";
+import { InferActionsType, MessagesType, UserType } from "../appTypes/types";
 
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_MESSAGE = "UPDATE-MESSAGE";
-
-export const addMessageAC = (value: string, id: string) => {
-    return {
-        type: ADD_MESSAGE,
-        payload: { value: value, id: id },
-    } as const;
+export const dialogsActions = {
+    addMessage: (value: string, id: string) => {
+        return {
+            type: "ADD-MESSAGE",
+            payload: { value: value, id: id },
+        } as const;
+    },
+    updateMessage: (value: string) => {
+        return {
+            type: "UPDATE-MESSAGE",
+            payload: { value },
+        } as const;
+    },
 };
-export const updateMessageAC = (value: string) => {
-    return {
-        type: UPDATE_MESSAGE,
-        payload: { value },
-    } as const;
-};
-export type DialogsReducerActionType =
-    | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof updateMessageAC>;
 
 const initialState = {
     users: [
@@ -47,7 +43,7 @@ const initialState = {
 };
 
 type DialogsInitialState = typeof initialState;
-
+type DialogsReducerActionType = InferActionsType<typeof dialogsActions>;
 export const dialogReducer = (
     state: DialogsInitialState = initialState,
     action: DialogsReducerActionType

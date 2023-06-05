@@ -17,20 +17,45 @@ export type MessagesType = {
 
 // Users Page
 export type UserPageType = {
-    id: number
-    name: string
-    status: string
-    photos:{
-        small:null | string
-        large:null | string
-    }
-    followed: boolean
+    id: number;
+    name: string;
+    status: string;
+    photos: {
+        small: null | string;
+        large: null | string;
+    };
+    followed: boolean;
     location: {
-        city: string
-        country: string
-    },
-}
+        city: string;
+        country: string;
+    };
+};
 
+// Profile Page
+
+export type UserProfileType = {
+    userId: number;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    contacts: ContactsProfileType;
+    photos: {
+        small: null | string;
+        large: null | string;
+    };
+    small: string;
+};
+
+type ContactsProfileType = {
+    github: string;
+    vk: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    website: string;
+    youtube: string;
+    mainLink: string;
+};
 
 // actions creators object types
 
@@ -38,4 +63,6 @@ type UsersReducerActionType<T> = T extends { [key: string]: infer U }
     ? U
     : never;
 
-export type InferActionsType<T extends { [key: string]: (...args: Array<any>) => any }> = ReturnType<UsersReducerActionType<T>>;
+export type InferActionsType<
+    T extends { [key: string]: (...args: Array<any>) => any }
+> = ReturnType<UsersReducerActionType<T>>;

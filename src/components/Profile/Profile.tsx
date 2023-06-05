@@ -1,14 +1,13 @@
-import React, {FC} from 'react';
-import s from './Profile.module.css';
-import {UserProfile} from './UserProfile/UserProfile';
-import {AddPostContainer} from './AddPostComponent/AddPostContainer';
-import {PostsContainer} from './Posts/PostsContainer';
+import React, { FC } from "react";
+import s from "./Profile.module.css";
+import { UserProfile } from "./UserProfile/UserProfile";
+import { AddPostContainer } from "./AddPostComponent/AddPostContainer";
+import { PostsContainer } from "./Posts/PostsContainer";
+import { UserProfileType } from "../../appTypes/types";
 
-type ProfilePropsType = { profile: any }
+type ProfilePropsType = { profile: UserProfileType };
 
-
-export const Profile: FC<ProfilePropsType> = ({profile}) => {
-
+export const Profile: FC<ProfilePropsType> = ({ profile }) => {
     return (
         <div>
             <div className={s.bgBody}>
