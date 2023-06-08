@@ -1,9 +1,24 @@
-import React from "react";
-import s from "./Header.module.css";
-import logo from "../../assets/image/logo.svg";
-import login from "../../assets/image/logIn.svg";
+import React from 'react';
+import s from './Header.module.css';
+import logo from '../../assets/image/logo.svg';
+import logIn from '../../assets/image/logIn.svg';
+import logOut from '../../assets/image/logOut.svg';
+import {NavLink} from 'react-router-dom';
 
-export const Header: React.FC = () => {
+type AuthData = {
+    userID: string
+    email: string
+    login: string
+}
+
+type HeaderPropsType = {
+    isAuth: boolean
+    login: string | null
+    setAuthUserData: (data: AuthData) => void
+}
+
+
+export const Header: React.FC<HeaderPropsType> = ({isAuth, login, setAuthUserData}) => {
     return (
         <header className={s.header}>
             <div className="container">
@@ -13,10 +28,22 @@ export const Header: React.FC = () => {
                         <h1 className={s.headerTitle}>React SN</h1>
                     </div>
                     <div className={s.loginField}>
-                        <a href="#" className={s.loginLink}>
-                            LogIn
-                        </a>
-                        <img src={login} alt="Login logo" />
+                        {
+                            isAuth
+                                ? <>
+                                    <span className={s.loginLink}>
+                                        {login}
+                                    </span>
+                                    <img src={logOut} alt="Login logo" />
+                                </>
+                                : <>
+                                    <NavLink to={'/login'} className={s.loginLink}>
+                                        LogIn
+                                    </NavLink>
+                                    <img src={logIn} alt="Login logo" />
+                                </>
+                        }
+
                     </div>
                 </div>
             </div>

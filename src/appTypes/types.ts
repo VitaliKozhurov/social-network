@@ -59,10 +59,10 @@ type ContactsProfileType = {
 
 // actions creators object types
 
-type UsersReducerActionType<T> = T extends { [key: string]: infer U }
+type ReducerActionType<T> = T extends { [key: string]: infer U }
     ? U
     : never;
 
 export type InferActionsType<
     T extends { [key: string]: (...args: Array<any>) => any }
-> = ReturnType<UsersReducerActionType<T>>;
+> = ReturnType<ReducerActionType<T>>;
