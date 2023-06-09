@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { UserCard } from "./UserCard/UserCard";
-import { UserPageType } from "../../appTypes/types";
-import s from "./Users.module.css";
-import { Pagination } from "../Pagination/Pagination";
-import { followAPI } from "../../api/api";
+import React, {FC} from 'react';
+import {UserCard} from './UserCard/UserCard';
+import {UserPageType} from '../../appTypes/types';
+import s from './Users.module.css';
+import {Pagination} from '../Pagination/Pagination';
+import {followAPI} from '../../api/api';
 
 type UsersPropsType = {
     users: Array<UserPageType>;
@@ -14,21 +14,20 @@ type UsersPropsType = {
     onPageChange: (page: number) => void;
     followUser: (userID: number) => void;
     unfollowUser: (userID: number) => void;
-    changeFollowingStatus: (usersArray: Array<number>) => void;
+    changeFollowingStatus: (fetchFollow: boolean, idFollowingUser: number) => void;
 };
 
 export const Users: FC<UsersPropsType> = ({
-    users,
-    totalUsersCount,
-    pageSize,
-    currentPage,
-    followingInProgress,
-    onPageChange,
-    followUser,
-    unfollowUser,
-    changeFollowingStatus,
-}) => {
-    console.log(followingInProgress);
+                                              users,
+                                              totalUsersCount,
+                                              pageSize,
+                                              currentPage,
+                                              followingInProgress,
+                                              onPageChange,
+                                              followUser,
+                                              unfollowUser,
+                                              changeFollowingStatus,
+                                          }) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pageArr = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -37,33 +36,25 @@ export const Users: FC<UsersPropsType> = ({
 
     const usersList = users.map((user) => {
         const onFollowButtonHandler = () => {
-            changeFollowingStatus([...followingInProgress, user.id]);
+            changeFollowingStatus(true, user.id);
             if (!user.followed) {
                 followAPI
                     .setFollow(user.id)
                     .then((data) => {
                         if (data.resultCode === 0) {
                             followUser(user.id);
+                            changeFollowingStatus(false, user.id)
                         }
                     })
-                    .finally(() =>
-                        changeFollowingStatus(
-                            followingInProgress.filter((num) => num !== user.id)
-                        )
-                    );
             } else {
                 followAPI
                     .setUnFollow(user.id)
                     .then((data) => {
                         if (data.resultCode === 0) {
                             unfollowUser(user.id);
+                            changeFollowingStatus(false, user.id)
                         }
                     })
-                    .finally(() =>
-                        changeFollowingStatus(
-                            followingInProgress.filter((num) => num !== user.id)
-                        )
-                    );
             }
         };
         return (

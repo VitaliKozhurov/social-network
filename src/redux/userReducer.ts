@@ -1,22 +1,22 @@
-import { InferActionsType, UserPageType } from "../appTypes/types";
+import {InferActionsType, UserPageType} from '../appTypes/types';
 
 // Объект action creators
 export const usersActions = {
     followUser: (userID: number) => {
         return {
-            type: "FOLLOW-USER",
-            payload: { userID },
+            type: 'FOLLOW-USER',
+            payload: {userID},
         } as const;
     },
     unfollowUser: (userID: number) => {
         return {
-            type: "UNFOLLOW-USER",
-            payload: { userID },
+            type: 'UNFOLLOW-USER',
+            payload: {userID},
         } as const;
     },
     setUsers: (newUsers: Array<UserPageType>) => {
         return {
-            type: "SET-USERS",
+            type: 'SET-USERS',
             payload: {
                 newUsers,
             },
@@ -24,26 +24,26 @@ export const usersActions = {
     },
     setCurrentPage: (pageID: number) => {
         return {
-            type: "SET-CURRENT-PAGE",
-            payload: { pageID },
+            type: 'SET-CURRENT-PAGE',
+            payload: {pageID},
         } as const;
     },
     setTotalUsersCount: (count: number) => {
         return {
-            type: "SET-TOTAL-USERS-COUNT",
-            payload: { count },
+            type: 'SET-TOTAL-USERS-COUNT',
+            payload: {count},
         } as const;
     },
     toggleIsFetching: (value: boolean) => {
         return {
-            type: "TOGGLE-IS-FETCHING",
-            payload: { value },
+            type: 'TOGGLE-IS-FETCHING',
+            payload: {value},
         } as const;
     },
-    changeFollowingStatus: (followingUserID: Array<number>) => {
+    changeFollowingStatus: (fetchFollow: boolean, idFollowingUser: number) => {
         return {
-            type: "CHANGE-FOLLOWING-STATUS",
-            payload: { followingUserID },
+            type: 'CHANGE-FOLLOWING-STATUS',
+            payload: {fetchFollow, idFollowingUser},
         } as const;
     },
 };
@@ -73,51 +73,53 @@ export const userReducer = (
     action: InferActionsType<typeof usersActions>
 ): UsersIntitialStateType => {
     switch (action.type) {
-        case "FOLLOW-USER":
+        case 'FOLLOW-USER':
             return {
                 ...state,
                 users: state.users.map((user) =>
                     user.id === action.payload.userID
                         ? {
-                              ...user,
-                              followed: true,
-                          }
+                            ...user,
+                            followed: true,
+                        }
                         : user
                 ),
             };
-        case "UNFOLLOW-USER":
+        case 'UNFOLLOW-USER':
             return {
                 ...state,
                 users: state.users.map((user) =>
                     user.id === action.payload.userID
                         ? {
-                              ...user,
-                              followed: false,
-                          }
+                            ...user,
+                            followed: false,
+                        }
                         : user
                 ),
             };
-        case "SET-USERS":
+        case 'SET-USERS':
             return {
                 ...state,
                 users: action.payload.newUsers,
             };
-        case "SET-CURRENT-PAGE":
-            return { ...state, currentPage: action.payload.pageID };
-        case "SET-TOTAL-USERS-COUNT":
+        case 'SET-CURRENT-PAGE':
+            return {...state, currentPage: action.payload.pageID};
+        case 'SET-TOTAL-USERS-COUNT':
             return {
                 ...state,
                 totalUsersCount: action.payload.count,
             };
-        case "TOGGLE-IS-FETCHING":
+        case 'TOGGLE-IS-FETCHING':
             return {
                 ...state,
                 isFetching: action.payload.value,
             };
-        case "CHANGE-FOLLOWING-STATUS":
+        case 'CHANGE-FOLLOWING-STATUS':
             return {
                 ...state,
-                followingInProgress: action.payload.followingUserID,
+                followingInProgress: action.payload.fetchFollow
+                    ? [...state.followingInProgress, action.payload.idFollowingUser]
+                    : state.followingInProgress.filter(userID => userID !== action.payload.idFollowingUser)
             };
         default:
             return state;
