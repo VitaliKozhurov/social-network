@@ -3,7 +3,6 @@ import { UserCard } from "./UserCard/UserCard";
 import { UserPageType } from "../../appTypes/types";
 import s from "./Users.module.css";
 import { Pagination } from "../Pagination/Pagination";
-import axios from "axios";
 import { followAPI } from "../../api/api";
 
 type UsersPropsType = {
@@ -11,9 +10,11 @@ type UsersPropsType = {
     totalUsersCount: number;
     pageSize: number;
     currentPage: number;
+    followingInProgress: Array<number>;
     onPageChange: (page: number) => void;
     followUser: (userID: number) => void;
     unfollowUser: (userID: number) => void;
+    changeFollowingStatus: (usersArray: Array<number>) => void;
 };
 
 export const Users: FC<UsersPropsType> = ({
@@ -21,10 +22,13 @@ export const Users: FC<UsersPropsType> = ({
     totalUsersCount,
     pageSize,
     currentPage,
+    followingInProgress,
     onPageChange,
     followUser,
     unfollowUser,
+    changeFollowingStatus,
 }) => {
+    console.log(followingInProgress);
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pageArr = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -33,18 +37,33 @@ export const Users: FC<UsersPropsType> = ({
 
     const usersList = users.map((user) => {
         const onFollowButtonHandler = () => {
+            changeFollowingStatus([...followingInProgress, user.id]);
             if (!user.followed) {
-                followAPI.setFollow(user.id).then((data) => {
-                    if (data.resultCode === 0) {
-                        followUser(user.id);
-                    }
-                });
+                followAPI
+                    .setFollow(user.id)
+                    .then((data) => {
+                        if (data.resultCode === 0) {
+                            followUser(user.id);
+                        }
+                    })
+                    .finally(() =>
+                        changeFollowingStatus(
+                            followingInProgress.filter((num) => num !== user.id)
+                        )
+                    );
             } else {
-                followAPI.setUnFollow(user.id).then((data) => {
-                    if (data.resultCode === 0) {
-                        unfollowUser(user.id);
-                    }
-                });
+                followAPI
+                    .setUnFollow(user.id)
+                    .then((data) => {
+                        if (data.resultCode === 0) {
+                            unfollowUser(user.id);
+                        }
+                    })
+                    .finally(() =>
+                        changeFollowingStatus(
+                            followingInProgress.filter((num) => num !== user.id)
+                        )
+                    );
             }
         };
         return (
@@ -55,6 +74,7 @@ export const Users: FC<UsersPropsType> = ({
                 photo={user.photos.small}
                 status={user.status}
                 followed={user.followed}
+                disabledBtn={followingInProgress.includes(user.id)}
                 onFollowButtonHandler={onFollowButtonHandler}
             />
         );

@@ -13,6 +13,7 @@ type MapStatePropsType = {
     totalUsersCount: number;
     currentPage: number;
     isFetching: boolean;
+    followingInProgress: Array<number>;
 };
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
@@ -21,6 +22,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     };
 };
 
