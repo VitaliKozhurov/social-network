@@ -1,29 +1,30 @@
-import React, {FC} from 'react';
-import {UserCard} from './UserCard/UserCard';
-import {UserPageType} from '../../appTypes/types';
-import s from './Users.module.css';
-import {Pagination} from '../Pagination/Pagination';
+import React, { FC } from "react";
+import { UserCard } from "./UserCard/UserCard";
+import { UserPageType } from "../../appTypes/types";
+import s from "./Users.module.css";
+import { Pagination } from "../Pagination/Pagination";
+import axios from "axios";
+import { followAPI } from "../../api/api";
 
 type UsersPropsType = {
-    users: Array<UserPageType>
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChange: (page: number) => void
-    followUser: (userID: number) => void
-    unfollowUser: (userID: number) => void
-}
+    users: Array<UserPageType>;
+    totalUsersCount: number;
+    pageSize: number;
+    currentPage: number;
+    onPageChange: (page: number) => void;
+    followUser: (userID: number) => void;
+    unfollowUser: (userID: number) => void;
+};
 
 export const Users: FC<UsersPropsType> = ({
-                                              users,
-                                              totalUsersCount,
-                                              pageSize,
-                                              currentPage,
-                                              onPageChange,
-                                              followUser,
-                                              unfollowUser
-                                          }) => {
-
+    users,
+    totalUsersCount,
+    pageSize,
+    currentPage,
+    onPageChange,
+    followUser,
+    unfollowUser,
+}) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pageArr = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -32,8 +33,19 @@ export const Users: FC<UsersPropsType> = ({
 
     const usersList = users.map((user) => {
         const onFollowButtonHandler = () => {
-            user.followed && unfollowUser(user.id);
-            !user.followed && followUser(user.id);
+            if (!user.followed) {
+                followAPI.setFollow(user.id).then((data) => {
+                    if (data.resultCode === 0) {
+                        followUser(user.id);
+                    }
+                });
+            } else {
+                followAPI.setUnFollow(user.id).then((data) => {
+                    if (data.resultCode === 0) {
+                        unfollowUser(user.id);
+                    }
+                });
+            }
         };
         return (
             <UserCard
@@ -44,7 +56,8 @@ export const Users: FC<UsersPropsType> = ({
                 status={user.status}
                 followed={user.followed}
                 onFollowButtonHandler={onFollowButtonHandler}
-            />);
+            />
+        );
     });
 
     return (
@@ -57,5 +70,5 @@ export const Users: FC<UsersPropsType> = ({
                 onPageChange={onPageChange}
             />
         </>
-    )
+    );
 };

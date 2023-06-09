@@ -6,6 +6,7 @@ import { profileActions } from "../../redux/profileReducer";
 import { AppStateType } from "../../redux/redux-store";
 import { UserProfileType } from "../../appTypes/types";
 import { useParams } from "react-router-dom";
+import { profileAPI } from "../../api/api";
 
 const withRouter =
     (
@@ -30,31 +31,19 @@ class ProfileContainer extends React.Component<
     ProfileContainerType & UseParamsType
 > {
     componentDidMount() {
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/${
-                    this.props.paramsID
-                        ? this.props.paramsID
-                        : this.props.userID
-                }`
-            )
-            .then((response) => {
-                this.props.setUserProfile(response.data);
+        profileAPI
+            .getProfile(this.props.paramsID, this.props.userID)
+            .then((data) => {
+                this.props.setUserProfile(data);
             });
     }
 
     componentDidUpdate(prevProps: ProfileContainerType & UseParamsType): void {
         if (prevProps.paramsID !== this.props.paramsID) {
-            axios
-                .get(
-                    `https://social-network.samuraijs.com/api/1.0/profile/${
-                        this.props.paramsID
-                            ? this.props.paramsID
-                            : this.props.userID
-                    }`
-                )
-                .then((response) => {
-                    this.props.setUserProfile(response.data);
+            profileAPI
+                .getProfile(this.props.paramsID, this.props.userID)
+                .then((data) => {
+                    this.props.setUserProfile(data);
                 });
         }
     }
