@@ -1,24 +1,27 @@
-import React from 'react';
-import s from './Header.module.css';
-import logo from '../../assets/image/logo.svg';
-import logIn from '../../assets/image/logIn.svg';
-import logOut from '../../assets/image/logOut.svg';
-import {NavLink} from 'react-router-dom';
+import React from "react";
+import s from "./Header.module.css";
+import logo from "../../assets/image/logo.svg";
+import logIn from "../../assets/image/logIn.svg";
+import logOut from "../../assets/image/logOut.svg";
+import { NavLink } from "react-router-dom";
 
 type AuthData = {
-    userID: string
-    email: string
-    login: string
-}
+    userID: number;
+    email: string;
+    login: string;
+};
 
 type HeaderPropsType = {
-    isAuth: boolean
-    login: string | null
-    setAuthUserData: (data: AuthData) => void
-}
+    isAuth: boolean;
+    login: string;
+    setAuthUserData: (data: AuthData) => void;
+};
 
-
-export const Header: React.FC<HeaderPropsType> = ({isAuth, login, setAuthUserData}) => {
+export const Header: React.FC<HeaderPropsType> = ({
+    isAuth,
+    login,
+    setAuthUserData,
+}) => {
     return (
         <header className={s.header}>
             <div className="container">
@@ -28,22 +31,19 @@ export const Header: React.FC<HeaderPropsType> = ({isAuth, login, setAuthUserDat
                         <h1 className={s.headerTitle}>React SN</h1>
                     </div>
                     <div className={s.loginField}>
-                        {
-                            isAuth
-                                ? <>
-                                    <span className={s.loginLink}>
-                                        {login}
-                                    </span>
-                                    <img src={logOut} alt="Login logo" />
-                                </>
-                                : <>
-                                    <NavLink to={'/login'} className={s.loginLink}>
-                                        LogIn
-                                    </NavLink>
-                                    <img src={logIn} alt="Login logo" />
-                                </>
-                        }
-
+                        {isAuth ? (
+                            <>
+                                <span className={s.loginLink}>{login}</span>
+                                <img src={logOut} alt="Login logo" />
+                            </>
+                        ) : (
+                            <>
+                                <NavLink to={"/login"} className={s.loginLink}>
+                                    LogIn
+                                </NavLink>
+                                <img src={logIn} alt="Login logo" />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

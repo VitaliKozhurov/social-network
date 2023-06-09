@@ -33,7 +33,9 @@ class ProfileContainer extends React.Component<
         axios
             .get(
                 `https://social-network.samuraijs.com/api/1.0/profile/${
-                    this.props.paramsID ? this.props.paramsID : 2
+                    this.props.paramsID
+                        ? this.props.paramsID
+                        : this.props.userID
                 }`
             )
             .then((response) => {
@@ -41,7 +43,24 @@ class ProfileContainer extends React.Component<
             });
     }
 
+    componentDidUpdate(prevProps: ProfileContainerType & UseParamsType): void {
+        if (prevProps.paramsID !== this.props.paramsID) {
+            axios
+                .get(
+                    `https://social-network.samuraijs.com/api/1.0/profile/${
+                        this.props.paramsID
+                            ? this.props.paramsID
+                            : this.props.userID
+                    }`
+                )
+                .then((response) => {
+                    this.props.setUserProfile(response.data);
+                });
+        }
+    }
+
     render() {
+        console.log(this.props.paramsID);
         return (
             <>
                 <Profile profile={this.props.profile} />
@@ -52,10 +71,12 @@ class ProfileContainer extends React.Component<
 
 type MapStateToPropsType = {
     profile: UserProfileType;
+    userID: number;
 };
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
+    userID: state.auth.userID,
 });
 
 export default connect<
