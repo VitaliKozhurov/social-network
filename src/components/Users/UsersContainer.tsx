@@ -2,10 +2,19 @@ import React from "react";
 import { UserPageType } from "../../appTypes/types";
 import { AppStateType } from "../../redux/redux-store";
 import { connect } from "react-redux";
-import { usersActions } from "../../redux/userReducer";
 import { Users } from "./Users";
 import { Preloader } from "../UI/Preloader/Preloader";
 import { usersAPI } from "../../api/api";
+import { Dispatch } from "redux";
+import {
+    changeFollowingStatusAC,
+    followUserAC,
+    setCurrentPageAC,
+    setTotalUsersCountAC,
+    setUsersAC,
+    toggleIsFetchingAC,
+    unfollowUserAC,
+} from "../../redux/userReducer";
 
 type MapStatePropsType = {
     users: Array<UserPageType>;
@@ -26,7 +35,34 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     };
 };
 
-type UsersPropsType = MapStatePropsType & typeof usersActions;
+type MapDispatchToPropsType = {
+    followUser: (userID: number) => void;
+    unfollowUser: (userID: number) => void;
+    setUsers: (newUsers: Array<UserPageType>) => void;
+    setCurrentPage: (pageID: number) => void;
+    setTotalUsersCount: (count: number) => void;
+    toggleIsFetching: (value: boolean) => void;
+    changeFollowingStatus: (
+        fetchFollow: boolean,
+        idFollowingUser: number
+    ) => void;
+    /* getUsers:()=> */
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => ({
+    followUser: (userID: number) => dispatch(followUserAC(userID)),
+    unfollowUser: (userID: number) => dispatch(unfollowUserAC(userID)),
+    setUsers: (newUsers: Array<UserPageType>) => dispatch(setUsersAC(newUsers)),
+    setCurrentPage: (pageID: number) => dispatch(setCurrentPageAC(pageID)),
+    setTotalUsersCount: (count: number) =>
+        dispatch(setTotalUsersCountAC(count)),
+    toggleIsFetching: (value: boolean) => dispatch(toggleIsFetchingAC(value)),
+    changeFollowingStatus: (fetchFollow: boolean, idFollowingUser: number) =>
+        dispatch(changeFollowingStatusAC(fetchFollow, idFollowingUser)),
+    /*  getUsers:()=> */
+});
+
+type UsersPropsType = MapStatePropsType & MapDispatchToPropsType;
 
 class UsersAPI extends React.Component<UsersPropsType> {
     componentDidMount() {
@@ -72,7 +108,10 @@ class UsersAPI extends React.Component<UsersPropsType> {
 
 export const UsersContainer = connect<
     MapStatePropsType,
-    typeof usersActions,
+    MapDispatchToPropsType,
     {},
     AppStateType
->(mapStateToProps, { ...usersActions })(UsersAPI);
+>(
+    mapStateToProps,
+    mapDispatchToProps
+)(UsersAPI);

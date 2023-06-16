@@ -9,12 +9,12 @@ export const authActions = {
     },
 };
 
-type AuthInitialType = {
+/* type AuthInitialType = {
     userID: number;
     email: string;
     login: string;
     isAuth: boolean;
-};
+}; */
 let initialState = {
     userID: 0,
     email: "",
@@ -22,9 +22,11 @@ let initialState = {
     isAuth: false,
 };
 
+type AuthInitialType = typeof initialState;
+export type AuthReducerActionType = InferActionsType<typeof authActions>;
 export const authReducer = (
     state: AuthInitialType = initialState,
-    action: InferActionsType<typeof authActions>
+    action: AuthReducerActionType
 ): AuthInitialType => {
     switch (action.type) {
         case "SET-USER-DATA":

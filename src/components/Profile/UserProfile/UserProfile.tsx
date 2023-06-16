@@ -13,7 +13,11 @@ export const UserProfile: FC<UserProfilePropsType> = ({ profile }) => {
             <div className={s.avaBody}>
                 <img
                     className={s.avatar}
-                    src={profile.photos ? profile.photos.small : ava}
+                    src={
+                        profile.photos && profile.photos.small
+                            ? profile.photos.small
+                            : ava
+                    }
                     alt="User Avatar"
                 />
             </div>

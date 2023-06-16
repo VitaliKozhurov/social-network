@@ -43,7 +43,7 @@ const initialState = {
 };
 
 type DialogsInitialState = typeof initialState;
-type DialogsReducerActionType = InferActionsType<typeof dialogsActions>;
+export type DialogsReducerActionType = InferActionsType<typeof dialogsActions>;
 export const dialogReducer = (
     state: DialogsInitialState = initialState,
     action: DialogsReducerActionType
