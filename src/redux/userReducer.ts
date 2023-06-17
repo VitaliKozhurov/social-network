@@ -1,5 +1,5 @@
 import {InferActionsType, UserPageType} from '../appTypes/types';
-import {usersAPI} from '../api/api';
+import {followAPI, usersAPI} from '../api/api';
 import {AppThunk} from './redux-store';
 
 export const usersActions = {
@@ -137,4 +137,32 @@ export const getUsersTC =
                 dispatch(usersActions.setTotalUsersCount(data.totalCount));
                 dispatch(usersActions.toggleIsFetching(false));
             });
+        };
+
+export const followUserTC =
+    (userID: number): AppThunk =>
+        (dispatch) => {
+            dispatch(usersActions.changeFollowingStatus(true, userID))
+            followAPI
+                .setFollow(userID)
+                .then((data) => {
+                    if (data.resultCode === 0) {
+                        dispatch(usersActions.followUser(userID));
+                    }
+                    dispatch(usersActions.changeFollowingStatus(false, userID))
+                })
+        };
+
+export const unFollowUserTC =
+    (userID: number): AppThunk =>
+        (dispatch) => {
+            dispatch(usersActions.changeFollowingStatus(true, userID))
+            followAPI
+                .setUnFollow(userID)
+                .then((data) => {
+                    if (data.resultCode === 0) {
+                        dispatch(usersActions.unfollowUser(userID));
+                    }
+                    dispatch(usersActions.changeFollowingStatus(false, userID))
+                })
         };

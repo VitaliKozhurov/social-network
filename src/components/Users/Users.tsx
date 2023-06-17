@@ -3,7 +3,6 @@ import {UserCard} from './UserCard/UserCard';
 import {UserPageType} from '../../appTypes/types';
 import s from './Users.module.css';
 import {Pagination} from '../Pagination/Pagination';
-import {followAPI} from '../../api/api';
 
 type UsersPropsType = {
     users: Array<UserPageType>;
@@ -13,8 +12,7 @@ type UsersPropsType = {
     followingInProgress: Array<number>;
     onPageChange: (page: number) => void;
     followUser: (userID: number) => void;
-    unfollowUser: (userID: number) => void;
-    changeFollowingStatus: (fetchFollow: boolean, idFollowingUser: number) => void;
+    unFollowUser: (userID: number) => void;
 };
 
 export const Users: FC<UsersPropsType> = ({
@@ -25,8 +23,7 @@ export const Users: FC<UsersPropsType> = ({
                                               followingInProgress,
                                               onPageChange,
                                               followUser,
-                                              unfollowUser,
-                                              changeFollowingStatus,
+                                              unFollowUser,
                                           }) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pageArr = [];
@@ -36,25 +33,10 @@ export const Users: FC<UsersPropsType> = ({
 
     const usersList = users.map((user) => {
         const onFollowButtonHandler = () => {
-            changeFollowingStatus(true, user.id);
             if (!user.followed) {
-                followAPI
-                    .setFollow(user.id)
-                    .then((data) => {
-                        if (data.resultCode === 0) {
-                            followUser(user.id);
-                            changeFollowingStatus(false, user.id)
-                        }
-                    })
+                followUser(user.id)
             } else {
-                followAPI
-                    .setUnFollow(user.id)
-                    .then((data) => {
-                        if (data.resultCode === 0) {
-                            unfollowUser(user.id);
-                            changeFollowingStatus(false, user.id)
-                        }
-                    })
+                unFollowUser(user.id)
             }
         };
         return (
