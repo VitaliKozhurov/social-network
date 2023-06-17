@@ -1,49 +1,37 @@
-import React from "react";
-import { Profile } from "./Profile";
-import { connect } from "react-redux";
-import { profileActions } from "../../redux/profileReducer";
-import { AppStateType } from "../../redux/redux-store";
-import { UserProfileType } from "../../appTypes/types";
-import { useParams } from "react-router-dom";
-import { profileAPI } from "../../api/api";
+import React from 'react';
+import {Profile} from './Profile';
+import {connect} from 'react-redux';
+import {setUserProfileTC} from '../../redux/profileReducer';
+import {AppStateType} from '../../redux/redux-store';
+import {UserProfileType} from '../../appTypes/types';
+import {useParams} from 'react-router-dom';
 
-const withRouter =
-    (
-        WrappedComponent: React.ComponentType<
-            ProfileContainerType & UseParamsType
-        >
-    ) =>
-    (props: ProfileContainerType) => {
-        const { id } = useParams<string>();
-        return <WrappedComponent {...props} paramsID={id} />;
-    };
-
-type ProfileContainerType = MapStateToPropsType & typeof profileContainerAction;
 type UseParamsType = {
     paramsID: string | undefined;
 };
-const profileContainerAction = {
-    setUserProfile: profileActions.setUserProfile,
+type MapStateToPropsType = {
+    profile: UserProfileType;
+    userID: number;
 };
+type MapDispatchToPropsType = {
+    setUserProfile: (paramsID: string | undefined, userID: number) => void
+}
+type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType & UseParamsType;
 
-class ProfileContainer extends React.Component<
-    ProfileContainerType & UseParamsType
-> {
+const withRouter = (WrappedComponent: React.ComponentType<ProfileContainerType>) =>
+    (props: Omit<ProfileContainerType, 'paramsID'>) => {
+        const {id} = useParams<string>();
+        return <WrappedComponent {...props} paramsID={id} />;
+    };
+
+class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
-        profileAPI
-            .getProfile(this.props.paramsID, this.props.userID)
-            .then((data) => {
-                this.props.setUserProfile(data);
-            });
+        this.props.setUserProfile(this.props.paramsID, this.props.userID)
     }
 
     componentDidUpdate(prevProps: ProfileContainerType & UseParamsType): void {
         if (prevProps.paramsID !== this.props.paramsID) {
-            profileAPI
-                .getProfile(this.props.paramsID, this.props.userID)
-                .then((data) => {
-                    this.props.setUserProfile(data);
-                });
+            this.props.setUserProfile(this.props.paramsID, this.props.userID)
         }
     }
 
@@ -57,11 +45,6 @@ class ProfileContainer extends React.Component<
     }
 }
 
-type MapStateToPropsType = {
-    profile: UserProfileType;
-    userID: number;
-};
-
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
     userID: state.auth.userID,
@@ -69,7 +52,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 
 export default connect<
     MapStateToPropsType,
-    typeof profileContainerAction,
+    MapDispatchToPropsType,
     {},
     AppStateType
->(mapStateToProps, { ...profileContainerAction })(withRouter(ProfileContainer));
+>(mapStateToProps, {setUserProfile: setUserProfileTC})(withRouter(ProfileContainer));
