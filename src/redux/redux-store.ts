@@ -1,9 +1,10 @@
-import { combineReducers, applyMiddleware, compose, createStore } from "redux";
-import { ProfileReducerActionType, profileReducer } from "./profileReducer";
-import { DialogsReducerActionType, dialogReducer } from "./dialogsReducer";
-import { UsersActionsType, userReducer } from "./userReducer";
-import { AuthReducerActionType, authReducer } from "./authReducer";
-import thunkMiddleware, { ThunkAction } from "redux-thunk";
+import {combineReducers, applyMiddleware, compose, createStore} from 'redux';
+import {ProfileReducerActionType, profileReducer} from './profileReducer';
+import {DialogsReducerActionType, dialogReducer} from './dialogsReducer';
+import {UsersActionsType, userReducer} from './userReducer';
+import {AuthReducerActionType, authReducer} from './authReducer';
+import thunkMiddleware, {ThunkAction} from 'redux-thunk';
+
 declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

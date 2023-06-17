@@ -1,6 +1,5 @@
-import React, { FC } from "react";
+import React from "react";
 import { Profile } from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
 import { profileActions } from "../../redux/profileReducer";
 import { AppStateType } from "../../redux/redux-store";
