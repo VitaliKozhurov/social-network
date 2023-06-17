@@ -18,6 +18,14 @@ type MapStatePropsType = {
     isFetching: boolean;
     followingInProgress: Array<number>;
 };
+type MapDispatchToPropsType = {
+    setCurrentPage: (pageID: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    followUser: (userID: number) => void
+    unFollowUser: (userID: number) => void
+}
+type UsersPropsType = MapStatePropsType & MapDispatchToPropsType;
+
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: state.usersPage.users,
@@ -28,13 +36,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         followingInProgress: state.usersPage.followingInProgress,
     };
 };
-type MapDispatchToPropsType = {
-    setCurrentPage: (pageID: number) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-    followUser: (userID: number) => void
-    unFollowUser: (userID: number) => void
-}
-type UsersPropsType = MapStatePropsType & MapDispatchToPropsType;
 
 class UsersAPI extends React.Component<UsersPropsType> {
     componentDidMount() {

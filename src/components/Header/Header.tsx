@@ -5,22 +5,14 @@ import logIn from "../../assets/image/logIn.svg";
 import logOut from "../../assets/image/logOut.svg";
 import { NavLink } from "react-router-dom";
 
-type AuthData = {
-    userID: number;
-    email: string;
-    login: string;
-};
-
 type HeaderPropsType = {
     isAuth: boolean;
     login: string;
-    setAuthUserData: (data: AuthData) => void;
 };
 
 export const Header: React.FC<HeaderPropsType> = ({
     isAuth,
     login,
-    setAuthUserData,
 }) => {
     return (
         <header className={s.header}>

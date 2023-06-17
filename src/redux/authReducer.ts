@@ -1,24 +1,20 @@
-import { InferActionsType } from "../appTypes/types";
+import {InferActionsType} from '../appTypes/types';
+import {authAPI} from '../api/api';
+import {AppThunk} from './redux-store';
 
 export const authActions = {
-    setAuthUserData: (data: Omit<AuthInitialType, "isAuth">) => {
+    setAuthUserData: (data: Omit<AuthInitialType, 'isAuth'>) => {
         return {
-            type: "SET-USER-DATA",
-            payload: { data },
+            type: 'SET-USER-DATA',
+            payload: {data},
         } as const;
     },
 };
 
-/* type AuthInitialType = {
-    userID: number;
-    email: string;
-    login: string;
-    isAuth: boolean;
-}; */
 let initialState = {
     userID: 0,
-    email: "",
-    login: "",
+    email: '',
+    login: '',
     isAuth: false,
 };
 
@@ -29,7 +25,7 @@ export const authReducer = (
     action: AuthReducerActionType
 ): AuthInitialType => {
     switch (action.type) {
-        case "SET-USER-DATA":
+        case 'SET-USER-DATA':
             return {
                 ...state,
                 ...action.payload.data,
@@ -39,3 +35,12 @@ export const authReducer = (
             return state;
     }
 };
+
+export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
+    authAPI.setAuth().then((data) => {
+        if (data.resultCode === 0) {
+            const {id: userID, email, login} = data.data;
+            dispatch(authActions.setAuthUserData({userID, email, login}));
+        }
+    });
+}
