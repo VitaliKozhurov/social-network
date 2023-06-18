@@ -9,6 +9,7 @@ import {
     getUsersTC, unFollowUserTC,
     usersActions,
 } from '../../redux/userReducer';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type MapStatePropsType = {
     users: Array<UserPageType>;
@@ -64,7 +65,9 @@ class UsersAPI extends React.Component<UsersPropsType> {
     }
 }
 
-export const UsersContainer = connect<
+
+
+export const UsersContainer = withAuthRedirect(connect<
     MapStatePropsType,
     MapDispatchToPropsType,
     {},
@@ -77,4 +80,4 @@ export const UsersContainer = connect<
         followUser: followUserTC,
         unFollowUser: unFollowUserTC
     }
-)(UsersAPI);
+)(UsersAPI));

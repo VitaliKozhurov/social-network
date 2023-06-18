@@ -5,6 +5,7 @@ import {setUserProfileTC} from '../../redux/profileReducer';
 import {AppStateType} from '../../redux/redux-store';
 import {UserProfileType} from '../../appTypes/types';
 import {useParams} from 'react-router-dom';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type UseParamsType = {
     paramsID: string | undefined;
@@ -50,9 +51,10 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     userID: state.auth.userID,
 });
 
-export default connect<
+
+export default withAuthRedirect(connect<
     MapStateToPropsType,
     MapDispatchToPropsType,
     {},
     AppStateType
->(mapStateToProps, {setUserProfile: setUserProfileTC})(withRouter(ProfileContainer));
+>(mapStateToProps, {setUserProfile: setUserProfileTC})(withRouter(ProfileContainer)));

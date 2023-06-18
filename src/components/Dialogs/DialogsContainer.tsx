@@ -1,7 +1,8 @@
-import { UserType } from "../../appTypes/types";
-import { AppStateType } from "../../redux/redux-store";
-import { connect } from "react-redux";
-import { Dialogs } from "./Dialogs";
+import {UserType} from '../../appTypes/types';
+import {AppStateType} from '../../redux/redux-store';
+import {connect} from 'react-redux';
+import {Dialogs} from './Dialogs';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 // Свойства
 type MapStatePropsType = {
@@ -14,9 +15,11 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     };
 };
 
-export const DialogsContainer = connect<
+
+
+export const DialogsContainer = withAuthRedirect(connect<
     MapStatePropsType,
     {},
     {},
     AppStateType
->(mapStateToProps)(Dialogs);
+>(mapStateToProps)(Dialogs));
