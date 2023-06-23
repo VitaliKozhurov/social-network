@@ -1,13 +1,14 @@
-import React, { FC } from "react";
-import s from "./UserProfile.module.css";
-import ava from "../../../assets/image/ninja.svg";
-import { UserProfileType } from "../../../appTypes/types";
+import React, {FC} from 'react';
+import s from './UserProfile.module.css';
+import ava from '../../../assets/image/ninja.svg';
+import {UserProfileType} from '../../../appTypes/types';
+import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type UserProfilePropsType = {
     profile: UserProfileType;
 };
 
-export const UserProfile: FC<UserProfilePropsType> = ({ profile }) => {
+export const UserProfile: FC<UserProfilePropsType> = ({profile}) => {
     return (
         <div className={s.userInfo}>
             <div className={s.avaBody}>
@@ -23,11 +24,12 @@ export const UserProfile: FC<UserProfilePropsType> = ({ profile }) => {
             </div>
             <div className={s.descr}>
                 <h2>{profile.fullName} (samurai)</h2>
+                <ProfileStatus />
                 <p>
-                    Looking for a job: <br />
+                    Looking for a job :
                     {profile.lookingForAJob
-                        ? "Yes I am want to find new job on junior position ;)"
-                        : "No I am work now :)"}
+                        ? ' Yes I am want to find new job on junior position ;)'
+                        : ' No I am work now :)'}
                 </p>
                 <p>Date of birth: </p>
                 <p>City: </p>

@@ -74,6 +74,7 @@ export const setUserProfileTC = (paramsID: string | undefined, userID: number): 
     profileAPI
         .getProfile(paramsID, userID)
         .then((data) => {
+            console.log(data)
             dispatch(profileActions.setUserProfile(data));
         });
 }
