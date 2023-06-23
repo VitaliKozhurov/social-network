@@ -5,15 +5,19 @@ import { AddPostContainer } from "./AddPostComponent/AddPostContainer";
 import { PostsContainer } from "./Posts/PostsContainer";
 import { UserProfileType } from "../../appTypes/types";
 
-type ProfilePropsType = { profile: UserProfileType };
+type ProfilePropsType = {
+    profile: UserProfileType
+    profileStatus:string
+};
 
-export const Profile: FC<ProfilePropsType> = ({ profile }) => {
+export const Profile: FC<ProfilePropsType> = ({ profile,profileStatus }) => {
+
     return (
         <div>
             <div className={s.bgBody}>
                 <div className={s.bg}></div>
             </div>
-            <UserProfile profile={profile} />
+            <UserProfile profile={profile} profileStatus={profileStatus} />
             <AddPostContainer />
             <PostsContainer />
         </div>

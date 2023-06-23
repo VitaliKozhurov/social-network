@@ -8,8 +8,9 @@
     box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
 }
 .avaBody {
-    width: 60px;
-    height: 60px;
+    margin-left:40px;
+    width: 80px;
+    height: 80px;
     background-color: #dbddbbbb;
     border-radius: 50%;
     overflow: hidden;
@@ -26,7 +27,7 @@
 
 .descr {
     color: #054d91;
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .descr h2 {
@@ -36,8 +37,13 @@
 }
 
 .descr p {
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 600;
     margin-bottom: 5px;
     line-height: 1.5;
+}
+
+.listTitle{
+    font-size: 20px;
+    font-weight: 600;
 }

@@ -12,6 +12,7 @@ type UseParamsType = {
 };
 type MapStateToPropsType = {
     profile: UserProfileType;
+    profileStatus: string;
     userID: number;
 };
 type MapDispatchToPropsType = {
@@ -27,6 +28,7 @@ const withRouter = (WrappedComponent: React.ComponentType<ProfileContainerType>)
 
 class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
+        console.log('Profile')
         this.props.setUserProfile(this.props.paramsID, this.props.userID)
     }
 
@@ -37,10 +39,9 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 
     render() {
-        console.log(this.props.paramsID);
         return (
             <>
-                <Profile profile={this.props.profile} />
+                <Profile profile={this.props.profile} profileStatus={this.props.profileStatus} />
             </>
         );
     }
@@ -48,6 +49,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
+    profileStatus: state.profilePage.profileStatus,
     userID: state.auth.userID,
 });
 

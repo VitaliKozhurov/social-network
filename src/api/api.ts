@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 const appAxiosInstance = axios.create({
     withCredentials: true,
-    baseURL: "https://social-network.samuraijs.com/api/1.0/",
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        "API-KEY": "666961d3-813a-4e95-8a4c-826ad914b957",
+        'API-KEY': '666961d3-813a-4e95-8a4c-826ad914b957',
     },
 });
 
@@ -39,8 +39,16 @@ export const followAPI = {
 
 export const profileAPI = {
     getProfile(paramsID: string | undefined, userID: number) {
-        return appAxiosInstance
+                /*return appAxiosInstance
+            .get(`profile/${paramsID ? paramsID : userID}`)
+            .then((response) => response.data);*/
+        const profilePromise = appAxiosInstance
             .get(`profile/${paramsID ? paramsID : userID}`)
             .then((response) => response.data);
+        const statusPromise = appAxiosInstance
+            .get(`profile/status/${paramsID ? paramsID : userID}`)
+            .then((response) => response.data);
+
+        return Promise.all([profilePromise, statusPromise])
     },
 };

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import s from './UserProfile.module.css';
 import ava from '../../../assets/image/ninja.svg';
 import {UserProfileType} from '../../../appTypes/types';
@@ -6,9 +6,10 @@ import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type UserProfilePropsType = {
     profile: UserProfileType;
+    profileStatus: string
 };
 
-export const UserProfile: FC<UserProfilePropsType> = ({profile}) => {
+export const UserProfile: FC<UserProfilePropsType> = ({profile, profileStatus}) => {
     return (
         <div className={s.userInfo}>
             <div className={s.avaBody}>
@@ -24,16 +25,17 @@ export const UserProfile: FC<UserProfilePropsType> = ({profile}) => {
             </div>
             <div className={s.descr}>
                 <h2>{profile.fullName} (samurai)</h2>
-                <ProfileStatus />
+                <ProfileStatus status={profileStatus} />
                 <p>
-                    Looking for a job :
+                    <span className={s.listTitle}>Looking for a job</span> :
                     {profile.lookingForAJob
                         ? ' Yes I am want to find new job on junior position ;)'
                         : ' No I am work now :)'}
                 </p>
-                <p>Date of birth: </p>
-                <p>City: </p>
-                <p>Education: </p>
+                <p><span className={s.listTitle}>Date of birth :</span></p>
+                <p><span className={s.listTitle}>Date of birth :</span></p>
+                <p><span className={s.listTitle}>City :</span></p>
+                <p><span className={s.listTitle}>Education :</span></p>
             </div>
         </div>
     );

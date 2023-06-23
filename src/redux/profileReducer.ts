@@ -21,12 +21,19 @@ export const profileActions = {
             payload: {profile},
         } as const;
     },
+    setUserStatus: (status: string) => {
+        return {
+            type: 'SET-USER-STATUS',
+            payload: {status}
+        } as const;
+    }
 };
 
 export type ProfileReducerActionType = InferActionsType<typeof profileActions>;
 
 const initialState = {
     profile: {} as UserProfileType,
+    profileStatus: '',
     posts: [
         {
             id: 1,
@@ -64,6 +71,8 @@ export const profileReducer = (
             return {...state, newPostText: action.payload};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.payload.profile};
+        case 'SET-USER-STATUS':
+            return {...state, profileStatus: action.payload.status};
 
         default:
             return state;
@@ -75,6 +84,7 @@ export const setUserProfileTC = (paramsID: string | undefined, userID: number): 
         .getProfile(paramsID, userID)
         .then((data) => {
             console.log(data)
-            dispatch(profileActions.setUserProfile(data));
+            dispatch(profileActions.setUserProfile(data[0]));
+            dispatch(profileActions.setUserStatus(data[1]));
         });
 }
