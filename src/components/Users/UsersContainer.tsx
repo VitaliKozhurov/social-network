@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {UserPageType} from '../../appTypes/types';
 import {AppStateType} from '../../redux/redux-store';
 import {connect} from 'react-redux';
@@ -10,6 +10,7 @@ import {
     usersActions,
 } from '../../redux/userReducer';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {compose} from 'redux';
 
 type MapStatePropsType = {
     users: Array<UserPageType>;
@@ -65,19 +66,10 @@ class UsersAPI extends React.Component<UsersPropsType> {
     }
 }
 
-
-
-export const UsersContainer = withAuthRedirect(connect<
-    MapStatePropsType,
-    MapDispatchToPropsType,
-    {},
-    AppStateType
->(
-    mapStateToProps,
+export const UsersContainer = compose<ComponentType>(withAuthRedirect, connect(mapStateToProps,
     {
         setCurrentPage: usersActions.setCurrentPage,
         getUsers: getUsersTC,
         followUser: followUserTC,
         unFollowUser: unFollowUserTC
-    }
-)(UsersAPI));
+    }))(UsersAPI)

@@ -3,6 +3,8 @@ import { AppStateType } from "../../../redux/redux-store";
 import { dialogsActions } from "../../../redux/dialogsReducer";
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
+import {compose} from 'redux';
+import {ComponentType} from 'react';
 // Свойства
 type MapStatePropsType = {
     users: Array<UserType>;
@@ -18,9 +20,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     };
 };
 
-export const ChatContainer = connect<
-    MapStatePropsType,
-    typeof dialogsActions,
-    {},
-    AppStateType
->(mapStateToProps, { ...dialogsActions })(Chat);
+export const ChatContainer = compose<ComponentType>(connect(mapStateToProps, { ...dialogsActions }))(Chat)
