@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {setUserProfileTC} from '../../redux/profileReducer';
+import {getUserStatusTC, setUserProfileTC, updateUserStatusTC} from '../../redux/profileReducer';
 import {AppStateType} from '../../redux/redux-store';
 import {UserProfileType} from '../../appTypes/types';
 import {useParams} from 'react-router-dom';
@@ -17,6 +17,8 @@ type MapStateToPropsType = {
 };
 type MapDispatchToPropsType = {
     setUserProfile: (paramsID: string | undefined, userID: number) => void
+    getUserStatus: (paramsID: string | undefined, userID: number) => void
+    updateUserStatus: (status: string) => void
 }
 type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType & UseParamsType;
 
@@ -28,20 +30,21 @@ const withRouter = (WrappedComponent: React.ComponentType<ProfileContainerType>)
 
 class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
-        console.log('Profile')
-        this.props.setUserProfile(this.props.paramsID, this.props.userID)
+        this.props.setUserProfile(this.props.paramsID, this.props.userID);
+        this.props.getUserStatus(this.props.paramsID, this.props.userID);
     }
 
     componentDidUpdate(prevProps: ProfileContainerType & UseParamsType): void {
         if (prevProps.paramsID !== this.props.paramsID) {
             this.props.setUserProfile(this.props.paramsID, this.props.userID)
+            this.props.getUserStatus(this.props.paramsID, this.props.userID)
         }
     }
 
     render() {
         return (
             <>
-                <Profile profile={this.props.profile} profileStatus={this.props.profileStatus} />
+                <Profile profile={this.props.profile} profileStatus={this.props.profileStatus} updateUserStatus={this.props.updateUserStatus} />
             </>
         );
     }
@@ -53,4 +56,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     userID: state.auth.userID,
 });
 
-export default compose<ComponentType>(connect(mapStateToProps, {setUserProfile: setUserProfileTC}), withRouter)(ProfileContainer)
+export default compose<ComponentType>(connect(mapStateToProps, {
+    setUserProfile: setUserProfileTC,
+    getUserStatus: getUserStatusTC,
+    updateUserStatus: updateUserStatusTC
+}), withRouter)(ProfileContainer)

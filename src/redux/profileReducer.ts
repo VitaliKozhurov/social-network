@@ -26,7 +26,7 @@ export const profileActions = {
             type: 'SET-USER-STATUS',
             payload: {status}
         } as const;
-    }
+    },
 };
 
 export type ProfileReducerActionType = InferActionsType<typeof profileActions>;
@@ -73,7 +73,6 @@ export const profileReducer = (
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':
             return {...state, profileStatus: action.payload.status};
-
         default:
             return state;
     }
@@ -83,8 +82,24 @@ export const setUserProfileTC = (paramsID: string | undefined, userID: number): 
     profileAPI
         .getProfile(paramsID, userID)
         .then((data) => {
-            console.log(data)
-            dispatch(profileActions.setUserProfile(data[0]));
-            dispatch(profileActions.setUserStatus(data[1]));
+            dispatch(profileActions.setUserProfile(data));
         });
+}
+
+export const getUserStatusTC = (paramsID: string | undefined, userID: number): AppThunk => (dispatch) => {
+    profileAPI
+        .getStatus(paramsID, userID)
+        .then(data => {
+            dispatch(profileActions.setUserStatus(data))
+        })
+}
+
+export const updateUserStatusTC = (status: string): AppThunk => (dispatch) => {
+    profileAPI
+        .updateUserStatus(status)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(profileActions.setUserStatus(status))
+            }
+        })
 }

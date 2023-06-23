@@ -5,11 +5,12 @@ import {UserProfileType} from '../../../appTypes/types';
 import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type UserProfilePropsType = {
-    profile: UserProfileType;
+    profile: UserProfileType
     profileStatus: string
+    updateUserStatus: (status: string) => void
 };
 
-export const UserProfile: FC<UserProfilePropsType> = ({profile, profileStatus}) => {
+export const UserProfile: FC<UserProfilePropsType> = ({profile, profileStatus, updateUserStatus}) => {
     return (
         <div className={s.userInfo}>
             <div className={s.avaBody}>
@@ -25,7 +26,7 @@ export const UserProfile: FC<UserProfilePropsType> = ({profile, profileStatus}) 
             </div>
             <div className={s.descr}>
                 <h2>{profile.fullName} (samurai)</h2>
-                <ProfileStatus status={profileStatus} />
+                <ProfileStatus status={profileStatus} updateUserStatus={updateUserStatus} />
                 <p>
                     <span className={s.listTitle}>Looking for a job</span> :
                     {profile.lookingForAJob

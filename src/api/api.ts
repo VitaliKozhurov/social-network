@@ -39,16 +39,19 @@ export const followAPI = {
 
 export const profileAPI = {
     getProfile(paramsID: string | undefined, userID: number) {
-                /*return appAxiosInstance
+      return appAxiosInstance
             .get(`profile/${paramsID ? paramsID : userID}`)
-            .then((response) => response.data);*/
-        const profilePromise = appAxiosInstance
-            .get(`profile/${paramsID ? paramsID : userID}`)
-            .then((response) => response.data);
-        const statusPromise = appAxiosInstance
-            .get(`profile/status/${paramsID ? paramsID : userID}`)
             .then((response) => response.data);
 
-        return Promise.all([profilePromise, statusPromise])
     },
+    getStatus(paramsID: string | undefined, userID: number){
+        return  appAxiosInstance
+            .get(`profile/status/${paramsID ? paramsID : userID}`)
+            .then((response) => response.data);
+    },
+    updateUserStatus(status:string){
+        return  appAxiosInstance
+            .put(`profile/status`,{status})
+            .then((response) => response.data);
+    }
 };
