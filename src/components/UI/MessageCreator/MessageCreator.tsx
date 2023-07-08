@@ -1,55 +1,45 @@
-import React, { ChangeEvent, FC, useState } from "react";
-import s from "./MessageCreator.module.css";
-import { SuperButton } from "../SuperButton/SuperButton";
+import {Field, FieldProps, Form, Formik} from 'formik'
+import * as Yup from 'yup';
+import {FC} from 'react';
+import s from './MessageCreator.module.css';
+import {SuperButton} from '../SuperButton/SuperButton';
+
+const initialValue = {message: ''};
+const validationSchema = Yup.object({message: Yup.string().required('Field can not be empty!')})
 
 type MessageCreatorPropsType = {
+    title: string;
     placeholder: string;
-    value: string;
     addText: (value: string) => void;
-    updateText: (value: string) => void;
 };
 
-export const MessageCreator: FC<MessageCreatorPropsType> = ({
-    placeholder,
-    value,
-    addText,
-    updateText,
-}) => {
-    const [error, setError] = useState<boolean>(false);
-
-    const addPostHandler = () => {
-        if (value.trim()) {
-            addText(value);
-        } else {
-            setError(true);
-        }
-    };
-
-    const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        error && setError(false);
-        updateText(e.currentTarget.value);
-    };
-
-    const style = error ? s.postText + " " + s.error : s.postText;
-    const placeholderForTextField = error
-        ? "Field can not be empty"
-        : placeholder;
-
+export const MessageCreator: FC<MessageCreatorPropsType> = ({title, placeholder, addText}) => {
     return (
-        <>
-            <div className={s.postForm}>
-                <textarea
-                    className={style}
-                    placeholder={placeholderForTextField}
-                    value={value}
-                    onChange={onChangeText}
-                />
-                <SuperButton
-                    title={"Add Post"}
-                    disabled={error}
-                    callback={addPostHandler}
-                />
-            </div>
-        </>
-    );
-};
+        <Formik
+            initialValues={initialValue}
+            validationSchema={validationSchema}
+            onSubmit={(values, {resetForm}) => {
+                addText(values.message)
+                resetForm();
+            }}
+            validateOnBlur={false}
+        >
+            <Form className={s.postForm}>
+                <Field name="message">
+                    {(fieldProps: FieldProps) => {
+                        const errorMessage = fieldProps.meta.error;
+                        return <>
+                       <textarea
+                           {...fieldProps.field}
+                           className={errorMessage ? s.postText + ' ' + s.error : s.postText}
+                           placeholder={errorMessage ? errorMessage : placeholder}
+                       />
+                            <SuperButton title={title} type={'submit'} disabled={!!errorMessage} />
+                        </>
+                    }
+                    }
+                </Field>
+            </Form>
+        </Formik>
+    )
+}

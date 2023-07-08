@@ -9,12 +9,6 @@ export const profileActions = {
             payload: value,
         } as const;
     },
-    updatePost: (value: string) => {
-        return {
-            type: 'UPDATE-POST-MESSAGE',
-            payload: value,
-        } as const;
-    },
     setUserProfile: (profile: UserProfileType) => {
         return {
             type: 'SET-USER-PROFILE',
@@ -46,8 +40,7 @@ const initialState = {
                 'Hi I\'m study in It-incubator. It\'s the best community in the world)',
             likeCount: 12,
         },
-    ] as Array<PostType>,
-    newPostText: '',
+    ] as Array<PostType>
 };
 type ProfileInitialState = typeof initialState;
 
@@ -65,10 +58,7 @@ export const profileReducer = (
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: '',
             };
-        case 'UPDATE-POST-MESSAGE':
-            return {...state, newPostText: action.payload};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':

@@ -7,12 +7,6 @@ export const dialogsActions = {
             payload: { value: value, id: id },
         } as const;
     },
-    updateMessage: (value: string) => {
-        return {
-            type: "UPDATE-MESSAGE",
-            payload: { value },
-        } as const;
-    },
 };
 
 const initialState = {
@@ -39,7 +33,6 @@ const initialState = {
             },
         ],
     } as { [key: string]: Array<MessagesType> },
-    newMessageBody: "",
 };
 
 type DialogsInitialState = typeof initialState;
@@ -62,12 +55,8 @@ export const dialogReducer = (
                         ...state.messages[action.payload.id],
                         newMessage,
                     ],
-                },
-                newMessageBody: "",
+                }
             };
-
-        case "UPDATE-MESSAGE":
-            return { ...state, newMessageBody: action.payload.value };
         default:
             return state;
     }

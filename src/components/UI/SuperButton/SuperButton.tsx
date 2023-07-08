@@ -3,13 +3,15 @@ import s from "./SuperButton.module.css";
 
 type SuperButtonPropsType = {
     title: string;
+    type?:"button" | "submit" | "reset";
     disabled?: boolean;
-    callback: () => void;
+    callback?: () => void;
     style?:string
 };
 
 export const SuperButton: FC<SuperButtonPropsType> = ({
     title,
+    type,
     disabled,
     callback,
     style,
@@ -18,7 +20,11 @@ export const SuperButton: FC<SuperButtonPropsType> = ({
 
     return (
         <>
-            <button className={btnStyle} disabled={disabled} onClick={callback}>
+            <button
+                className={btnStyle}
+                type={type}
+                disabled={disabled}
+                onClick={callback}>
                 {title}
             </button>
         </>

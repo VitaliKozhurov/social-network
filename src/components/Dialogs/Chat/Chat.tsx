@@ -8,12 +8,10 @@ import {MessagesType, UserType} from '../../../appTypes/types';
 type ChatPropsType = {
     users:Array<UserType>
     messages:{ [key: string]: Array<MessagesType> }
-    newMessageBody:string
     addMessage: (value: string, id: string) => void
-    updateMessage: (value: string) => void
 }
 
-export const Chat:FC<ChatPropsType> = ({users,messages,newMessageBody,addMessage,updateMessage}) => {
+export const Chat:FC<ChatPropsType> = ({users,messages,addMessage}) => {
     const params = useParams(); // get param from URL (if param change Dialogs rerender)
     const id = params.id ? params.id : '1';
 
@@ -30,18 +28,14 @@ export const Chat:FC<ChatPropsType> = ({users,messages,newMessageBody,addMessage
     const addMessageHandler = (value: string) => {
        addMessage(value, id);
     };
-    const updateMessageHandler = (value: string) => {
-        updateMessage(value);
-    };
 
     return (
         <div className={s.messagesBody}>
             <div className={s.messages}>{userMessages}</div>
             <MessageCreator
+                title={'Add message'}
                 placeholder={'Enter your message'}
                 addText={addMessageHandler}
-                updateText={updateMessageHandler}
-                value={newMessageBody}
             />
         </div>
     );
