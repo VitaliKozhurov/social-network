@@ -22,6 +22,16 @@ export const authAPI = {
             .get(`auth/me`)
             .then((response) => response.data);
     },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return appAxiosInstance
+            .post(`auth/login`, {email, password, rememberMe})
+            .then((response) => response.data)
+    },
+    logout() {
+        return appAxiosInstance
+            .delete(`auth/login`)
+            .then((response) => response.data)
+    }
 };
 
 export const followAPI = {
@@ -39,19 +49,19 @@ export const followAPI = {
 
 export const profileAPI = {
     getProfile(paramsID: string | undefined, userID: number) {
-      return appAxiosInstance
+        return appAxiosInstance
             .get(`profile/${paramsID ? paramsID : userID}`)
             .then((response) => response.data);
 
     },
-    getStatus(paramsID: string | undefined, userID: number){
-        return  appAxiosInstance
+    getStatus(paramsID: string | undefined, userID: number) {
+        return appAxiosInstance
             .get(`profile/status/${paramsID ? paramsID : userID}`)
             .then((response) => response.data);
     },
-    updateUserStatus(status:string){
-        return  appAxiosInstance
-            .put(`profile/status`,{status})
+    updateUserStatus(status: string) {
+        return appAxiosInstance
+            .put(`profile/status`, {status})
             .then((response) => response.data);
     }
 };

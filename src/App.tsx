@@ -11,33 +11,47 @@ import {
 import {Route, Routes} from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {Login} from './components/Login/Login';
+import {LoginContainer} from './components/Login/LoginContainer';
+import {AppStateType} from './redux/redux-store';
+import {connect} from 'react-redux';
 
-const App = () => {
+
+const App = (props: MapDispatchToPropsType) => {
+    const {isAuth} = props;
     return (
         <div className="App">
             <HeaderContainer />
-            <div className="mainContent container">
-                <NavBar />
-                <main className="content">
-                    <Routes>
-                        <Route
-                            path="/profile/:id?"
-                            element={<ProfileContainer />}
-                        />
+            {isAuth
+                ? <div className="mainContent container">
+                    <NavBar />
+                    <main className="content">
+                        <Routes>
+                            <Route
+                                path="/profile/:id?"
+                                element={<ProfileContainer />}
+                            />
 
-                        <Route path="/message" element={<DialogsContainer />}>
-                            <Route index element={<EmptyChat />} />
-                            <Route path={':id'} element={<ChatContainer />} />
-                        </Route>
-                        <Route path="/users" element={<UsersContainer />} />
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
-                </main>
-            </div>
+                            <Route path="/message" element={<DialogsContainer />}>
+                                <Route index element={<EmptyChat />} />
+                                <Route path={':id'} element={<ChatContainer />} />
+                            </Route>
+                            <Route path="/users" element={<UsersContainer />} />
+                            <Route path="/login" element={<LoginContainer />} />
+                        </Routes>
+                    </main>
+                </div>
+                : <LoginContainer />
+            }
             <Footer />
         </div>
     );
 };
 
-export default App;
+type MapDispatchToPropsType = {
+    isAuth: boolean
+}
+const mapDispatchToProps = (state: AppStateType): MapDispatchToPropsType => ({
+    isAuth: state.auth.isAuth
+})
+
+export default connect<MapDispatchToPropsType, {}, {}, AppStateType>(mapDispatchToProps)(App)

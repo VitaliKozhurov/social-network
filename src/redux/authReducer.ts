@@ -3,19 +3,27 @@ import {authAPI} from '../api/api';
 import {AppThunk} from './redux-store';
 
 export const authActions = {
-    setAuthUserData: (data: Omit<AuthInitialType, 'isAuth'>) => {
+    setAuthUserData: (data: Omit<AuthInitialType, 'isFetching'>) => {
         return {
             type: 'SET-USER-DATA',
             payload: {data},
         } as const;
     },
+    setFetching: (isFetching: boolean) => {
+        return {
+            type: 'SET-FETCHING',
+            payload: {isFetching}
+        } as const
+    }
 };
+
 
 let initialState = {
     userID: 0,
     email: '',
     login: '',
-    isAuth: false,
+    isAuth: false as boolean,
+    isFetching: false as boolean
 };
 
 type AuthInitialType = typeof initialState;
@@ -31,6 +39,11 @@ export const authReducer = (
                 ...action.payload.data,
                 isAuth: true,
             };
+        case 'SET-FETCHING':
+            return {
+                ...state,
+                isFetching: action.payload.isFetching
+            }
         default:
             return state;
     }
@@ -40,7 +53,27 @@ export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
     authAPI.setAuth().then((data) => {
         if (data.resultCode === 0) {
             const {id: userID, email, login} = data.data;
-            dispatch(authActions.setAuthUserData({userID, email, login}));
+            dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true}));
         }
     });
+}
+
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+    dispatch(authActions.setFetching(true))
+    authAPI.login(email, password, rememberMe)
+        .then((response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserDataTC())
+            }
+            dispatch(authActions.setFetching(false))
+        }))
+}
+
+export const logoutTC = (): AppThunk => (dispatch) => {
+    authAPI.logout()
+        .then((response => {
+            if (response.data.resultCode === 0) {
+                dispatch(authActions.setAuthUserData(initialState))
+            }
+        }))
 }
