@@ -2,7 +2,6 @@ import React from 'react';
 import {AppStateType} from '../redux/redux-store';
 import {connect} from 'react-redux';
 import {Navigate} from 'react-router-dom';
-import {log} from 'util';
 
 type MapStateToPropsType = {
     isAuth: boolean

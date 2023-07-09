@@ -1,19 +1,24 @@
-import React from "react";
-import s from "./Header.module.css";
-import logo from "../../assets/image/logo.svg";
-import logIn from "../../assets/image/logIn.svg";
-import logOut from "../../assets/image/logOut.svg";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import s from './Header.module.css';
+import logo from '../../assets/image/logo.svg';
+import logIn from '../../assets/image/logIn.svg';
+import logOut from '../../assets/image/logOut.svg';
+import {NavLink} from 'react-router-dom';
 
 type HeaderPropsType = {
-    isAuth: boolean;
-    login: string;
+    isAuth: boolean
+    login: string
+    logout: () => void
 };
 
 export const Header: React.FC<HeaderPropsType> = ({
-    isAuth,
-    login,
-}) => {
+                                                      isAuth,
+                                                      login,
+                                                      logout
+                                                  }) => {
+    const logoutHandler = () => {
+        logout()
+    }
     return (
         <header className={s.header}>
             <div className="container">
@@ -27,10 +32,11 @@ export const Header: React.FC<HeaderPropsType> = ({
                             <>
                                 <span className={s.loginLink}>{login}</span>
                                 <img src={logOut} alt="Login logo" />
+                                <button onClick={logoutHandler} className={s.logOut}>LogOut</button>
                             </>
                         ) : (
                             <>
-                                <NavLink to={"/login"} className={s.loginLink}>
+                                <NavLink to={'/login'} className={s.loginLink}>
                                     LogIn
                                 </NavLink>
                                 <img src={logIn} alt="Login logo" />

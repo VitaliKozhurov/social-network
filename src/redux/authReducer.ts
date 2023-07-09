@@ -37,7 +37,6 @@ export const authReducer = (
             return {
                 ...state,
                 ...action.payload.data,
-                isAuth: true,
             };
         case 'SET-FETCHING':
             return {
@@ -50,30 +49,35 @@ export const authReducer = (
 };
 
 export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
-    authAPI.setAuth().then((data) => {
-        if (data.resultCode === 0) {
-            const {id: userID, email, login} = data.data;
-            dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true}));
-        }
-    });
+    dispatch(authActions.setFetching(true))
+    authAPI.setAuth()
+        .then((data) => {
+            if (data.resultCode === 0) {
+                const {id: userID, email, login} = data.data;
+                dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true}));
+
+            }
+        })
+        .finally(() => dispatch(authActions.setFetching(false)));
 }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     dispatch(authActions.setFetching(true))
     authAPI.login(email, password, rememberMe)
-        .then((response => {
-            if (response.data.resultCode === 0) {
+        .then((data => {
+            if (data.resultCode === 0) {
                 dispatch(setAuthUserDataTC())
             }
-            dispatch(authActions.setFetching(false))
         }))
+        .finally(() => dispatch(authActions.setFetching(false)));
 }
 
 export const logoutTC = (): AppThunk => (dispatch) => {
     authAPI.logout()
-        .then((response => {
-            if (response.data.resultCode === 0) {
+        .then((data => {
+            if (data.resultCode === 0) {
                 dispatch(authActions.setAuthUserData(initialState))
             }
+
         }))
 }

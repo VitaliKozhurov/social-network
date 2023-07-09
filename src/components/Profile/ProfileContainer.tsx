@@ -6,6 +6,7 @@ import {AppStateType} from '../../redux/redux-store';
 import {UserProfileType} from '../../appTypes/types';
 import {useParams} from 'react-router-dom';
 import {compose} from 'redux';
+import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 
 type UseParamsType = {
     paramsID: string | undefined;
@@ -44,7 +45,11 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     render() {
         return (
             <>
-                <Profile profile={this.props.profile} profileStatus={this.props.profileStatus} updateUserStatus={this.props.updateUserStatus} />
+                <Profile
+                    profile={this.props.profile}
+                    profileStatus={this.props.profileStatus}
+                    updateUserStatus={this.props.updateUserStatus}
+                />
             </>
         );
     }
@@ -56,7 +61,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     userID: state.auth.userID,
 });
 
-export default compose<ComponentType>(connect(mapStateToProps, {
+export default compose<ComponentType>( withAuthRedirect,connect(mapStateToProps, {
     setUserProfile: setUserProfileTC,
     getUserStatus: getUserStatusTC,
     updateUserStatus: updateUserStatusTC

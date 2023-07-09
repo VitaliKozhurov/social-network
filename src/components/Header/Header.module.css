@@ -39,8 +39,9 @@
     margin-left: 10px;
 }
 
-.loginLink {
+.loginLink, .logOut {
     font-size: 18px;
     color: #f4f7fc;
     font-weight: 700;
+    background-color: transparent;
 }
