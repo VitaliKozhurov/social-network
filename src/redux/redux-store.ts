@@ -4,6 +4,7 @@ import {DialogsReducerActionType, dialogReducer} from './dialogsReducer';
 import {UsersActionsType, userReducer} from './userReducer';
 import {AuthReducerActionType, authReducer} from './authReducer';
 import thunkMiddleware, {ThunkAction} from 'redux-thunk';
+import {appReducer, AppReducerActionsType} from './appReducer';
 
 declare global {
     interface Window {
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     dialogsPage: dialogReducer,
     usersPage: userReducer,
     auth: authReducer,
+    app: appReducer
 });
 
 // Типизация стейта всего приложения
@@ -25,7 +27,8 @@ export type AppActionsType =
     | AuthReducerActionType
     | DialogsReducerActionType
     | ProfileReducerActionType
-    | UsersActionsType;
+    | UsersActionsType
+    | AppReducerActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<
     ReturnType,

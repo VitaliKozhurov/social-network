@@ -62,12 +62,11 @@ export const authReducer = (
 
 export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
     dispatch(authActions.setFetching(true))
-    authAPI.setAuth()
+    return authAPI.setAuth()
         .then((data) => {
             if (data.resultCode === 0) {
                 const {id: userID, email, login} = data.data;
                 dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true, error: ''}));
-
             }
         })
         .finally(() => dispatch(authActions.setFetching(false)));
@@ -79,9 +78,8 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         .then((data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthUserDataTC())
-            }
-            else{
-                const error = data.messages.length?data.messages[0]:'Incorrect input values'
+            } else {
+                const error = data.messages.length ? data.messages[0] : 'Incorrect input values'
                 dispatch(authActions.setAuthError(error))
             }
         }))
