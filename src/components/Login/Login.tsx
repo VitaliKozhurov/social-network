@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import {SuperButton} from '../UI/SuperButton/SuperButton';
 import {Navigate} from 'react-router-dom';
 import {Preloader} from '../UI/Preloader/Preloader';
+import {Simulate} from 'react-dom/test-utils';
+import error = Simulate.error;
 
 
 type FormField = {
@@ -55,10 +57,11 @@ const validationSchema = Yup.object({
 type LoginPropsType = {
     isAuth: boolean
     isFetching: boolean
+    error: string
     login: (email: string, password: string, rememberMe: boolean) => void
 }
 
-export const Login: FC<LoginPropsType> = ({isAuth, isFetching, login}) => {
+export const Login: FC<LoginPropsType> = ({isAuth, isFetching,error, login}) => {
     if (isAuth) {
         return <Navigate to={'/profile'} />
     }
@@ -120,6 +123,7 @@ export const Login: FC<LoginPropsType> = ({isAuth, isFetching, login}) => {
                                         disabled={!!Object.keys(formProps.errors).length}
                                     />
                                 </div>
+                                <div className={s.errorMessage}>{error}</div>
                             </Form>
                         );
                     }}

@@ -6,6 +6,7 @@ import {loginTC} from '../../redux/authReducer';
 type MapStateToPropsType = {
     isFetching: boolean
     isAuth: boolean
+    error:string
 }
 type MapDispatchToPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void
@@ -14,7 +15,8 @@ type MapDispatchToPropsType = {
 const mapDispatchToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         isFetching: state.auth.isFetching,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        error:state.auth.error
     }
 }
 

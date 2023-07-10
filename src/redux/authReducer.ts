@@ -14,6 +14,12 @@ export const authActions = {
             type: 'SET-FETCHING',
             payload: {isFetching}
         } as const
+    },
+    setAuthError: (error: string) => {
+        return {
+            type: 'SET-AUTH-ERROR',
+            payload: {error}
+        } as const
     }
 };
 
@@ -23,7 +29,8 @@ let initialState = {
     email: '',
     login: '',
     isAuth: false as boolean,
-    isFetching: false as boolean
+    isFetching: false as boolean,
+    error: ''
 };
 
 type AuthInitialType = typeof initialState;
@@ -43,6 +50,11 @@ export const authReducer = (
                 ...state,
                 isFetching: action.payload.isFetching
             }
+        case 'SET-AUTH-ERROR':
+            return {
+                ...state,
+                error: action.payload.error
+            }
         default:
             return state;
     }
@@ -54,7 +66,7 @@ export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
         .then((data) => {
             if (data.resultCode === 0) {
                 const {id: userID, email, login} = data.data;
-                dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true}));
+                dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true, error: ''}));
 
             }
         })
@@ -67,6 +79,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
         .then((data => {
             if (data.resultCode === 0) {
                 dispatch(setAuthUserDataTC())
+            }
+            else{
+                const error = data.messages.length?data.messages[0]:'Incorrect input values'
+                dispatch(authActions.setAuthError(error))
             }
         }))
         .finally(() => dispatch(authActions.setFetching(false)));
