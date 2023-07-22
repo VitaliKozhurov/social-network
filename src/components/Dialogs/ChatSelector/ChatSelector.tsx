@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import s from "./ChatSelector.module.css";
-import {UserType} from '../../../appTypes/types';
+import {UserType} from 'appTypes/types';
 
 export type ChatSelectorPropsType = {
     users: Array<UserType>;

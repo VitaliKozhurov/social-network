@@ -5,9 +5,6 @@ import * as Yup from 'yup';
 import {SuperButton} from '../UI/SuperButton/SuperButton';
 import {Navigate} from 'react-router-dom';
 import {Preloader} from '../UI/Preloader/Preloader';
-import {Simulate} from 'react-dom/test-utils';
-import error = Simulate.error;
-
 
 type FormField = {
     title: string

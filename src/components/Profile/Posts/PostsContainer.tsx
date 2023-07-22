@@ -1,5 +1,5 @@
-import {PostType} from '../../../appTypes/types';
-import {AppStateType} from '../../../redux/redux-store';
+import {PostType} from 'appTypes/types';
+import {AppStateType} from 'redux/redux-store';
 import {Posts} from './Posts';
 import {connect} from 'react-redux';
 

@@ -1,12 +1,12 @@
 import React, {ComponentType} from 'react';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {getUserStatusTC, setUserProfileTC, updateUserStatusTC} from '../../redux/profileReducer';
-import {AppStateType} from '../../redux/redux-store';
-import {UserProfileType} from '../../appTypes/types';
+import {getUserStatusTC, setUserProfileTC, updateUserStatusTC} from 'redux/profileReducer';
+import {AppStateType} from 'redux/redux-store';
+import {UserProfileType} from 'appTypes/types';
 import {useParams} from 'react-router-dom';
 import {compose} from 'redux';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {withAuthRedirect} from 'hoc/withAuthRedirect';
 
 type UseParamsType = {
     paramsID: string | undefined;

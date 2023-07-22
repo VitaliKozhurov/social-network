@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from 'redux/redux-store';
 import {Login} from './Login';
-import {loginTC} from '../../redux/authReducer';
+import {loginTC} from 'redux/authReducer';
 
 type MapStateToPropsType = {
     isFetching: boolean

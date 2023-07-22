@@ -1,7 +1,7 @@
 import {AddPostComponent} from './AddPostComponent';
 import {connect} from 'react-redux';
-import {AppStateType} from '../../../redux/redux-store';
-import {profileActions} from '../../../redux/profileReducer';
+import {AppStateType} from 'redux/redux-store';
+import {profileActions} from 'redux/profileReducer';
 
 type MapStatePropsType = {
     title: string;

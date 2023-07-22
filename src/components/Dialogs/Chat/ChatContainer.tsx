@@ -1,6 +1,6 @@
-import { MessagesType, UserType } from "../../../appTypes/types";
-import { AppStateType } from "../../../redux/redux-store";
-import { dialogsActions } from "../../../redux/dialogsReducer";
+import { MessagesType, UserType } from 'appTypes/types';
+import { AppStateType } from 'redux/redux-store';
+import { dialogsActions } from 'redux/dialogsReducer';
 import { connect } from "react-redux";
 import { Chat } from "./Chat";
 import {compose} from 'redux';

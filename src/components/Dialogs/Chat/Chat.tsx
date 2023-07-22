@@ -3,7 +3,7 @@ import {Message} from '../../UI/Message/Message';
 import {MessageCreator} from '../../UI/MessageCreator/MessageCreator';
 import React, {FC} from 'react';
 import {useParams} from 'react-router-dom';
-import {MessagesType, UserType} from '../../../appTypes/types';
+import {MessagesType, UserType} from 'appTypes/types';
 
 type ChatPropsType = {
     users:Array<UserType>

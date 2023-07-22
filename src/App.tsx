@@ -1,21 +1,19 @@
 import React from 'react';
 import './App.css';
-import {
-    NavBar,
-    Footer,
-    UsersContainer,
-    EmptyChat,
-    DialogsContainer,
-    ChatContainer,
-} from './components';
 import {Route, Routes} from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import {LoginContainer} from './components/Login/LoginContainer';
-import {AppStateType} from './redux/redux-store';
+import {LoginContainer} from 'components/Login/LoginContainer';
+import {AppStateType} from 'redux/redux-store';
 import {connect} from 'react-redux';
-import {initializeAppTC} from './redux/appReducer';
-import {Preloader} from './components/UI/Preloader/Preloader';
+import {initializeAppTC} from 'redux/appReducer';
+import {Preloader} from 'components/UI/Preloader/Preloader';
+import {NavBar} from 'components/NavBar/NavBar';
+import { DialogsContainer } from 'components/Dialogs/DialogsContainer';
+import { EmptyChat } from 'components/UI/EmptyChat/EmptyChat';
+import { ChatContainer } from 'components/Dialogs/Chat/ChatContainer';
+import { UsersContainer } from 'components/Users/UsersContainer';
+import {Footer} from 'components/Footer/Footer';
 
 class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
     componentDidMount() {

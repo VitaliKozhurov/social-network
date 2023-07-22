@@ -1,8 +1,8 @@
-import {UserType} from '../../appTypes/types';
-import {AppStateType} from '../../redux/redux-store';
+import {UserType} from 'appTypes/types';
+import {AppStateType} from 'redux/redux-store';
 import {connect} from 'react-redux';
 import {Dialogs} from './Dialogs';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
+import {withAuthRedirect} from 'hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {ComponentType} from 'react';
 

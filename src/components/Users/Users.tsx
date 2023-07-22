@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {UserCard} from './UserCard/UserCard';
-import {UserPageType} from '../../appTypes/types';
+import {UserPageType} from 'appTypes/types';
 import s from './Users.module.css';
 import {Pagination} from '../Pagination/Pagination';
 

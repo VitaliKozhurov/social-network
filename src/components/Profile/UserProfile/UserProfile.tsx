@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import s from './UserProfile.module.css';
 import ava from '../../../assets/image/ninja.svg';
-import {UserProfileType} from '../../../appTypes/types';
+import {UserProfileType} from 'appTypes/types';
 import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 
 type UserProfilePropsType = {
