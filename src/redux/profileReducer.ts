@@ -1,6 +1,6 @@
-import {InferActionsType, PostType, UserProfileType} from '../appTypes/types';
+import {InferActionsType, PostType, UserProfileType} from 'appTypes/types';
 import {AppThunk} from './redux-store';
-import {profileAPI} from '../api/api';
+import {profileAPI} from 'api/api';
 
 export const profileActions = {
     addPost: (value: string) => {
@@ -9,6 +9,10 @@ export const profileActions = {
             payload: value,
         } as const;
     },
+    removePost:(postID:number)=>({
+        type:'REMOVE-POST',
+        payload:postID
+    } as const),
     setUserProfile: (profile: UserProfileType) => {
         return {
             type: 'SET-USER-PROFILE',
@@ -42,12 +46,12 @@ const initialState = {
         },
     ] as Array<PostType>
 };
-type ProfileInitialState = typeof initialState;
+export type ProfileInitialStateType = typeof initialState;
 
 export const profileReducer = (
-    state: ProfileInitialState = initialState,
+    state: ProfileInitialStateType = initialState,
     action: ProfileReducerActionType
-): ProfileInitialState => {
+): ProfileInitialStateType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost = {
@@ -59,6 +63,11 @@ export const profileReducer = (
                 ...state,
                 posts: [...state.posts, newPost],
             };
+        case 'REMOVE-POST':
+            return {
+                ...state,
+                posts: state.posts.filter(post=>post.id!==action.payload)
+            }
         case 'SET-USER-PROFILE':
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':

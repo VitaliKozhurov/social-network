@@ -7,7 +7,7 @@ type PostsPropsType = {
     posts: Array<PostType>;
 };
 
-export const Posts: React.FC<PostsPropsType> = ({ posts }) => {
+export const Posts: React.FC<PostsPropsType> = ({ posts }) => { 
     const myPosts = posts.map((post) => (
         <Post
             key={post.id}
