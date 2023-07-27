@@ -2,7 +2,6 @@ import {FC} from 'react';
 import s from './UserProfile.module.css';
 import ava from '../../../assets/image/ninja.svg';
 import {UserProfileType} from 'appTypes/types';
-import {ProfileStatus} from './ProfileStatus/ProfileStatus';
 import {ProfileStatusWithHooks} from 'components/Profile/UserProfile/ProfileStatus/ProfileStatusWithHooks';
 
 type UserProfilePropsType = {
@@ -15,15 +14,8 @@ export const UserProfile: FC<UserProfilePropsType> = ({profile, profileStatus, u
     return (
         <div className={s.userInfo}>
             <div className={s.avaBody}>
-                <img
-                    className={s.avatar}
-                    src={
-                        profile.photos && profile.photos.small
-                            ? profile.photos.small
-                            : ava
-                    }
-                    alt="User Avatar"
-                />
+                <img className={s.avatar} src={profile.photos && profile.photos.small ? profile.photos.small : ava}
+                     alt="User Avatar" />
             </div>
             <div className={s.descr}>
                 <h2>{profile.fullName} (samurai)</h2>

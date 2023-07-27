@@ -9,9 +9,9 @@ export const profileActions = {
             payload: value,
         } as const;
     },
-    removePost:(postID:number)=>({
-        type:'REMOVE-POST',
-        payload:postID
+    removePost: (postID: number) => ({
+        type: 'REMOVE-POST',
+        payload: postID
     } as const),
     setUserProfile: (profile: UserProfileType) => {
         return {
@@ -66,7 +66,7 @@ export const profileReducer = (
         case 'REMOVE-POST':
             return {
                 ...state,
-                posts: state.posts.filter(post=>post.id!==action.payload)
+                posts: state.posts.filter(post => post.id !== action.payload)
             }
         case 'SET-USER-PROFILE':
             return {...state, profile: action.payload.profile};
@@ -77,28 +77,31 @@ export const profileReducer = (
     }
 };
 
-export const setUserProfileTC = (paramsID: string | undefined, userID: number): AppThunk => (dispatch) => {
-    profileAPI
-        .getProfile(paramsID, userID)
-        .then((data) => {
-            dispatch(profileActions.setUserProfile(data));
-        });
+export const setUserProfileTC = (paramsID: string | undefined, userID: number): AppThunk => async (dispatch) => {
+
+    try {
+        const res = await profileAPI.getProfile(paramsID, userID);
+        dispatch(profileActions.setUserProfile(res));
+    } catch (e) {
+
+    }
 }
 
-export const getUserStatusTC = (paramsID: string | undefined, userID: number): AppThunk => (dispatch) => {
-    profileAPI
-        .getStatus(paramsID, userID)
-        .then(data => {
-            dispatch(profileActions.setUserStatus(data))
-        })
+export const getUserStatusTC = (paramsID: string | undefined, userID: number): AppThunk => async (dispatch) => {
+    try {
+        const res = await profileAPI.getStatus(paramsID, userID);
+        dispatch(profileActions.setUserStatus(res))
+    } catch (e) {
+    }
 }
 
-export const updateUserStatusTC = (status: string): AppThunk => (dispatch) => {
-    profileAPI
-        .updateUserStatus(status)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(profileActions.setUserStatus(status))
-            }
-        })
+export const updateUserStatusTC = (status: string): AppThunk => async (dispatch) => {
+
+    try {
+        const res = await profileAPI.updateUserStatus(status)
+        if (res.resultCode === 0) {
+            dispatch(profileActions.setUserStatus(status))
+        }
+    } catch (e) {
+    }
 }

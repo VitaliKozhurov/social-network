@@ -4,28 +4,29 @@ import s from './Pagination.module.css';
 type PaginationPropsType = {
     currentPage: number;
     paginationSize: number;
-    pageArray: Array<number>;
+    pagesCount: number;
     onPageChange: (page: number) => void;
 };
 
 export const Pagination: FC<PaginationPropsType> = ({
                                                         currentPage,
                                                         paginationSize,
-                                                        pageArray,
+                                                        pagesCount,
                                                         onPageChange,
                                                     }) => {
+    let pageArray:number[] = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pageArray.push(i);
+    }
 
     const startSlice = currentPage <= paginationSize ? 0 : currentPage - paginationSize;
     const finishSlice = currentPage <= paginationSize ? paginationSize : startSlice + paginationSize;
-
     const slicedArr = pageArray.slice(startSlice, finishSlice);
-
     const disablePrev = currentPage === pageArray[0];
     const disableNext = currentPage === pageArray[pageArray.length - 1];
     const setNextPage = () => {
         onPageChange(currentPage + 1)
     }
-
     const setPrevPage = () => {
         onPageChange(currentPage - 1)
     }

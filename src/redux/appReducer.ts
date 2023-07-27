@@ -30,6 +30,6 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
     // Костыль для возврата промиса :))
     new Promise(((res, rej) => {
         res(dispatch(setAuthUserDataTC()))
-    }))
-        .then(() => dispatch(initializeAC(true)))
+    })).then(() => dispatch(initializeAC(true)))
+
 }

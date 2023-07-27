@@ -72,8 +72,6 @@ export const Login: FC<LoginPropsType> = ({isAuth, isFetching,error, login}) => 
                     validationSchema={validationSchema}
                     onSubmit={(values, {resetForm}) => {
                         login(values.email, values.password, values.rememberMe)
-
-
                         resetForm();
                     }}
                 >

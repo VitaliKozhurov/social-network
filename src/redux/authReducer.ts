@@ -5,19 +5,19 @@ import {AppThunk} from './redux-store';
 export const authActions = {
     setAuthUserData: (data: Omit<AuthInitialType, 'isFetching'>) => {
         return {
-            type: 'SET-USER-DATA',
+            type: 'AUTH/SET-USER-DATA',
             payload: {data},
         } as const;
     },
     setFetching: (isFetching: boolean) => {
         return {
-            type: 'SET-FETCHING',
+            type: 'AUTH/SET-FETCHING',
             payload: {isFetching}
         } as const
     },
     setAuthError: (error: string) => {
         return {
-            type: 'SET-AUTH-ERROR',
+            type: 'AUTH/SET-AUTH-ERROR',
             payload: {error}
         } as const
     }
@@ -40,17 +40,17 @@ export const authReducer = (
     action: AuthReducerActionType
 ): AuthInitialType => {
     switch (action.type) {
-        case 'SET-USER-DATA':
+        case 'AUTH/SET-USER-DATA':
             return {
                 ...state,
                 ...action.payload.data,
             };
-        case 'SET-FETCHING':
+        case 'AUTH/SET-FETCHING':
             return {
                 ...state,
                 isFetching: action.payload.isFetching
             }
-        case 'SET-AUTH-ERROR':
+        case 'AUTH/SET-AUTH-ERROR':
             return {
                 ...state,
                 error: action.payload.error
@@ -60,38 +60,42 @@ export const authReducer = (
     }
 };
 
-export const setAuthUserDataTC = (): AppThunk => (dispatch) => {
+export const setAuthUserDataTC = (): AppThunk => async (dispatch) => {
     dispatch(authActions.setFetching(true))
-    return authAPI.setAuth()
-        .then((data) => {
-            if (data.resultCode === 0) {
-                const {id: userID, email, login} = data.data;
-                dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true, error: ''}));
-            }
-        })
-        .finally(() => dispatch(authActions.setFetching(false)));
+    try {
+        const res = await authAPI.setAuth();
+        if (res.resultCode === 0) {
+            const {id: userID, email, login} = res.data;
+            dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true, error: ''}));
+        }
+    } catch (e) {
+
+    }
+    dispatch(authActions.setFetching(false))
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => async (dispatch) => {
     dispatch(authActions.setFetching(true))
-    authAPI.login(email, password, rememberMe)
-        .then((data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserDataTC())
-            } else {
-                const error = data.messages.length ? data.messages[0] : 'Incorrect input values'
-                dispatch(authActions.setAuthError(error))
-            }
-        }))
-        .finally(() => dispatch(authActions.setFetching(false)));
+    try {
+        const res = await authAPI.login(email, password, rememberMe);
+        if (res.resultCode === 0) {
+            dispatch(setAuthUserDataTC())
+        } else {
+            const error = res.messages.length ? res.messages[0] : 'Incorrect input values'
+            dispatch(authActions.setAuthError(error))
+        }
+    } catch (e) {
+    }
+    dispatch(authActions.setFetching(false))
 }
 
-export const logoutTC = (): AppThunk => (dispatch) => {
-    authAPI.logout()
-        .then((data => {
-            if (data.resultCode === 0) {
-                dispatch(authActions.setAuthUserData(initialState))
-            }
+export const logoutTC = (): AppThunk => async (dispatch) => {
 
-        }))
+    try {
+        const res = await authAPI.logout();
+        if (res.resultCode === 0) {
+            dispatch(authActions.setAuthUserData(initialState))
+        }
+    } catch (e) {
+    }
 }

@@ -4,11 +4,7 @@ import {AppStateType} from 'redux/redux-store';
 import {connect} from 'react-redux';
 import {Users} from './Users';
 import {Preloader} from '../UI/Preloader/Preloader';
-import {
-    followUserTC,
-    getUsersTC, unFollowUserTC,
-    usersActions,
-} from 'redux/userReducer';
+import {followUserTC, getUsersTC, unFollowUserTC, usersActions,} from 'redux/userReducer';
 import {withAuthRedirect} from 'hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {
@@ -17,7 +13,7 @@ import {
     getIsFetchingStatus,
     getPageSize,
     getTotalUsersCount,
-    getUsers, getUsersSelector
+    getUsersSelector
 } from 'redux/users-selectors';
 
 type MapStatePropsType = {
@@ -36,17 +32,6 @@ type MapDispatchToPropsType = {
 }
 type UsersPropsType = MapStatePropsType & MapDispatchToPropsType;
 
-// const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//     };
-// };
-
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersSelector(state),
@@ -60,12 +45,14 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 class UsersAPI extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsers(currentPage, pageSize);
     }
 
     onPageChange = (pageNum: number) => {
-        this.props.setCurrentPage(pageNum);
-        this.props.getUsers(pageNum, this.props.pageSize);
+        const {setCurrentPage, getUsers} = this.props;
+        setCurrentPage(pageNum);
+        getUsers(pageNum, this.props.pageSize);
     };
 
     render() {

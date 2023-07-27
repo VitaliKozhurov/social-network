@@ -9,10 +9,10 @@ import {connect} from 'react-redux';
 import {initializeAppTC} from 'redux/appReducer';
 import {Preloader} from 'components/UI/Preloader/Preloader';
 import {NavBar} from 'components/NavBar/NavBar';
-import { DialogsContainer } from 'components/Dialogs/DialogsContainer';
-import { EmptyChat } from 'components/UI/EmptyChat/EmptyChat';
-import { ChatContainer } from 'components/Dialogs/Chat/ChatContainer';
-import { UsersContainer } from 'components/Users/UsersContainer';
+import {DialogsContainer} from 'components/Dialogs/DialogsContainer';
+import {EmptyChat} from 'components/UI/EmptyChat/EmptyChat';
+import {ChatContainer} from 'components/Dialogs/Chat/ChatContainer';
+import {UsersContainer} from 'components/Users/UsersContainer';
 import {Footer} from 'components/Footer/Footer';
 
 class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {

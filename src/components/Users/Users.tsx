@@ -25,12 +25,6 @@ export const Users: FC<UsersPropsType> = ({
                                               followUser,
                                               unFollowUser,
                                           }) => {
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
-    let pageArr = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pageArr.push(i);
-    }
-
     const usersList = users.map((user) => {
         const onFollowButtonHandler = () => {
             if (!user.followed) {
@@ -59,7 +53,7 @@ export const Users: FC<UsersPropsType> = ({
             <Pagination
                 currentPage={currentPage}
                 paginationSize={7}
-                pageArray={pageArr}
+                pagesCount={Math.ceil(totalUsersCount / pageSize)}
                 onPageChange={onPageChange}
             />
         </>
