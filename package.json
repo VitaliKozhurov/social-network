@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
+    "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
@@ -21,6 +21,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.2.0",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
@@ -35,8 +36,8 @@
     "eject": "react-scripts eject"
   },
   "jest": {
-    "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
     }
   },
   "eslintConfig": {
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-test-renderer": "^18.0.0",
     "eslint-config-react": "^1.1.7",
     "eslint-config-react-app": "^7.0.1"
   }

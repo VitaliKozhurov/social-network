@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import {Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginContainer} from 'components/Login/LoginContainer';
-import {AppStateType} from 'redux/redux-store';
-import {connect} from 'react-redux';
+import {AppStateType, store} from 'redux/redux-store';
+import {connect, Provider} from 'react-redux';
 import {initializeAppTC} from 'redux/appReducer';
 import {Preloader} from 'components/UI/Preloader/Preloader';
 import {NavBar} from 'components/NavBar/NavBar';
@@ -68,6 +68,20 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isInitialize: state.app.isInitialize
 })
 
-export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+export  const AppWithRoute = ()=>{
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <ContainerApp/>
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+
+const ContainerApp = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
 (mapStateToProps, {initializeApp: initializeAppTC})(App)
+
+// export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+// (mapStateToProps, {initializeApp: initializeAppTC})(App)
 
