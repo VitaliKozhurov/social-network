@@ -11,9 +11,9 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = ({status, updateUse
     const [editMode, setEditMode] = useState<boolean>(false);
     const [textStatus, setTextStatus] = useState<string>(status);
 
-    useEffect(()=>{
+    useEffect(() => {
         setTextStatus(status)
-    },[status])
+    }, [status])
     const onChangeStatus = (e: ChangeEvent<HTMLInputElement>) => {
         setTextStatus(e.currentTarget.value)
     }
@@ -28,12 +28,11 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = ({status, updateUse
     return (
         <>
             <div className={s.body}>
-                <p className={s.title}>My status</p> : {
-                editMode
-                    ? <input className={s.statusInput} onBlur={deactivateEditMode}
-                             value={textStatus} onChange={onChangeStatus} autoFocus />
-                    : <span className={s.statusSpan}
-                            onDoubleClick={activateEditMode}>
+                <p className={s.title}>My status</p> : {editMode
+                ? <input className={s.statusInput} onBlur={deactivateEditMode}
+                         value={textStatus} onChange={onChangeStatus} autoFocus />
+                : <span className={s.statusSpan}
+                        onDoubleClick={activateEditMode}>
                         {status || 'No status'}
                 </span>
             }
