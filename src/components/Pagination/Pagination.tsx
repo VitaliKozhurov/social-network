@@ -14,7 +14,7 @@ export const Pagination: FC<PaginationPropsType> = ({
                                                         pagesCount,
                                                         onPageChange,
                                                     }) => {
-    let pageArray:number[] = [];
+    let pageArray: number[] = [];
     for (let i = 1; i <= pagesCount; i++) {
         pageArray.push(i);
     }
@@ -24,6 +24,7 @@ export const Pagination: FC<PaginationPropsType> = ({
     const slicedArr = pageArray.slice(startSlice, finishSlice);
     const disablePrev = currentPage === pageArray[0];
     const disableNext = currentPage === pageArray[pageArray.length - 1];
+
     const setNextPage = () => {
         onPageChange(currentPage + 1)
     }
@@ -33,7 +34,7 @@ export const Pagination: FC<PaginationPropsType> = ({
 
     return (
         <div className={s.body}>
-            <button className={s.arrow} disabled={disablePrev} onClick={setPrevPage}>{'<'}</button>
+            {!disablePrev && <button className={s.arrow} onClick={setPrevPage}>{'<'}</button>}
             {slicedArr.map((item) => {
                 const spanStyle = item === currentPage ? `${s.pageNumber} + ${s.activePage}` : s.pageNumber;
 
@@ -43,7 +44,7 @@ export const Pagination: FC<PaginationPropsType> = ({
                     </span>
                 );
             })}
-            <button className={s.arrow} disabled={disableNext} onClick={setNextPage}>{'>'}</button>
+            {!disableNext && <button className={s.arrow} onClick={setNextPage}>{'>'}</button>}
         </div>
     );
 };

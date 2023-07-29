@@ -32,6 +32,7 @@
     height: 50px;
     border: 2px solid #07f;
     border-radius: 15px;
+    margin: 0 10px;
 }
 .arrow:hover{
     background-color: #0077ff;
