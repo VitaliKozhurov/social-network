@@ -28,7 +28,7 @@ export const ProfileStatusWithHooks: FC<ProfileStatusType> = ({status, updateUse
     return (
         <>
             <div className={s.body}>
-                <span className={s.title}>My status</span> : {
+                <p className={s.title}>My status</p> : {
                 editMode
                     ? <input className={s.statusInput} onBlur={deactivateEditMode}
                              value={textStatus} onChange={onChangeStatus} autoFocus />
