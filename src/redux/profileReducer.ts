@@ -25,6 +25,12 @@ export const profileActions = {
             payload: {status}
         } as const;
     },
+    savePhoto: (photo: { small: string, large: string }) => {
+        return {
+            type: 'SAVE-PHOTO',
+            payload: photo
+        } as const
+    }
 };
 
 export type ProfileReducerActionType = InferActionsType<typeof profileActions>;
@@ -72,6 +78,8 @@ export const profileReducer = (
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':
             return {...state, profileStatus: action.payload.status};
+        case 'SAVE-PHOTO':
+            return {...state, profile: {...state.profile, photos: action.payload}}
         default:
             return state;
     }
@@ -101,6 +109,16 @@ export const updateUserStatusTC = (status: string): AppThunk => async (dispatch)
         const res = await profileAPI.updateUserStatus(status)
         if (res.resultCode === 0) {
             dispatch(profileActions.setUserStatus(status))
+        }
+    } catch (e) {
+    }
+}
+
+export const savePhotoTC = (file: File): AppThunk => async (dispatch) => {
+    try {
+        const res = await profileAPI.savePhoto(file)
+        if (res.resultCode === 0) {
+            dispatch(profileActions.savePhoto(res.data.photos))
         }
     } catch (e) {
     }
