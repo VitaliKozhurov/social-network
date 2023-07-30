@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react';
 import './App.css';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route, Routes} from 'react-router-dom';
 import HeaderContainer from './components/Header/HeaderContainer';
 import {LoginContainer} from 'components/Login/LoginContainer';
 import {AppStateType, store} from 'redux/redux-store';
@@ -70,11 +70,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 
 export const AppWithRoute = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <ContainerApp />
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
