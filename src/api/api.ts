@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {UserProfileType} from '../appTypes/types';
 
 const appAxiosInstance = axios.create({
     withCredentials: true,
@@ -71,6 +72,11 @@ export const profileAPI = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
-        }).then(response=>response.data)
+        }).then(response => response.data)
+    },
+    updateUserInfo(info: UserProfileType) {
+        return appAxiosInstance
+            .put('profile', info)
+            .then(response => response.data)
     }
 };

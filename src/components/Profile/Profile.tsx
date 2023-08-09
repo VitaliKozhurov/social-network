@@ -11,16 +11,17 @@ type ProfilePropsType = {
     isOwner:boolean
     savePhoto: (file: File) => void
     updateUserStatus: (status: string) => void
+    updateUserInfo:(info:UserProfileType)=>Promise<any>
 };
 
-export const Profile: FC<ProfilePropsType> = ({profile, profileStatus, isOwner,savePhoto, updateUserStatus}) => {
+export const Profile: FC<ProfilePropsType> = ({profile, profileStatus, isOwner,savePhoto, updateUserStatus, updateUserInfo}) => {
 
     return (
         <div>
             <div className={s.bgBody}>
                 <div className={s.bg}></div>
             </div>
-            <UserProfile profile={profile} profileStatus={profileStatus} isOwner={isOwner} savePhoto={savePhoto} updateUserStatus={updateUserStatus} />
+            <UserProfile profile={profile} profileStatus={profileStatus} isOwner={isOwner} savePhoto={savePhoto} updateUserStatus={updateUserStatus} updateUserInfo={updateUserInfo} />
             <AddPostContainer />
             <PostsContainer />
         </div>

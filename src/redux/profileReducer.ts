@@ -75,6 +75,7 @@ export const profileReducer = (
                 posts: state.posts.filter(post => post.id !== action.payload)
             }
         case 'SET-USER-PROFILE':
+            const profile = action.payload.profile
             return {...state, profile: action.payload.profile};
         case 'SET-USER-STATUS':
             return {...state, profileStatus: action.payload.status};
@@ -120,6 +121,17 @@ export const savePhotoTC = (file: File): AppThunk => async (dispatch) => {
         if (res.resultCode === 0) {
             dispatch(profileActions.savePhoto(res.data.photos))
         }
+    } catch (e) {
+    }
+}
+
+export const updateUserInfoTC = (info: UserProfileType): AppThunk => async (dispatch) => {
+    try {
+        const res = await profileAPI.updateUserInfo(info)
+        if (res.resultCode === 0) {
+            dispatch(setUserProfileTC(undefined, info.userId))
+        }
+        return Promise.resolve(res)
     } catch (e) {
     }
 }

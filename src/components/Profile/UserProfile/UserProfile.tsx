@@ -1,8 +1,10 @@
-import {ChangeEvent, FC} from 'react';
+import {ChangeEvent, FC, useState} from 'react';
 import s from './UserProfile.module.css';
 import ava from '../../../assets/image/ninja.svg';
 import {UserProfileType} from 'appTypes/types';
 import {ProfileStatusWithHooks} from 'components/Profile/UserProfile/ProfileStatus/ProfileStatusWithHooks';
+import {ProfileContactsForm} from './ProfileContactsForm/ProfileContactsForm';
+import {ProfileUserInfo} from './ProfileInfo/ProfileInfo';
 
 type UserProfilePropsType = {
     profile: UserProfileType
@@ -10,6 +12,7 @@ type UserProfilePropsType = {
     isOwner: boolean
     savePhoto: (file: File) => void
     updateUserStatus: (status: string) => void
+    updateUserInfo:(info:UserProfileType)=>Promise<any>
 };
 
 export const UserProfile: FC<UserProfilePropsType> = ({
@@ -17,15 +20,22 @@ export const UserProfile: FC<UserProfilePropsType> = ({
                                                           profileStatus,
                                                           isOwner,
                                                           updateUserStatus,
-                                                          savePhoto
+                                                          savePhoto,
+    updateUserInfo
                                                       }) => {
+    const [editMode, setEditMode] = useState(false);
 
     const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             savePhoto(e.target.files[0])
         }
     }
-
+    const activeEditMode = () => {
+        setEditMode(true)
+    }
+    const deactivateEditMode = () => {
+        setEditMode(false)
+    }
     return (
         <div className={s.userInfo}>
             <div className={s.avaBody}>
@@ -35,16 +45,9 @@ export const UserProfile: FC<UserProfilePropsType> = ({
             <div className={s.descr}>
                 <h2>{profile.fullName} (samurai)</h2>
                 <ProfileStatusWithHooks status={profileStatus} updateUserStatus={updateUserStatus} />
-                <p>
-                    <span className={s.listTitle}>Looking for a job</span> :
-                    {profile.lookingForAJob
-                        ? ' Yes I am want to find new job on junior position ;)'
-                        : ' No I am work now :)'}
-                </p>
-                <p><span className={s.listTitle}>Date of birth :</span></p>
-                <p><span className={s.listTitle}>Date of birth :</span></p>
-                <p><span className={s.listTitle}>City :</span></p>
-                <p><span className={s.listTitle}>Education :</span></p>
+                {editMode
+                    ? <ProfileContactsForm profile={profile} updateUserInfo={updateUserInfo} deactivateEditMode={deactivateEditMode}/>
+                    : <ProfileUserInfo profile={profile} owner={isOwner} activeEditMode={activeEditMode} />}
             </div>
             {isOwner && <div className={s.photoLoader}>
                 <h2 className={s.updatePhotoDescr}>Choose your photo for update</h2>
@@ -53,3 +56,4 @@ export const UserProfile: FC<UserProfilePropsType> = ({
         </div>
     );
 };
+

@@ -34,6 +34,7 @@ export type UserPageType = {
 // Profile Page
 
 export type UserProfileType = {
+    aboutMe: null | string;
     userId: number;
     lookingForAJob: boolean;
     lookingForAJobDescription: string;
@@ -47,14 +48,7 @@ export type UserProfileType = {
 };
 
 type ContactsProfileType = {
-    github: string;
-    vk: string;
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    website: string;
-    youtube: string;
-    mainLink: string;
+    [key: string]: string
 };
 
 // actions creators object types

@@ -1,7 +1,13 @@
 import React, {ComponentType} from 'react';
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
-import {getUserStatusTC, savePhotoTC, setUserProfileTC, updateUserStatusTC} from 'redux/profileReducer';
+import {
+    getUserStatusTC,
+    savePhotoTC,
+    setUserProfileTC,
+    updateUserInfoTC,
+    updateUserStatusTC
+} from 'redux/profileReducer';
 import {AppStateType} from 'redux/redux-store';
 import {UserProfileType} from 'appTypes/types';
 import {useParams} from 'react-router-dom';
@@ -21,6 +27,7 @@ type MapDispatchToPropsType = {
     getUserStatus: (paramsID: string | undefined, userID: number) => void
     savePhoto: (file: File) => void
     updateUserStatus: (status: string) => void
+    updateUserInfo:(info:UserProfileType)=>Promise<any>
 }
 type ProfileContainerType = MapStateToPropsType & MapDispatchToPropsType & UseParamsType;
 
@@ -45,7 +52,6 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 
     render() {
         const isOwner = !this.props.paramsID;
-        console.log(isOwner)
         return (
             <>
                 <Profile
@@ -54,6 +60,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
                     isOwner={isOwner}
                     updateUserStatus={this.props.updateUserStatus}
                     savePhoto={this.props.savePhoto}
+                    updateUserInfo={this.props.updateUserInfo}
                 />
             </>
         );
@@ -70,5 +77,6 @@ export default compose<ComponentType>(withAuthRedirect, connect(mapStateToProps,
     setUserProfile: setUserProfileTC,
     getUserStatus: getUserStatusTC,
     updateUserStatus: updateUserStatusTC,
-    savePhoto: savePhotoTC
+    savePhoto: savePhotoTC,
+    updateUserInfo:updateUserInfoTC
 }), withRouter)(ProfileContainer)

@@ -56,3 +56,16 @@
     font-weight: 600;
     margin-bottom: 20px;
 }
+
+.btn{
+    font-size: 12px;
+    padding: 5px 8px;
+    height: auto;
+    border-radius: 5px;
+    margin: 0;
+    font-weight: 400;
+    &:hover{
+        background: #054d91;
+        scale: 1;
+    }
+}
