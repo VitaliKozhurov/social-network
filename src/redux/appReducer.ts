@@ -6,12 +6,18 @@ export const initializeAC = (isInitialize: boolean) => ({
     payload: {isInitialize}
 } as const)
 
+export const setErrorAppStatusAC = (error: string|null) => ({
+    type: 'SET-APP-ERROR-STATUS',
+    payload: {error}
+} as const)
+
 const initialState = {
-    isInitialize: false as boolean
+    isInitialize: false as boolean,
+    isAppError:null as string|null
 }
 
 type InitialStateType = typeof initialState;
-export type AppReducerActionsType = ReturnType<typeof initializeAC>
+export type AppReducerActionsType = ReturnType<typeof initializeAC> | ReturnType<typeof setErrorAppStatusAC>
 
 export const appReducer = (state: InitialStateType = initialState, action: AppReducerActionsType): InitialStateType => {
     switch (action.type) {
@@ -19,6 +25,12 @@ export const appReducer = (state: InitialStateType = initialState, action: AppRe
             return {
                 ...state,
                 isInitialize: action.payload.isInitialize
+            }
+        }
+        case 'SET-APP-ERROR-STATUS':{
+            return {
+                ...state,
+                isAppError: action.payload.error
             }
         }
         default:
