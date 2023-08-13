@@ -93,3 +93,16 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.captchaImg{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
+    border: solid 1px #0077ff;
+}
+
+.captchaInput{
+    width: 80%;
+    margin: 15px auto 15px;
+}

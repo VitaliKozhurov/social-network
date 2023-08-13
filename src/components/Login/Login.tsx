@@ -37,28 +37,34 @@ const CustomField: FC<FormField> = ({title, name, type, style, placeholder, touc
 type InitialStateType = {
     email: string
     password: string
+    captcha: string
     rememberMe: boolean
 }
 
 const initialValues = {
     email: '',
     password: '',
+    captcha: '',
     rememberMe: false
 }
-const validationSchema = Yup.object({
-    email: Yup.string().required('Field can not be empty!').email('Invalid email format!'),
-    password: Yup.string().required('Field can not be empty!'),
-    rememberMe: Yup.boolean().oneOf([true], 'You should check this field!'),
-})
+
 
 type LoginPropsType = {
     isAuth: boolean
     isFetching: boolean
     error: string
-    login: (email: string, password: string, rememberMe: boolean) => void
+    captchaURL: string
+    login: (email: string, password: string, rememberMe: boolean, captcha?: string) => void
 }
 
-export const Login: FC<LoginPropsType> = ({isAuth, isFetching,error, login}) => {
+export const Login: FC<LoginPropsType> = ({isAuth, isFetching, error, login, captchaURL}) => {
+
+    const validationSchema = Yup.object({
+        email: Yup.string().required('Field can not be empty!').email('Invalid email format!'),
+        password: Yup.string().required('Field can not be empty!'),
+        captcha: !!captchaURL?Yup.string().required('Field is required'):Yup.string().notRequired()
+    })
+
     if (isAuth) {
         return <Navigate to={'/profile'} />
     }
@@ -71,7 +77,8 @@ export const Login: FC<LoginPropsType> = ({isAuth, isFetching,error, login}) => 
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={(values, {resetForm}) => {
-                        login(values.email, values.password, values.rememberMe)
+
+                        login(values.email, values.password, values.rememberMe, values.captcha )
                         resetForm();
                     }}
                 >
@@ -110,6 +117,24 @@ export const Login: FC<LoginPropsType> = ({isAuth, isFetching,error, login}) => 
                                         touched={formProps.touched.rememberMe}
                                     />
                                 </div>
+                                {
+                                    !!captchaURL&& <>
+                                        <div className={s.captchaImg}>
+                                            <img src={captchaURL} alt="Captcha url" />
+                                        </div>
+                                        <div className={s.captchaInput}>
+                                            <CustomField
+                                                title={'Fill the captcha field'}
+                                                type={'text'}
+                                                name={'captcha'}
+                                                style={s.formInput}
+                                                error={formProps.errors.captcha}
+                                                touched={formProps.touched.captcha}
+                                            />
+                                        </div>
+                                    </>
+
+                                }
                                 <div className={s.formSubmit}>
                                     <SuperButton
                                         title={'Login'}
