@@ -13,6 +13,7 @@ import {ChatContainer} from 'components/Dialogs/Chat/ChatContainer';
 import {UsersContainer} from 'components/Users/UsersContainer';
 import {Footer} from 'components/Footer/Footer';
 import {ErrorNotification} from './components/UI/ErrorNotification/ErrorNotification';
+import {InProgress} from './components/InProgress/InProgress';
 
 const DialogsContainer = React.lazy(() => import('components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -46,6 +47,8 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
                                 <Route path={':id'} element={<ChatContainer />} />
                             </Route>
                             <Route path="/users" element={<UsersContainer />} />
+                            <Route path="/news" element={<InProgress />} />
+                            <Route path="/music" element={<InProgress />} />
                             <Route path="/login" element={<LoginContainer />} />
                             <Route path={'*'} element={<h1>Page not found</h1>} />
                         </Routes>

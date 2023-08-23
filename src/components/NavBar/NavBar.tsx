@@ -24,7 +24,7 @@ const initLinkList = [
     {id: 3, url: '/users', title: 'Users', icon: users},
     {id: 4, url: '/news', title: 'News', icon: news},
     {id: 5, url: '/music', title: 'Music', icon: music},
-    {id: 6, url: '/settings', title: 'Settings', icon: settings},
+    // {id: 6, url: '/settings', title: 'Settings', icon: settings},
 ];
 
 export const NavBar: React.FC = () => {
