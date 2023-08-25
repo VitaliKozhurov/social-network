@@ -1,6 +1,7 @@
 import {InferActionsType} from '../appTypes/types';
 import {authAPI, decurityAPI} from '../api/api';
 import {AppThunk} from './redux-store';
+import {requestErrorHandler} from "../utils/requestErrorHandler";
 
 export const authActions = {
     setAuthUserData: (data: Omit<AuthInitialType, 'isFetching'>) => {
@@ -21,10 +22,10 @@ export const authActions = {
             payload: {error}
         } as const
     },
-    getCaptchaURLSuccess:(captchaURL:string)=>{
+    getCaptchaURLSuccess: (captchaURL: string) => {
         return {
-            type:'AUTH/GET-CAPTCHA-URL',
-            payload:{captchaURL}
+            type: 'AUTH/GET-CAPTCHA-URL',
+            payload: {captchaURL}
         } as const
     }
 };
@@ -37,7 +38,7 @@ let initialState = {
     isAuth: false as boolean,
     isFetching: false as boolean,
     error: '',
-    captchaURL:''
+    captchaURL: ''
 };
 
 type AuthInitialType = typeof initialState;
@@ -80,46 +81,49 @@ export const setAuthUserDataTC = (): AppThunk => async (dispatch) => {
             const {id: userID, email, login} = res.data;
             dispatch(authActions.setAuthUserData({userID, email, login, isAuth: true, error: '', captchaURL: ''}));
         }
-    } catch (e) {
-
+    } catch (e: unknown) {
+        requestErrorHandler(e, dispatch)
+    } finally {
+        dispatch(authActions.setFetching(false))
     }
-    dispatch(authActions.setFetching(false))
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?:string): AppThunk => async (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): AppThunk => async (dispatch) => {
     dispatch(authActions.setFetching(true))
     try {
         const res = await authAPI.login(email, password, rememberMe, captcha);
         if (res.resultCode === 0) {
             dispatch(setAuthUserDataTC())
-        } else if(res.resultCode===10){
+        } else if (res.resultCode === 10) {
             dispatch(getCaptchaURLTC())
-        }
-        else {
+        } else {
             const error = res.messages.length ? res.messages[0] : 'Incorrect input values'
             dispatch(authActions.setAuthError(error))
         }
     } catch (e) {
+        requestErrorHandler(e, dispatch)
+    } finally {
+        dispatch(authActions.setFetching(false))
     }
-    dispatch(authActions.setFetching(false))
 }
 
-export const getCaptchaURLTC = ():AppThunk=>async (dispatch)=>{
+export const getCaptchaURLTC = (): AppThunk => async (dispatch) => {
     try {
         const res = await decurityAPI.getCaptchaURL();
         const captcha = res.url;
         dispatch(authActions.getCaptchaURLSuccess(captcha))
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }
 
 export const logoutTC = (): AppThunk => async (dispatch) => {
-
     try {
         const res = await authAPI.logout();
         if (res.resultCode === 0) {
             dispatch(authActions.setAuthUserData(initialState))
         }
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }

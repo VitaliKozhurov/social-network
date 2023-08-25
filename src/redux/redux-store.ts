@@ -45,3 +45,5 @@ export const store = createStore(
 );
 // Типизация Стора приложения
 export type StoreType = typeof store;
+
+export type AppDispatch = typeof store.dispatch

@@ -4,8 +4,9 @@
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
+    box-shadow: 4px 4px 8px 0 rgba(16, 29, 39, 0.2);
 }
+
 .avaBody {
     width: 80px;
     height: 80px;
@@ -13,8 +14,8 @@
     border-radius: 50%;
     overflow: hidden;
     border: solid 2px #054d91;
-    box-shadow: 4px 4px 8px 0px rgba(16, 29, 39, 0.2);
-    margin: auto 30px ;
+    box-shadow: 4px 4px 8px 0 rgba(16, 29, 39, 0.2);
+    margin: auto 30px;
 }
 
 .avatar {
@@ -41,31 +42,39 @@
     line-height: 1.5;
 }
 
-.listTitle{
+.contacts{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.listTitle {
     font-size: 20px;
     font-weight: 600;
 }
 
-.photoLoader{
+.photoLoader {
     padding-left: 50px;
 }
 
-.updatePhotoDescr{
+.updatePhotoDescr {
     color: #054d91;
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 20px;
 }
 
-.btn{
+.btn {
     font-size: 12px;
     padding: 5px 8px;
     height: auto;
     border-radius: 5px;
     margin: 0;
     font-weight: 400;
-    &:hover{
-        background: #054d91;
-        scale: 1;
-    }
+}
+
+.btn:hover {
+    background: #054d91;
+    scale: 1;
 }

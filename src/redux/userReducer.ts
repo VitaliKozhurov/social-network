@@ -3,6 +3,7 @@ import {followAPI, usersAPI} from '../api/api';
 import {AppThunk} from './redux-store';
 import {Dispatch} from 'redux';
 import {updateObjectInUserArray} from '../utils/object-helper';
+import {requestErrorHandler} from "../utils/requestErrorHandler";
 
 export const usersActions = {
     followUser: (userID: number) => {
@@ -75,12 +76,12 @@ export const userReducer = (
         case 'FOLLOW-USER':
             return {
                 ...state,
-                users: updateObjectInUserArray(action.payload.userID, state,{followed:true}),
+                users: updateObjectInUserArray(action.payload.userID, state, {followed: true}),
             };
         case 'UNFOLLOW-USER':
             return {
                 ...state,
-                users: updateObjectInUserArray(action.payload.userID, state,{followed:false}),
+                users: updateObjectInUserArray(action.payload.userID, state, {followed: false}),
             };
         case 'SET-USERS':
             return {
@@ -126,6 +127,7 @@ export const getUsersTC =
                 dispatch(usersActions.setTotalUsersCount(res.totalCount));
                 dispatch(usersActions.toggleIsFetching(false));
             } catch (e) {
+                requestErrorHandler(e, dispatch)
             }
         };
 
@@ -146,22 +148,30 @@ const followUnfollowFlow = async (
         }
         dispatch(usersActions.changeFollowingStatus(false, userID))
     } catch (e) {
-
+        requestErrorHandler(e, dispatch)
     }
 }
 
 export const followUserTC =
     (userID: number): AppThunk =>
         async (dispatch) => {
-            const apiMethod = followAPI.setFollow
-            const actionCreator = usersActions.followUser
-            await followUnfollowFlow(userID, dispatch, apiMethod, actionCreator)
+            try {
+                const apiMethod = followAPI.setFollow
+                const actionCreator = usersActions.followUser
+                await followUnfollowFlow(userID, dispatch, apiMethod, actionCreator)
+            } catch (e) {
+                requestErrorHandler(e, dispatch)
+            }
         };
 
 export const unFollowUserTC =
     (userID: number): AppThunk =>
         async (dispatch) => {
-            const apiMethod = followAPI.setUnFollow
-            const actionCreator = usersActions.unfollowUser
-            await followUnfollowFlow(userID, dispatch, apiMethod, actionCreator)
+            try {
+                const apiMethod = followAPI.setUnFollow
+                const actionCreator = usersActions.unfollowUser
+                await followUnfollowFlow(userID, dispatch, apiMethod, actionCreator)
+            } catch (e) {
+                requestErrorHandler(e, dispatch)
+            }
         };

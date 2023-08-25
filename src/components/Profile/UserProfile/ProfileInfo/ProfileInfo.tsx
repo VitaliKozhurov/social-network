@@ -20,10 +20,13 @@ export const ProfileUserInfo: FC<ProfileUserInfoType> = ({profile, owner, active
             <span className={s.listTitle}>My skills</span> : {profile.lookingForAJobDescription}
         </p>}
 
-        <p>My contacts:
-            {profile.contacts && Object.keys(profile.contacts).map(contact => (
-                <Contact key={contact} contactTitle={contact} contactValue={profile.contacts[contact]} />))}</p>
-        {owner && <SuperButton title={'Edit contacts'} callback={activeEditMode} style={s.btn} />}
+        <div className={s.contacts}>My contacts:
+            {
+                profile.contacts && Object.keys(profile.contacts).map(contact => (
+                    <Contact key={contact} contactTitle={contact} contactValue={profile.contacts[contact]}/>))
+            }
+        </div>
+        {owner && <SuperButton title={'Edit contacts'} callback={activeEditMode} style={s.btn}/>}
     </>
 }
 

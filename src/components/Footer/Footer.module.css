@@ -3,12 +3,12 @@
     font-size: 22px;
     font-weight: 700;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
     padding: 10px 0;
 }
 
 .footer a {
-    color: #fff;
+    color: #054d91;
     transition: all .5s ease;
 }
 

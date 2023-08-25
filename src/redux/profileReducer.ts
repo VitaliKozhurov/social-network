@@ -1,6 +1,7 @@
 import {InferActionsType, PostType, UserProfileType} from 'appTypes/types';
 import {AppThunk} from './redux-store';
 import {profileAPI} from 'api/api';
+import {requestErrorHandler} from "../utils/requestErrorHandler";
 
 export const profileActions = {
     addPost: (value: string) => {
@@ -87,31 +88,30 @@ export const profileReducer = (
 };
 
 export const setUserProfileTC = (paramsID: string | undefined, userID: number): AppThunk => async (dispatch) => {
-
     try {
         const res = await profileAPI.getProfile(paramsID, userID);
         dispatch(profileActions.setUserProfile(res));
     } catch (e) {
-
-    }
-}
+        requestErrorHandler(e, dispatch)
+    } }
 
 export const getUserStatusTC = (paramsID: string | undefined, userID: number): AppThunk => async (dispatch) => {
     try {
         const res = await profileAPI.getStatus(paramsID, userID);
         dispatch(profileActions.setUserStatus(res))
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }
 
 export const updateUserStatusTC = (status: string): AppThunk => async (dispatch) => {
-
     try {
         const res = await profileAPI.updateUserStatus(status)
         if (res.resultCode === 0) {
             dispatch(profileActions.setUserStatus(status))
         }
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }
 
@@ -122,6 +122,7 @@ export const savePhotoTC = (file: File): AppThunk => async (dispatch) => {
             dispatch(profileActions.savePhoto(res.data.photos))
         }
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }
 
@@ -133,5 +134,6 @@ export const updateUserInfoTC = (info: UserProfileType): AppThunk => async (disp
         }
         return Promise.resolve(res)
     } catch (e) {
+        requestErrorHandler(e, dispatch)
     }
 }
