@@ -14,6 +14,7 @@ import {UsersContainer} from 'components/Users/UsersContainer';
 import {Footer} from 'components/Footer/Footer';
 import {ErrorNotification} from './components/UI/ErrorNotification/ErrorNotification';
 import {InProgress} from './components/InProgress/InProgress';
+import {NotFoundPage} from "./components/NotFoundPage/NotFoundPage";
 
 const DialogsContainer = React.lazy(() => import('components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -26,37 +27,38 @@ class App extends React.Component<MapStateToPropsType & MapDispatchToPropsType> 
     render() {
         const {isAuth, isInitialize} = this.props;
         if (!isInitialize) {
-            return <Preloader />
+            return <Preloader/>
         }
 
         return (
             <div className="App">
-                <HeaderContainer />
+                <HeaderContainer/>
                 <div className="mainContent container">
-                    {isAuth ? < NavBar /> : null}
+                    {isAuth ? < NavBar/> : null}
                     <main className="content">
                         <Routes>
-                            <Route path={'/'} element={<Navigate to={'/profile'} />} />
+                            <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                             <Route
                                 path="/profile/:id?"
-                                element={<Suspense fallback={<Preloader />}><ProfileContainer /></Suspense>}
+                                element={<Suspense fallback={<Preloader/>}><ProfileContainer/></Suspense>}
                             />
                             <Route path="/message"
-                                   element={<Suspense fallback={<Preloader />}><DialogsContainer /></Suspense>}>
-                                <Route index element={<EmptyChat />} />
-                                <Route path={':id'} element={<ChatContainer />} />
+                                   element={<Suspense fallback={<Preloader/>}><DialogsContainer/></Suspense>}>
+                                <Route index element={<EmptyChat/>}/>
+                                <Route path={':id'} element={<ChatContainer/>}/>
                             </Route>
-                            <Route path="/users" element={<UsersContainer />} />
-                            <Route path="/news" element={<InProgress />} />
-                            <Route path="/music" element={<InProgress />} />
-                            <Route path="/login" element={<LoginContainer />} />
-                            <Route path={'*'} element={<h1>Page not found</h1>} />
+                            <Route path="/users" element={<UsersContainer/>}/>
+                            <Route path="/news" element={<InProgress/>}/>
+                            <Route path="/music" element={<InProgress/>}/>
+                            <Route path="/login" element={<LoginContainer/>}/>
+                            <Route path="/404" element={<NotFoundPage/>}/>
+                            <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                         </Routes>
                     </main>
                 </div>
                 {!!this.props.isAppError && <ErrorNotification isAppError={this.props.isAppError}
-                                                               setAppErrorStatus={this.props.setAppErrorStatus} />}
-                <Footer />
+                                                               setAppErrorStatus={this.props.setAppErrorStatus}/>}
+                <Footer/>
             </div>
         );
     }
@@ -85,7 +87,7 @@ export const AppWithRoute = () => {
     return (
         <HashRouter>
             <Provider store={store}>
-                <ContainerApp />
+                <ContainerApp/>
             </Provider>
         </HashRouter>
     )
